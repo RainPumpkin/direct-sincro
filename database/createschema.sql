@@ -1,15 +1,16 @@
 Create Table Pessoa(
-	nome varchar(100),
-	nif char(9),
-	titulo de conducao,--perguntar ao Daniel
-	email varchar(50),
+	nome 				varchar(100),
+	nif 				char(9),
+	numero de conducao 	varchar(9),--L-(numero 7 digitos)
+	email 				varchar(400),--google says 320
 
-	Primary Key(nif)
+	Primary Key(nif),
+	CONSTRAINT Pessoa_nif CHECK (nif LIKE '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]')
 );
 
 Create Table Subscritor(
 	nif char(9),
-	password varchar(100),
+	password varchar(100),--autenticacao mudar isto para password+salt e guardar o hash
 
 	Primary Key(nif),
 	Foreign Key(nif) References Pessoa(nif)
@@ -18,20 +19,22 @@ Create Table Subscritor(
 Create Table Admin(
 	nif char(9),
 	username varchar(20),
-	password varchar(100),
+	password varchar(100),--autenticacao mudar isto para password+salt e guardar o hash
 
 	Primary Key(username),
 	Foreign Key(nif) References Pessoa(nif)
 );
 
 Create Table Notificacao(
-	emitida,
-	mensagem,
-	id,
-	recebida,
-	tipo,
+	emitida boolean,--0->n/1->s
+	mensagem varchar(5000),
+	id serial,
+	recebida boolean,--0->n/1->s
+	tipo varchar(100),
+	subscritor char(9),
 
-	Primary Key(id)
+	Primary Key(id),
+	Foreign Key(subscritor) References Subscritor(nif)
 );
 
 Create Table Veiculo(
@@ -41,18 +44,20 @@ Create Table Veiculo(
 	owner char(9),
 
 	Primary Key(matricula),
-	Foreign Key(owner) References Subscritor(nif)
+	Foreign Key(owner) References Subscritor(nif),
+	CONSTRAINT Veiculo_matricula CHECK (matricula ~* '([A-Z]|[0-9])([A-Z]|[0-9])-([A-Z]|[0-9])([A-Z]|[0-9])-([A-Z]|[0-9])([A-Z]|[0-9])')
 );
 
 Create Table Emprestimo(
 	matricula char(8),
-	usuario varchar(100),
+	usuario char(9),
 	dataInicio timestamp,
 	dataFim timestamp,
+	estado varchar(),--aguardar/emprestado/devolvido
 
 	Primary Key(matricula, dataInicio),
 	Foreign key(matricula) References Veiculo(matricula)
-	Foreign Key(usuario) References Pessoa(nif)
+	Foreign Key(usuario) References Subscritor(nif)
 );
 
 Create Table Evento_Transito(
@@ -66,20 +71,21 @@ Create Table Evento_Transito(
 	valor decimal(6,2),
 	localizacao varchar(100),
 	entidadeAutuante varchar(50),
-	dataLimiteDefesa timestamp,
+	dataLimiteDefesa date,
 
 	Primary Key(numeroAuto),
 	Foreign Key(veiculo) References Veiculo(matricula)
 );
 
 Create Table Pedido_Defesa(
-	id,--serial, perguntar ao Daniel
+	id serial,--id interno, pedido n volta para o direct
 	moradaSede varchar(100),
-	justificacao varchar(500),
+	justificacao varchar(1500),
+	numero de conducao varchar(9),--L-(numero 7 digitos)
 	numeroAuto char(9) unique,
 	requeridor char(9),
 
 	Primary Key(id),
 	Foreign Key(numeroAuto) References Evento_Transito(numeroAuto),
 	Foreign Key(requeridor) References Subscritor(nif)
-)
+);
