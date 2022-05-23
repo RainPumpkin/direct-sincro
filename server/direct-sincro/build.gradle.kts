@@ -16,10 +16,16 @@ repositories {
 }
 
 dependencies {
-	implementation("org.springframework.boot:spring-boot-starter")
+	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+	implementation("org.jdbi:jdbi:2.78")
+	implementation("org.jdbi:jdbi3-core:3.28.0")
+	implementation("org.jdbi:jdbi3-kotlin:3.28.0")
+	implementation("org.postgresql:postgresql:42.1.4")
 }
 
 tasks.withType<KotlinCompile> {
