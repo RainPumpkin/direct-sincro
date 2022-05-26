@@ -19,7 +19,7 @@ data class Subscritor(
     val notificacoes: List<Notificacao>,
     val veiculos: List<Veiculo>,
     val veiculosAlugados: List<Veiculo>,
-    //val emprestimos: List<Emprestimo>
+    val emprestimos: List<EmprestimoUsuario>
 )
 
 //pessoa/nif/admin/username??
@@ -44,17 +44,24 @@ data class Veiculo(
     val matricula: String,
     val modelo: String,
     val categoria: String,
-    val eventos: List<Evento_Transito>
+    val eventos: List<Evento_Transito>,
+    val emprestimos: List<EmprestimoMatricula>
 )
 
 //subscritor/nif/veiculo/matricula/emprestimo -> emprestimos concebidos
 //subscritor/nif/emprestimo -> emprestimos recebidos
-data class Emprestimo(
-    val dataInicio: Long,//timestamp??
+data class EmprestimoMatricula(
+    val dataInicio: Long,
     val dataFim: Long,
-    val estado: String
-    //matricula
-    //usuario
+    val estado: String,
+    val usuario: String
+)
+
+data class EmprestimoUsuario(
+    val dataInicio: Long,
+    val dataFim: Long,
+    val estado: String,
+    val matricula: String
 )
 
 //subscritor/nif/veiculo/matricula/evento/numeroAuto ->eventos de transito do meu veiculo
@@ -73,7 +80,6 @@ data class Evento_Transito(
 )
 
 //subscritor/nif/pedido_defesa/id
-
 data class Pedido_Defesa(
     val id: Int,
     val moradaSede: String,

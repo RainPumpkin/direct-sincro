@@ -12,7 +12,7 @@ Create Table Pessoa(
 Create Table Subscritor(
 	nif 		char(9),
 	password	varchar(100),--autenticacao mudar isto para password+salt e guardar o hash
-
+	
 	Primary Key(nif),
 	Foreign Key(nif) References Pessoa(nif)
 );
