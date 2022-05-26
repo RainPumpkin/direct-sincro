@@ -57,7 +57,7 @@ Create Table Emprestimo(
 	estado 		varchar(20),--aguardar/emprestado/devolvido
 
 	Primary Key(matricula, dataInicio),
-	Foreign key(matricula) References Veiculo(matricula)
+	Foreign key(matricula) References Veiculo(matricula),
 	Foreign Key(usuario) References Subscritor(nif)
 );
 

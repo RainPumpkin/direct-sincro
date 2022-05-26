@@ -1,6 +1,7 @@
 package ps.g08.directsincro.common
 
 //api/
+
 //Pessoa/nif/
 data class Pessoa(
     val nome: String,
@@ -10,6 +11,7 @@ data class Pessoa(
     val subscritor: Subscritor?,
     val admin: Admin?
 )
+
 //Pessoa/nif/subscritor
 data class Subscritor(
     val nif: Int,
@@ -17,7 +19,7 @@ data class Subscritor(
     val notificacoes: List<Notificacao>,
     val veiculos: List<Veiculo>,
     val veiculosAlugados: List<Veiculo>,
-    val emprestimos: List<Emprestimo>
+    //val emprestimos: List<Emprestimo>
 )
 
 //pessoa/nif/admin/username??
