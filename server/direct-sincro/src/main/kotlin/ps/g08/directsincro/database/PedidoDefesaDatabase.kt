@@ -15,10 +15,10 @@ data class PedidoDefesaDatabaseRow(
 @Component
 class PedidoDefesaDatabase(private val source : Jdbi) {
     companion object {
-        const val queryGet = ""//user e id ou só id, depende
-        const val queryGetAll = ""//getall for user
-        const val queryCreate = ""//create com tudo
-        const val queryUpdate = ""//update de todos os campos, para updates parciais fazemos um get para ir buscar o resto antes, mas isso é fora da db
-        const val queryDelete = ""
+        const val queryGet = "SELECT * FROM Pedido_Defesa WHERE requeridor = ? AND id = ?"//user e id ou só id, depende
+        const val queryGetAll = "SELECT * FROM Pedido_Defesa WHERE requeridor = ?"//getall for user
+        const val queryCreate = "INSERT INTO Pedido_Defesa(moradaSede, justificacao, numero_conducao, numeroAuto, requeridor) VALUES (?,?,?,?,?) RETURNING id"//create com tudo
+        const val queryUpdate = "UPDATE Pedido_Defesa SET moradaSede = ?, justificacao = ?, numero_conducao = ?, requeridor = ? WHERE id = ?"//update de todos os campos, para updates parciais fazemos um get para ir buscar o resto antes, mas isso é fora da db
+        const val queryDelete = "Delete FROM Pedido_Defesa WHERE id = ?"
     }
 }

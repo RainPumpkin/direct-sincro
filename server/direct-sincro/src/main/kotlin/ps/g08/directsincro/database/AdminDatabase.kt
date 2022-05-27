@@ -11,9 +11,9 @@ data class AdminDatabaseRow(
 @Component
 class AdminDatabase(private val source : Jdbi) {
     companion object {
-        const val queryGet = ""
-        const val queryCreate = ""
-        const val queryUpdate = ""//update de password
-        const val queryDelete = ""
+        const val queryGet = "SELECT * FROM Admin WHERE username = ? "
+        const val queryCreate = "INSERT INTO Admin(username, password) VALUES (?,?)"
+        const val queryUpdate = "UPDATE Admin SET password = ? WHERE username = ?"//update de password
+        const val queryDelete = "Delete FROM Admin WHERE username = ?"
     }
 }

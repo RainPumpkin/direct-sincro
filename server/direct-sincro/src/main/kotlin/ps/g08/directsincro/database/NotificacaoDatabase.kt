@@ -15,10 +15,10 @@ data class NotificacaoDatabaseRow(
 @Component
 class NotificacaoDatabase(private val source : Jdbi) {
     companion object {
-        const val queryGet = ""//id
-        const val queryGetAll = ""//getall for user
-        const val queryCreate = ""//create com tudo
-        const val queryUpdate = ""//update de todos os campos, para updates parciais fazemos um get para ir buscar o resto antes, mas isso é fora da db
-        const val queryDelete = ""
+        const val queryGet = "SELECT * FROM Notificacao WHERE id = ?"//id
+        const val queryGetAll = "SELECT * FROM Notificacao WHERE subscritor = ? "//getall for user
+        const val queryCreate = "INSERT INTO Notificacao(emitida, mensagem, recebida, tipo, subscritor) VALUES (?,?,?,?,?) RETURNING id"//create com tudo
+        const val queryUpdate = "UPDATE Notificacao SET emitida = ?, mensagem = ?, recebida = ?, tipo = ?, subscritor = ? WHERE id = ?"//update de todos os campos, para updates parciais fazemos um get para ir buscar o resto antes, mas isso é fora da db
+        const val queryDelete = "Delete FROM Notificacao WHERE id = ? AND subscritor = ?"
     }
 }

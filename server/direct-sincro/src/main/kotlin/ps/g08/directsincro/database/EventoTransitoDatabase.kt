@@ -21,10 +21,11 @@ data class EventoTransitoDatabaseRow(
 @Component
 class EventoTransitoDatabase(private val source : Jdbi) {
     companion object {
-        const val queryGet = ""//numeroauto
-        const val queryGetAll = ""//getall for matricula
-        const val queryGetAllTime = ""//mesmo de cima mas entre duas datas
-        const val queryCreate = ""
-        const val queryDelete = ""//defesa aceite I guess?
+        const val queryGet = "SELECT * FROM Evento_Transito WHERE numeroAuto = ? "//numeroauto
+        const val queryGetAll = "SELECT * FROM Evento_Transito WHERE veiculo = ?"//getall for matricula
+        const val queryGetAllTime = "SELECT * FROM Evento_Transito WHERE veiculo = ? AND data BETWEEN ? AND ?"//mesmo de cima mas entre duas datas
+        const val queryCreate = "INSERT INTO Evento_Transito(numeroAuto, veiculo, estadoPagamento, data, " +
+                "tipo, classificacaoInfracao, descricao, valor, localizacao, entidadeAutuante, dataLimiteDefesa) VALUES (?,?,?,?,?,?,?,?,?,?,?)"
+        const val queryDelete = "Delete FROM Evento_Transito WHERE numeroAuto = ? AND data = ? AND veiculo = ?"//defesa aceite I guess?
     }
 }
