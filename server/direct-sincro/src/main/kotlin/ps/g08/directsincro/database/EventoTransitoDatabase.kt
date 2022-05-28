@@ -1,7 +1,9 @@
 package ps.g08.directsincro.database
 
 import org.jdbi.v3.core.Jdbi
+import org.jdbi.v3.core.kotlin.withHandleUnchecked
 import org.springframework.stereotype.Component
+import ps.g08.directsincro.common.Evento_Transito
 import ps.g08.directsincro.common.getTimestamp
 import java.sql.Timestamp
 
@@ -30,8 +32,63 @@ class EventoTransitoDatabase(private val source : Jdbi) {
         const val queryDelete = "Delete FROM Evento_Transito WHERE numeroAuto = ? AND data = ? AND veiculo = ?"//defesa aceite I guess?
     }
 
-    /*
-    para o getalltime, converte os parametros de long para timestamp
-    usando a função getTimestamp
-     */
+    fun get(numeroAuto: String) : EventoTransitoDatabaseRow{
+        return source.withHandleUnchecked { handle ->
+            handle
+                .createQuery(queryGet)
+                .bind(0, numeroAuto)
+                .mapTo(EventoTransitoDatabaseRow::class.java)
+                .one()
+        }
+    }
+
+    fun queryGetAll(veiculo: String): List<EventoTransitoDatabaseRow> {
+        return source.withHandleUnchecked { handle -> handle
+            .createQuery(queryGetAll)
+            .bind(0, veiculo)
+            .mapTo(EventoTransitoDatabaseRow::class.java)
+            .list()
+        }
+    }
+
+    fun queryGetAllTime(veiculo: String, dataInicio: Long, dataFim: Long): List<EventoTransitoDatabaseRow> {
+        return source.withHandleUnchecked { handle -> handle
+            .createQuery(queryGetAllTime)
+            .bind(0, veiculo)
+            .bind(1, getTimestamp(dataInicio))
+            .bind(2, getTimestamp(dataFim))
+            .mapTo(EventoTransitoDatabaseRow::class.java)
+            .list()
+        }
+    }
+
+    fun create(evento: Evento_Transito, veiculo: String): String {
+        source.withHandleUnchecked { handle ->
+            handle
+                .createUpdate(queryCreate)
+                .bind(0, evento.numeroAuto)
+                .bind(1, veiculo)
+                .bind(2, evento.estadoPagamento)
+                .bind(3, evento.data)
+                .bind(4, evento.tipo)
+                .bind(5, evento.classificacaoInfracao)
+                .bind(6, evento.descricao)
+                .bind(7, evento.valor)
+                .bind(8, evento.localizao)
+                .bind(9, evento.entidadeAutuante)
+                .bind(10, evento.dataLimiteDefesa)
+                .execute()
+        }
+        return evento.numeroAuto;
+    }
+
+    fun delete(numeroAuto: String, data: Long, veiculo: String) {
+        source.withHandleUnchecked { handle -> handle
+            .createUpdate(queryDelete)
+            .bind(0, numeroAuto)
+            .bind(1, getTimestamp(data))
+            .bind(2, veiculo)
+            .execute()
+        }
+    }
 }

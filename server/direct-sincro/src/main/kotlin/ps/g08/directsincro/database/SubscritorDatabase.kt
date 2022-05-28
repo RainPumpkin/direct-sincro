@@ -1,7 +1,9 @@
 package ps.g08.directsincro.database
 
 import org.jdbi.v3.core.Jdbi
+import org.jdbi.v3.core.kotlin.withHandleUnchecked
 import org.springframework.stereotype.Component
+import ps.g08.directsincro.common.Subscritor
 
 data class SubscritorDatabaseRow(
     val nif: Int,
@@ -16,5 +18,44 @@ class SubscritorDatabase(private val source : Jdbi) {
         const val queryCreate = "INSERT INTO Subscritor(nif, password) VALUES (?,?)"
         const val queryUpdate = "UPDATE Subscritor SET password = ? WHERE nif = ?"
         const val queryDelete = "Delete FROM Subscritor WHERE nif = ?"
+    }
+
+    fun get(nif: Int) : SubscritorDatabaseRow{
+        return source.withHandleUnchecked { handle ->
+            handle
+                .createQuery(queryGet)
+                .bind(0, nif)
+                .mapTo(SubscritorDatabaseRow::class.java)
+                .one()
+        }
+    }
+
+    fun create(subscritor : Subscritor): Int {
+        source.withHandleUnchecked { handle ->
+            handle
+                .createUpdate(queryCreate)
+                .bind(0, subscritor.nif)
+                .bind(1, subscritor.password)
+                .execute()
+        }
+        return subscritor.nif
+    }
+
+    fun update(password: String, nif : Int){
+        source.withHandleUnchecked { handle ->
+            handle
+                .createUpdate(queryUpdate)
+                .bind(0, password)
+                .bind(1, nif)
+                .execute()
+        }
+    }
+
+    fun delete(nif : Int) {
+        source.withHandleUnchecked { handle -> handle
+            .createUpdate(queryDelete)
+            .bind(0, nif)
+            .execute()
+        }
     }
 }
