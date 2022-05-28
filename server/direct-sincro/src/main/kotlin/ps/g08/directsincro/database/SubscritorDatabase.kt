@@ -11,10 +11,10 @@ data class SubscritorDatabaseRow(
 @Component
 class SubscritorDatabase(private val source : Jdbi) {
     companion object {
-        const val queryGet = "SELECT * FROM Subscritor WHERE nif = ? "//user e id ou só id, depende
-        const val queryGetAll = "SELECT * FROM Subscritor WHERE nif = ? "//getall for user
-        const val queryCreate = "INSERT INTO Subscritor(nif, password) VALUES (?,?)"//create com tudo
-        const val queryUpdate = "UPDATE Subscritor SET password = ? WHERE nif = ?"//update de todos os campos, para updates parciais fazemos um get para ir buscar o resto antes, mas isso é fora da db
+        const val queryGet = "SELECT * FROM Subscritor WHERE nif = ? "
+        //const val queryGetAll = "SELECT * FROM Subscritor"
+        const val queryCreate = "INSERT INTO Subscritor(nif, password) VALUES (?,?)"
+        const val queryUpdate = "UPDATE Subscritor SET password = ? WHERE nif = ?"
         const val queryDelete = "Delete FROM Subscritor WHERE nif = ?"
     }
 }

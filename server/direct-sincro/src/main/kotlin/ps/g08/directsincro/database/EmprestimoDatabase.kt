@@ -15,7 +15,7 @@ data class EmprestimoDatabaseRow(
 @Component
 class EmprestimoDatabase(private val source : Jdbi) {
     companion object {
-        const val queryGet = "SELECT * FROM Admin WHERE usuario = ? AND matricula = ?"//user e matricula
+        const val queryGet = "SELECT * FROM Emprestimo WHERE usuario = ? AND matricula = ?"//user e matricula
         const val queryGetAllUser = "SELECT * FROM Emprestimo WHERE usuario = ? "//getall for user
         const val queryGetAllMatricula = "SELECT * FROM Emprestimo WHERE matricula = ? "//getall for matricula
         const val queryCreate = "INSERT INTO Emprestimo(matricula, usuario, dataInicio, dataFim, estado) VALUES (?,?,?,?,?)"

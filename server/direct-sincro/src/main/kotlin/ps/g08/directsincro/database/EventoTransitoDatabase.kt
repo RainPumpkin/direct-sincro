@@ -2,6 +2,7 @@ package ps.g08.directsincro.database
 
 import org.jdbi.v3.core.Jdbi
 import org.springframework.stereotype.Component
+import ps.g08.directsincro.common.getTimestamp
 import java.sql.Timestamp
 
 data class EventoTransitoDatabaseRow(
@@ -28,4 +29,9 @@ class EventoTransitoDatabase(private val source : Jdbi) {
                 "tipo, classificacaoInfracao, descricao, valor, localizacao, entidadeAutuante, dataLimiteDefesa) VALUES (?,?,?,?,?,?,?,?,?,?,?)"
         const val queryDelete = "Delete FROM Evento_Transito WHERE numeroAuto = ? AND data = ? AND veiculo = ?"//defesa aceite I guess?
     }
+
+    /*
+    para o getalltime, converte os parametros de long para timestamp
+    usando a função getTimestamp
+     */
 }

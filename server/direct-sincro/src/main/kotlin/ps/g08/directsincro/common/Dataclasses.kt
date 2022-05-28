@@ -80,6 +80,7 @@ data class Evento_Transito(
 )
 
 //subscritor/nif/pedido_defesa/id
+//acho que aqui não faz sentido a pesquisa por numero auto, mas n sei
 data class Pedido_Defesa(
     val id: Int,
     val moradaSede: String,
