@@ -1,0 +1,534 @@
+openapi: 3.0.0
+servers:
+  - description: Api Back-end 
+    url: ____________INSERT API URL!!!!_______________
+info:
+  description: This
+  version: "1.0.0"
+  title: Direct-Sincro Api
+tags:
+  - name: Administradores
+    description: Rotas de administrador
+  - name: Subscritores
+    description: Operações disponíveis para cidadãos que já se subscreveram à api
+  - name: Cidadão
+    description: Operações disponíveis para cidadãos sem sessão iniciada
+paths:
+  /api/subscritores/{nif}/veiculos/{matricula}/eventos:
+    post:
+      tags:
+        - Subscritores
+      summary: Associar evento de trânsito ao proprietário
+      operationId: "adicionarEventoAEmprestar"
+      parameters:
+      - name: nif
+        in: path
+        description: nif do cidadão
+        required: true
+        schema:
+          type: integer
+      - name: matricula
+        in: path
+        description: matricula do veiculo
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Notificacao"
+      responses:
+        '201':
+          description: O pedido foi enviado com sucesso 
+        '400':
+          description: Algum parâmetro estava incorreto
+        '409': 
+          description: O pedido já se encontra criado.
+
+  /api/subscritores/{nif}/alugados/{matricula}/eventos:
+    post:
+      tags:
+        - Subscritores
+      summary: Associar evento de trânsito ao responsável pelo Emprestimo
+      operationId: "adicionarEventoEmprestado"
+      parameters:
+      - name: nif
+        in: path
+        description: nif do cidadão
+        required: true
+        schema:
+          type: integer
+      - name: matricula
+        in: path
+        description: matricula do veiculo
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Notificacao"
+      responses:
+        '201':
+          description: O pedido foi enviado com sucesso 
+        '400':
+          description: Algum parâmetro estava incorreto
+        '409': 
+          description: O pedido já se encontra criado.
+
+  /api/subscritores/{nif}/veiculos/{matricula}/emprestimos:
+    get:
+      tags:
+        - Subscritores
+      summary: Requerer os Emprestimos deste veículo
+      operationId: "pedirEmprestimos"
+      parameters:
+      - name: nif
+        in: path
+        description: nif do cidadão
+        required: true
+        schema:
+          type: integer
+      - name: matricula
+        in: path
+        description: matricula do veículo
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: matricula
+        schema:
+          type: string
+        description: matricula do veículo a procurar
+      - in: query
+        name: datainicio
+        schema:
+          type: string
+        description: data em que Emprestimo iniciou
+      responses:
+        '200':
+          description: Emprestimos do veículo
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Emprestimo'
+        '400':
+          description: Algum parâmetro estava incorreto
+        '404': 
+          description: O pedido não foi encontrado
+
+  /api/subscritores/{nif}/veiculos/{matricula}/eventos/{numeroauto}/pedido:
+    post:
+      tags:
+        - Subscritores
+      summary: Fazer pedido de defesa
+      description: Fazer pedido de defesa associado ao evento específicado
+      operationId: "fazerPedido"
+      parameters:
+      - name: nif
+        in: path
+        description: nif do cidadão
+        required: true
+        schema:
+          type: integer
+      - name: matricula
+        in: path
+        description: matricula do veiculo
+        required: true
+        schema:
+          type: string
+      - name: numeroauto
+        in: path
+        description: numero do Auto
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PedidoDeDefesa"
+      responses:
+        '201':
+          description: O pedido foi enviado com sucesso 
+        '400':
+          description: Algum parâmetro estava incorreto
+        '409': 
+          description: O pedido já se encontra criado.
+    get:
+      tags:
+        - Subscritores
+      summary: Requerer o pedido de defesa
+      operationId: "pedirPedido"
+      parameters:
+      - name: nif
+        in: path
+        description: nif do cidadão
+        required: true
+        schema:
+          type: integer
+      - name: matricula
+        in: path
+        description: matricula do veículo
+        required: true
+        schema:
+          type: string
+      - name: numeroauto
+        in: path
+        description: número do Auto
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Pedido de defesa feito para número de auto
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PedidoDeDefesa'
+        '400':
+          description: Algum parâmetro estava incorreto
+        '404': 
+          description: O pedido não foi encontrado
+
+  /api/subscritores:
+    post:
+      tags:
+        - Cidadão
+      summary: Criar nova conta de utilizador
+      description: Cidadão deverá inserir todos os parâmetros requeridos
+      operationId: "criarUtilizador"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Utilizador"
+      responses:
+        '201':
+          description: O pedido foi enviado com sucesso 
+        '400':
+          description: Algum parâmetro estava incorreto
+        '409': 
+          description: O pedido já se encontra criado.
+
+  /api/subscritores/{nif}:
+    get:
+      tags:
+        - Subscritores
+      summary: Pedir informação de utilizador
+      operationId: "pedirUtilizador"
+      parameters:
+      - name: nif
+        in: path
+        description: nif do cidadão
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Toda a informação do utilizador
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Utilizador'
+        '400':
+          description: Algum parâmetro estava incorreto
+        '404': 
+          description: Recurso não encontrado
+
+  /api/subscritores/{nif}/veiculos:
+    post:
+      tags:
+        - Subscritores
+      summary: Adicionar veículo ao subscritor
+      description: Adicionar novo veículo ao utilizador
+      operationId: "adicionarVeículo"
+      parameters:
+      - name: nif
+        in: path
+        description: nif do cidadão
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Veiculo"
+      responses:
+        '201':
+          description: O pedido foi enviado com sucesso 
+        '400':
+          description: Algum parâmetro estava incorreto
+        '409': 
+          description: O pedido já se encontra criado.
+    get:
+      tags:
+        - Subscritores
+      summary: Pedir todos os veículos
+      operationId: "pedirVeículos"
+      parameters:
+      - name: nif
+        in: path
+        description: nif do cidadão
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Todos os veículos do cidadão com sessão aberta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Veiculo'
+        '400':
+          description: Algum parâmetro estava incorreto
+        '404': 
+          description: Recurso não encontrado
+
+  /api/subscritores/{nif}/veiculos/{matricula}:
+    delete:
+      tags:
+        - Subscritores
+      summary: Dissociar o veiculo ao utilizador
+      operationId: "removerVeículo"
+      parameters:
+      - name: nif
+        in: path
+        description: nif do cidadão
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: matricula
+        required: true
+        description: matricula
+        schema:
+          type: string
+      responses:
+        '200':
+          description: O veículo foi removido com sucesso
+        '202':
+          description: Operação aceite
+        '204':
+          description: O veículo específico não se encontra na aplicação
+        '403':
+          description: Não possui a autorização necessária
+
+  /api/subscritores/{nif}/notificacoes:
+    get:
+      tags:
+        - Subscritores
+      summary: Requerer todas as notificações
+      operationId: "pedirNotificações"
+      parameters:
+      - name: nif
+        in: path
+        description: nif do cidadão
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Todas as notificações do utilizador
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Notificacoes'
+        '400':
+          description: Algum parâmetro estava incorreto
+        '404': 
+          description: Recurso não encontrado
+
+  /api/subscritores/{nif}/notificacoes/{id}:
+    get:
+      tags:
+        - Subscritores
+      summary: Requerer a notificação com o id
+      operationId: "pedirNotificação"
+      parameters:
+      - name: nif
+        in: path
+        description: nif do cidadão
+        required: true
+        schema:
+          type: integer
+      - name: id
+        in: path
+        description: id da notificação
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Todas as notificações do utilizador
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Notificacao'
+        '400':
+          description: Algum parâmetro estava incorreto
+        '404': 
+          description: Recurso não encontrado
+
+  /api/subscritores/{nif}/notificacoes/{matricula}/pagamentos:
+    post:
+      tags:
+        - Subscritores
+      summary: Pagar a multa de trânsito
+      operationId: "pagarMulta"
+      parameters:
+      - name: nif
+        in: path
+        description: nif do cidadão
+        required: true
+        schema:
+          type: integer
+      - name: matricula
+        in: path
+        description: matricula
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Pagamento"
+      responses:
+        '201':
+          description: Pagamento feito com sucesso
+        '400':
+          description: Algum parâmetro estava incorreto
+
+  /api/login:
+    get:
+      tags:
+      - Subscritores
+      summary: Permite o utilizador fazer login na aplicação
+      operationId: loginDeUtilizador
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Login"
+      responses:
+        "200":
+          description: operação com sucesso
+        "400":
+          description: Password ou username inválido
+  /api/logout:
+    get:
+      tags:
+      - Subscritores
+      summary: Permite o utilizador encerrar a sessão
+      operationId: logoutDeUtilizador
+      responses:
+        "200":
+          description: operação com sucesso
+components:
+  schemas:
+    Utilizador:
+      type: object
+      properties:
+        nome:
+          type: string
+        nif:
+          type: integer
+        numeroCondução:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+    Admin:
+      type: object
+      properties:
+        nif: 
+          type: string
+        password:
+          type: string
+    Notificacao:
+      type: object
+      properties:
+        numeroAuto:
+          type: integer
+        veiculoAutuado:
+          type: string
+        dataHora:
+          type: string
+        local:
+          type: string
+        normaInfrigida:
+          type: string
+        distrito:
+          type: string
+        descriçãoSumaria:
+          type: string
+        dataLimiteDefesa:
+          type: string
+        estadoDoPagamento:
+          type: string
+        valorDaCoima:
+          type: integer
+        gravidade:
+          type: string
+        entidadeAutuante:
+          type: string
+        dataNotification:
+          type: string
+    Veiculo:
+      type: object
+      properties:
+        matricula:
+          type: string
+        modelo: 
+          type: string
+        categoria: 
+          type: string
+    Notificacoes:
+      type: object
+      properties:
+        Notificacoes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Notificacao'
+    Pagamento:
+      type: object
+      properties:
+        métodoDePagamento: 
+          type: string
+    PedidoDeDefesa:
+      type: object
+      properties:
+        id:
+          type: integer
+        descrição:
+          type: string
+    Emprestimo:
+      type: object
+      properties:
+        dataInício:
+          type: string
+        dataFim:
+          type: string
+        estado:
+          type: string
+        matricula:
+          type: string
+    Login:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
