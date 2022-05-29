@@ -1,76 +1,76 @@
 [
     {
-        "Evento" : {
-            "DadosDoVeículo" : {
-                "Matrícula" : "ZH-87-34",
-                "Categoria" : "AUTOMÓVEL LIGEIRO",
-                "TipoDeInfração" : "PASSAGEIROS",
-                "País" : "PORTUGAL" 
+        "evento" : {
+            "dadosDoVeiculo": {
+                "matricula" : "ZH-87-34",
+                "categoria" : "AUTOMÓVEL LIGEIRO",
+                "tipoDeInfracao" : "PASSAGEIROS",
+                "Pais" : "PORTUGAL"
             },
-            "DadosDaInfração" : {
+            "dadosDaInfracao" : {
                 "numeroAuto" : 753456789,
-                "Veículo Autuado" : "ZH-87-34",
-                "Data/Hora" : "2021-11-10 19:53",
-                "Local" : "Rua da Praia, São Pedro da Afurada",
-                "NormaInfrigida" : "27.º n.º 1",
-                "Distrito" : "Porto",
-                "DescriçãoSumária" : "Cond. aut.lig. local., +de 20 Km/h até 40 Km/h",
-                "DataLimiteDefesa" : "2021-12-14",
-                "EstadoDoPagamento" : "Paga",
-                "ValorDaCoima" : 120,
-                "Gravidade" : "Grave",
-                "EntidadeAutuante" : "DESTACAMENTO DE TRÂNSITO DE PORTO",
-                "Data Notificação" : "2019-11-29"
+                "veiculoAutuado" : "ZH-87-34",
+                "dataHora" : "2021-11-10 19:53",
+                "local" : "Rua da Praia, São Pedro da Afurada",
+                "normaInfrigida" : "27.º n.º 1",
+                "distrito" : "Porto",
+                "descriçãoSumaria" : "Cond. aut.lig. local., +de 20 Km/h até 40 Km/h",
+                "dataLimiteDefesa" : "2021-12-14",
+                "estadoDoPagamento" : "Paga",
+                "valorDaCoima" : 120,
+                "gravidade" : "Grave",
+                "entidadeAutuante" : "DESTACAMENTO DE TRÂNSITO DE PORTO",
+                "dataNotificacao" : "2019-11-29"
             }
         }
     },
     {
-        "Evento" : {
-            "DadosDoVeículo" : {
-                "Matrícula" : "23-GF-87",
-                "Categoria" : "AUTOMÓVEL LIGEIRO",
-                "TipoDeInfração" : "PASSAGEIROS",
-                "País" : "PORTUGAL" 
+        "evento" : {
+            "dadosDoVeiculo": {
+                "matricula" : "23-GF-87",
+                "categoria": "AUTOMÓVEL LIGEIRO",
+                "tipoDeInfracao": "PASSAGEIROS",
+                "pais": "PORTUGAL"
             },
-            "DadosDaInfração" : {
+            "dadosDaInfracao": {
                 "numeroAuto" : 897356789,
-                "Veículo Autuado" : "23-GF-87",
-                "Data/Hora" : "2019-11-10 19:53",
-                "Local" : "IC2 km 164,400 Venda Nova",
-                "NormaInfrigida" : "27.º n.º 1",
-                "Distrito" : "Coimbra",
-                "DescriçãoSumária" : "Cond. aut.lig. local., +de 20 Km/h até 40 Km/h",
-                "DataLimiteDefesa" : "2019-12-14",
-                "EstadoDoPagamento" : "Por pagar",
-                "ValorDaCoima" : 120,
-                "Gravidade" : "Grave",
-                "EntidadeAutuante" : "DESTACAMENTO TRÂNSITO G.N.R. DE COIMBRA",
-                "Data Notificação" : "2019-11-29"
+                "veiculoAutuado": "23-GF-87",
+                "dataHora": "2019-11-10 19:53",
+                "local": "IC2 km 164,400 Venda Nova",
+                "normaInfrigida": "27.º n.º 1",
+                "distrito": "Coimbra",
+                "descricaoSumaria": "Cond. aut.lig. local., +de 20 Km/h até 40 Km/h",
+                "dataLimiteDefesa": "2019-12-14",
+                "estadoDoPagamento": "Por pagar",
+                "valorDaCoima": 120,
+                "gravidade": "Grave",
+                "entidadeAutuante": "DESTACAMENTO TRÂNSITO G.N.R. DE COIMBRA",
+                "dataNotificacao": "2019-11-29"
             }
         }
     },
     {
-        "Evento" : {
+        "evento": {
             "DadosDoVeículo" : {
-                "Matrícula" : "JH-08-78",
-                "Categoria" : "AUTOMÓVEL LIGEIRO",
-                "TipoDeInfração" : "PASSAGEIROS",
-                "País" : "PORTUGAL" 
+                "matricula": "JH-08-78",
+                "categoria": "AUTOMÓVEL LIGEIRO",
+                "tipoDeInfracao": "PASSAGEIROS",
+                "pais": "PORTUGAL"
             },
-            "DadosDaInfração" : {
+            "dadosDaInfracao": {
                 "numeroAuto" : 753432789,
-                "Veículo Autuado" : "JH-08-78",
-                "Data/Hora" : "2020-11-10 19:53",
-                "Local" : "IC2 km 164,400 Venda Nova",
-                "NormaInfrigida" : "27.º n.º 1",
-                "Distrito" : "Coimbra",
-                "DescriçãoSumária" : "Cond. aut.lig. local., +de 20 Km/h até 40 Km/h",
-                "DataLimiteDefesa" : "2020-12-14",
-                "EstadoDoPagamento" : "Por pagar",
-                "ValorDaCoima" : 120,
-                "Gravidade" : "Grave",
-                "EntidadeAutuante" : "DESTACAMENTO TRÂNSITO G.N.R. DE COIMBRA",
-                "Data Notificação" : "2019-11-29"
+                "veiculoAutuado": "JH-08-78",
+                "dataHora": "2020-11-10 19:53",
+                "local": "IC2 km 164,400 Venda Nova",
+                "normaInfrigida": "27.º n.º 1",
+                "distrito": "Coimbra",
+                "descricaoSumaria": "Cond. aut.lig. local., +de 20 Km/h até 40 Km/h",
+                "dataLimiteDefesa": "2020-12-14",
+                "estadoDoPagamento": "Por pagar",
+                "valorDaCoima": 120,
+                "gravidade": "Grave",
+                "entidadeAutuante": "DESTACAMENTO TRÂNSITO G.N.R. DE COIMBRA",
+                "dataNotificacao": "2019-11-29"
             }
         }
     }
