@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component
 import ps.g08.directsincro.common.Subscritor
 
 data class SubscritorDatabaseRow(
-    val nif: Int,
+    val nif: String,
     val password: String
 )
 

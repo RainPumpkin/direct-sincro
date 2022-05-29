@@ -1,0 +1,32 @@
+package ps.g08.directsincro.service.mappers
+
+import ps.g08.directsincro.common.Evento_Transito
+import ps.g08.directsincro.common.getEpoch
+import ps.g08.directsincro.database.EventoTransitoDatabaseRow
+
+class EventoTransitoMapper : IMapper<EventoTransitoDatabaseRow, Evento_Transito> {
+    override fun single(obj: EventoTransitoDatabaseRow): Evento_Transito {
+        return Evento_Transito(
+            numeroAuto = obj.numeroAuto,
+            estadoPagamento = obj.estadoPagamento,
+            data = getEpoch(obj.data),
+            tipo = obj.tipo,
+            classificacaoInfracao = obj.classificacaoInfracao,
+            descricao = obj.descricao,
+            valor = obj.valor,
+            localizao = obj.localizao,
+            entidadeAutuante = obj.entidadeAutuante,
+            dataLimiteDefesa = getEpoch(obj.dataLimiteDefesa)
+        )
+    }
+
+    override fun multiple(objs: List<EventoTransitoDatabaseRow>): List<Evento_Transito> {
+        val ret : MutableList<Evento_Transito> = mutableListOf()
+
+        for (obj in objs) {
+            ret.add(single(obj))
+        }
+
+        return ret
+    }
+}

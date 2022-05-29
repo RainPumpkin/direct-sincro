@@ -2,7 +2,7 @@ package ps.g08.directsincro.common
 
 data class Pessoa(
     val nome: String,
-    val nif: Int,
+    val nif: String,
     val numero_conducao: String,
     val email: String,
     val subscritor: Subscritor?,
@@ -10,7 +10,7 @@ data class Pessoa(
 )
 
 data class Subscritor(
-    val nif: Int,
+    val nif: String,
     val password: String,
     val notificacoes: List<Notificacao>,
     val veiculos: List<Veiculo>,
