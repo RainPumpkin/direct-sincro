@@ -5,13 +5,14 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("/api/Subscritor")
+@RequestMapping("/api/subscritores")
 class SubscritorController {
 
-    @GetMapping("/{id}")
+    @GetMapping("/{nif}")
     fun getSubscritor(){
 
     }
 
+    //create recebe tudo de pessoa+sub
 
 }

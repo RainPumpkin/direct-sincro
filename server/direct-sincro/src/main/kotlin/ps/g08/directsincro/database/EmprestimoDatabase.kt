@@ -3,6 +3,7 @@ package ps.g08.directsincro.database
 import org.jdbi.v3.core.Jdbi
 import org.jdbi.v3.core.kotlin.withHandleUnchecked
 import org.springframework.stereotype.Component
+import ps.g08.directsincro.common.EmprestimoMatricula
 import ps.g08.directsincro.common.getTimestamp
 import java.sql.Timestamp
 
@@ -53,20 +54,19 @@ class EmprestimoDatabase(private val source : Jdbi) {
             .list()
         }
     }
-    /*
-    não sei como é que queres fazer aqui não é preciso uma class Emprestimo mas ela à 2
-     */
-    fun create(emprestimo : Emprestimo, owner: String): String {
+
+    fun create(emprestimo : EmprestimoMatricula, matricula: String){
         source.withHandleUnchecked { handle ->
             handle
                 .createUpdate(queryCreate)
-                .bind(0, veiculo.matricula)
-                .bind(1, veiculo.modelo)
-                .bind(2, veiculo.categoria)
-                .bind(3, owner)
+                .bind(0, matricula)
+                .bind(1, emprestimo.usuario)
+                .bind(2, emprestimo.dataInicio)
+                .bind(3, emprestimo.dataFim)
+                .bind(4, emprestimo.estado)
                 .execute()
         }
-        return veiculo.matricula;
+        //n retorna nada por enquanto, change later if needed
     }
 
     fun update(estado: String, matricula : String, usuario : String, dataInicio : Long){

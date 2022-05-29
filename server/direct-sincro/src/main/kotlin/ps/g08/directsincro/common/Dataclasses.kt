@@ -1,8 +1,5 @@
 package ps.g08.directsincro.common
 
-//api/
-
-//Pessoa/nif/
 data class Pessoa(
     val nome: String,
     val nif: Int,
@@ -12,7 +9,6 @@ data class Pessoa(
     val admin: Admin?
 )
 
-//Pessoa/nif/subscritor
 data class Subscritor(
     val nif: Int,
     val password: String,
@@ -22,14 +18,11 @@ data class Subscritor(
     val emprestimos: List<EmprestimoUsuario>
 )
 
-//pessoa/nif/admin/username??
 data class Admin(
     val username: String,
     val password: String
-    //nif
 )
 
-//subscritor/nif/notificacao/id
 data class Notificacao(
     val emitida: Boolean,
     val mensagem: String,
@@ -38,8 +31,6 @@ data class Notificacao(
     val tipo: String
 )
 
-//subscritor/nif/veiculo/matricula
-//subscritor/nif/emprestado/matricula -> com campo para o original owner?
 data class Veiculo(
     val matricula: String,
     val modelo: String,
@@ -48,8 +39,6 @@ data class Veiculo(
     val emprestimos: List<EmprestimoMatricula>
 )
 
-//subscritor/nif/veiculo/matricula/emprestimo -> emprestimos concebidos
-//subscritor/nif/emprestimo -> emprestimos recebidos
 data class EmprestimoMatricula(
     val dataInicio: Long,
     val dataFim: Long,
@@ -64,8 +53,6 @@ data class EmprestimoUsuario(
     val matricula: String
 )
 
-//subscritor/nif/veiculo/matricula/evento/numeroAuto ->eventos de transito do meu veiculo
-//subscritor/nif/alugado/matricula/evento/numeroAuto ->eventos de transito do veiculo alugado
 data class Evento_Transito(
     val numeroAuto: String,
     val estadoPagamento: String,
@@ -79,8 +66,6 @@ data class Evento_Transito(
     val dataLimiteDefesa: Long
 )
 
-//subscritor/nif/pedido_defesa/id
-//acho que aqui não faz sentido a pesquisa por numero auto, mas n sei
 data class Pedido_Defesa(
     val id: Int,
     val moradaSede: String,
