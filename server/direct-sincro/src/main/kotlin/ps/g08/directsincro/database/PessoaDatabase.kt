@@ -32,17 +32,17 @@ class PessoaDatabase(private val source: Jdbi) {
         }
     }
 
-    fun create(pessoa : Pessoa): Int {
+    fun create(nome: String, nif: String, numero_conducao: String, email: String): String {
         source.withHandleUnchecked { handle ->
             handle
                 .createUpdate(queryCreate)
-                .bind(0, pessoa.nome)
-                .bind(1, pessoa.nif)
-                .bind(2, pessoa.numero_conducao)
-                .bind(3, pessoa.email)
+                .bind(0, nome)
+                .bind(1, nif)
+                .bind(2, numero_conducao)
+                .bind(3, email)
                 .execute()
         }
-        return pessoa.nif
+        return nif
     }
 
     fun update(email: String, nif : Int){

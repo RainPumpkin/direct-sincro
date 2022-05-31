@@ -53,6 +53,14 @@ data class EmprestimoUsuario(
     val matricula: String
 )
 
+data class SubscritorPessoa(
+    val nome: String,
+    val nif: String,
+    val numero_conducao: String,
+    val email: String,
+    val password: String
+)
+
 data class Evento_Transito(
     val numeroAuto: String,
     val estadoPagamento: String,

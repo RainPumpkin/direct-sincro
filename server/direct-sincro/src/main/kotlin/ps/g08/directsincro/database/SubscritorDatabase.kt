@@ -20,7 +20,7 @@ class SubscritorDatabase(private val source : Jdbi) {
         const val queryDelete = "Delete FROM Subscritor WHERE nif = ?"
     }
 
-    fun get(nif: Int) : SubscritorDatabaseRow{
+    fun get(nif: String) : SubscritorDatabaseRow{
         return source.withHandleUnchecked { handle ->
             handle
                 .createQuery(queryGet)
@@ -30,18 +30,18 @@ class SubscritorDatabase(private val source : Jdbi) {
         }
     }
 
-    fun create(subscritor : Subscritor): Int {
+    fun create(nif: String, password: String): String {
         source.withHandleUnchecked { handle ->
             handle
                 .createUpdate(queryCreate)
-                .bind(0, subscritor.nif)
-                .bind(1, subscritor.password)
+                .bind(0, nif)
+                .bind(1, password)
                 .execute()
         }
-        return subscritor.nif
+        return nif
     }
 
-    fun update(password: String, nif : Int){
+    fun update(password: String, nif : String){
         source.withHandleUnchecked { handle ->
             handle
                 .createUpdate(queryUpdate)
@@ -51,7 +51,7 @@ class SubscritorDatabase(private val source : Jdbi) {
         }
     }
 
-    fun delete(nif : Int) {
+    fun delete(nif : String) {
         source.withHandleUnchecked { handle -> handle
             .createUpdate(queryDelete)
             .bind(0, nif)

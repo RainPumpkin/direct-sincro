@@ -2,10 +2,12 @@ package ps.g08.directsincro.service
 
 import org.springframework.stereotype.Component
 import ps.g08.directsincro.common.Notificacao
+import ps.g08.directsincro.database.NotificacaoDatabase
+import ps.g08.directsincro.service.mappers.NotificacaoMapper
 
 @Component
-class NotificacaoService {
+class NotificacaoService(private val db: NotificacaoDatabase, private val mapper: NotificacaoMapper) {
     fun getAllNotificacoes(nif: String) : List<Notificacao>{
-        TODO("Not yet implemented")
+        return mapper.multiple(db.getAll(nif))
     }
 }

@@ -1,9 +1,11 @@
 package ps.g08.directsincro.service.mappers
 
+import org.springframework.stereotype.Component
 import ps.g08.directsincro.common.Evento_Transito
 import ps.g08.directsincro.common.getEpoch
 import ps.g08.directsincro.database.EventoTransitoDatabaseRow
 
+@Component
 class EventoTransitoMapper : IMapper<EventoTransitoDatabaseRow, Evento_Transito> {
     override fun single(obj: EventoTransitoDatabaseRow): Evento_Transito {
         return Evento_Transito(

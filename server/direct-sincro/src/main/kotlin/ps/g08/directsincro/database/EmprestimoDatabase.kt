@@ -37,7 +37,7 @@ class EmprestimoDatabase(private val source : Jdbi) {
         }
     }
 
-    fun queryGetAllUser(usuario: String): List<EmprestimoDatabaseRow> {
+    fun getAllUser(usuario: String): List<EmprestimoDatabaseRow> {
         return source.withHandleUnchecked { handle -> handle
             .createQuery(queryGetAllUser)
             .bind(0, usuario)
@@ -46,7 +46,7 @@ class EmprestimoDatabase(private val source : Jdbi) {
         }
     }
 
-    fun queryGetAllMatricula(matricula: String): List<EmprestimoDatabaseRow> {
+    fun getAllMatricula(matricula: String): List<EmprestimoDatabaseRow> {
         return source.withHandleUnchecked { handle -> handle
             .createQuery(queryGetAllMatricula)
             .bind(0, matricula)

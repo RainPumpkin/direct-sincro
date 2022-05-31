@@ -42,7 +42,7 @@ class EventoTransitoDatabase(private val source : Jdbi) {
         }
     }
 
-    fun queryGetAll(veiculo: String): List<EventoTransitoDatabaseRow> {
+    fun getAll(veiculo: String): List<EventoTransitoDatabaseRow> {
         return source.withHandleUnchecked { handle -> handle
             .createQuery(queryGetAll)
             .bind(0, veiculo)
@@ -51,7 +51,7 @@ class EventoTransitoDatabase(private val source : Jdbi) {
         }
     }
 
-    fun queryGetAllTime(veiculo: String, dataInicio: Long, dataFim: Long): List<EventoTransitoDatabaseRow> {
+    fun getAllTime(veiculo: String, dataInicio: Long, dataFim: Long): List<EventoTransitoDatabaseRow> {
         return source.withHandleUnchecked { handle -> handle
             .createQuery(queryGetAllTime)
             .bind(0, veiculo)
