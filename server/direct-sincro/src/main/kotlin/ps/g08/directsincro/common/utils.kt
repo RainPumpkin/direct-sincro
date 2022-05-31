@@ -2,8 +2,11 @@ package ps.g08.directsincro.common
 
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import java.sql.Date
 import java.sql.Timestamp
+import java.text.SimpleDateFormat
 import java.time.ZoneOffset
+
 
 fun getEpoch(timestamp: Timestamp): Long{
     //if (timestamp == null) return null

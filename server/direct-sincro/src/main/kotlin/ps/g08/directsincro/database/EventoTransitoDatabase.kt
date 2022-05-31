@@ -5,20 +5,21 @@ import org.jdbi.v3.core.kotlin.withHandleUnchecked
 import org.springframework.stereotype.Component
 import ps.g08.directsincro.common.Evento_Transito
 import ps.g08.directsincro.common.getTimestamp
+import java.sql.Date
 import java.sql.Timestamp
 
 data class EventoTransitoDatabaseRow(
     val numeroAuto: String,
+    val veiculo: String,
     val estadoPagamento: String,
     val data: Timestamp,
     val tipo: String,
     val classificacaoInfracao: String,
     val descricao: String,
     val valor: Double,
-    val localizao: String,
+    val localizacao: String,
     val entidadeAutuante: String,
-    val dataLimiteDefesa: Timestamp,
-    val veiculo: String
+    val dataLimiteDefesa: Date
 )
 
 @Component

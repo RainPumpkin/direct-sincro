@@ -24,7 +24,7 @@ class VeiculoMapper(val emprestimoMatriculaService: EmprestimoMatriculaService, 
             modelo = obj.modelo,
             categoria = obj.categoria,
             emprestimos = emprestimos,
-            eventos = eventos
+            eventos = emptyList()//TODO figure date error
         )
     }
 

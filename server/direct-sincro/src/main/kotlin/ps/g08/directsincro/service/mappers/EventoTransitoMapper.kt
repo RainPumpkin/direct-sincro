@@ -16,9 +16,9 @@ class EventoTransitoMapper : IMapper<EventoTransitoDatabaseRow, Evento_Transito>
             classificacaoInfracao = obj.classificacaoInfracao,
             descricao = obj.descricao,
             valor = obj.valor,
-            localizao = obj.localizao,
+            localizao = obj.localizacao,
             entidadeAutuante = obj.entidadeAutuante,
-            dataLimiteDefesa = getEpoch(obj.dataLimiteDefesa)
+            dataLimiteDefesa = obj.dataLimiteDefesa.time//inverse is new Date(long)
         )
     }
 
