@@ -5,16 +5,16 @@
                 "matricula" : "ZH-87-34",
                 "categoria" : "AUTOMÓVEL LIGEIRO",
                 "tipoDeInfracao" : "PASSAGEIROS",
-                "Pais" : "PORTUGAL"
+                "pais" : "PORTUGAL"
             },
             "dadosDaInfracao" : {
-                "numeroAuto" : 753456789,
+                "numeroAuto" : "753456789",
                 "veiculoAutuado" : "ZH-87-34",
                 "dataHora" : "2021-11-10 19:53",
                 "local" : "Rua da Praia, São Pedro da Afurada",
                 "normaInfrigida" : "27.º n.º 1",
                 "distrito" : "Porto",
-                "descriçãoSumaria" : "Cond. aut.lig. local., +de 20 Km/h até 40 Km/h",
+                "descriçaoSumaria" : "Cond. aut.lig. local., +de 20 Km/h até 40 Km/h",
                 "dataLimiteDefesa" : "2021-12-14",
                 "estadoDoPagamento" : "Paga",
                 "valorDaCoima" : 120,
@@ -33,7 +33,7 @@
                 "pais": "PORTUGAL"
             },
             "dadosDaInfracao": {
-                "numeroAuto" : 897356789,
+                "numeroAuto" : "897356789",
                 "veiculoAutuado": "23-GF-87",
                 "dataHora": "2019-11-10 19:53",
                 "local": "IC2 km 164,400 Venda Nova",
@@ -51,14 +51,14 @@
     },
     {
         "evento": {
-            "DadosDoVeículo" : {
+            "DadosDoVeiculo" : {
                 "matricula": "JH-08-78",
                 "categoria": "AUTOMÓVEL LIGEIRO",
                 "tipoDeInfracao": "PASSAGEIROS",
                 "pais": "PORTUGAL"
             },
             "dadosDaInfracao": {
-                "numeroAuto" : 753432789,
+                "numeroAuto" : "753432789",
                 "veiculoAutuado": "JH-08-78",
                 "dataHora": "2020-11-10 19:53",
                 "local": "IC2 km 164,400 Venda Nova",
