@@ -1,17 +1,21 @@
 package ps.g08.directsincro.controller
 
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.*
+import ps.g08.directsincro.common.responseOkWithBody
 import ps.g08.directsincro.service.EmprestimoMatriculaService
 
 @RestController
 @RequestMapping("/api/subscritores/{nif}/veiculos/{matricula}/emprestimos")
 class EmprestimoMatriculaController(private val emprestimoMatriculaService: EmprestimoMatriculaService) {
     //get e put
-    @GetMapping //emprestimo?matricula=string&datainicio=long
-    fun getemprestimo(@RequestParam matricula: String, @RequestParam datainicio: Long){
+    @GetMapping("/{datainicio}") //emprestimo?matricula=string&datainicio=long
+    fun getemprestimo(@PathVariable matricula: String, @PathVariable datainicio: Long): ResponseEntity<Any>{
+        return responseOkWithBody(emprestimoMatriculaService.getEmprestimoMatricula(matricula, datainicio))
+    }
 
+    @GetMapping
+    fun getAllEmprestimo(@PathVariable matricula: String): ResponseEntity<Any>{
+        return responseOkWithBody(emprestimoMatriculaService.getAllEmprestimosMatricula(matricula))
     }
 }

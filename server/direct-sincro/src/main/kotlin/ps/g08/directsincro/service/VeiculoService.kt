@@ -8,6 +8,10 @@ import ps.g08.directsincro.service.mappers.VeiculoMapper
 @Component
 class VeiculoService(private val veiculodb: VeiculoDatabase, private val veiculoMapper: VeiculoMapper) {
 
+    fun createVeiculo(veiculo: Veiculo, owner: String): String {
+        return veiculodb.create(veiculo, owner)
+    }
+
     fun getAllVeiculos(nif : String) : List<Veiculo>{
         return veiculoMapper.multiple(veiculodb.getAll(nif))
     }

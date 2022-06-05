@@ -21,6 +21,7 @@ class EmprestimoDatabase(private val source : Jdbi) {
         const val queryGet = "SELECT * FROM Emprestimo WHERE usuario = ? AND matricula = ?"//user e matricula
         const val queryGetAllUser = "SELECT * FROM Emprestimo WHERE usuario = ? "//getall for user
         const val queryGetAllMatricula = "SELECT * FROM Emprestimo WHERE matricula = ? "//getall for matricula
+        const val queryGetWithDate = "SELECT * FROM Emprestimo WHERE matricula = ? AND dataInicio = ?"
         const val queryCreate = "INSERT INTO Emprestimo(matricula, usuario, dataInicio, dataFim, estado) VALUES (?,?,?,?,?)"
         const val queryUpdate = "UPDATE Emprestimo SET estado = ? WHERE matricula = ? AND usuario = ? AND dataInicio = ?"//apenas estado
         const val queryDelete = "Delete FROM Emprestimo WHERE matricula = ? AND usuario = ?"
@@ -52,6 +53,16 @@ class EmprestimoDatabase(private val source : Jdbi) {
             .bind(0, matricula)
             .mapTo(EmprestimoDatabaseRow::class.java)
             .list()
+        }
+    }
+
+    fun queryGetWithDate(matricula: String, dataInicio: Long): EmprestimoDatabaseRow {
+        return source.withHandleUnchecked { handle -> handle
+            .createQuery(queryGetWithDate)
+            .bind(0, matricula)
+            .bind(1, getTimestamp(dataInicio))
+            .mapTo(EmprestimoDatabaseRow::class.java)
+            .one()
         }
     }
 
