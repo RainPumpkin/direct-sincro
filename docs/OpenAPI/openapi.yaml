@@ -80,11 +80,48 @@ paths:
         '409': 
           description: O pedido ja se encontra criado.
 
-  /api/subscritores/{nif}/veiculos/{matricula}/emprestimos:
+  /api/subscritores/{nif}/emprestimos?matricula=string&datainicio=long:
     get:
       tags:
         - Subscritores
       summary: Requerer os Emprestimos deste veiculo com data de inicio pretendida
+      operationId: "pedirEmprestimosComData"
+      parameters:
+      - name: nif
+        in: path
+        description: nif do cidadao
+        required: true
+        schema:
+          type: integer
+      - name: matricula
+        in: query
+        description: matricula do veiculo
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: datainicio
+        required: true
+        schema:
+          type: string
+        description: data em que Emprestimo iniciou
+      responses:
+        '200':
+          description: Emprestimos do veiculo
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Emprestimo'
+        '400':
+          description: Algum parametro estava incorreto
+        '404': 
+          description: O pedido nao foi encontrado
+
+  /api/subscritores/{nif}/veiculos/{matricula}/emprestimos:
+    get:
+      tags:
+        - Subscritores
+      summary: Requerer os Emprestimos deste veiculo
       operationId: "pedirEmprestimos"
       parameters:
       - name: nif
@@ -99,18 +136,13 @@ paths:
         required: true
         schema:
           type: string
-      - in: query
-        name: datainicio
-        schema:
-          type: string
-        description: data em que Emprestimo iniciou
       responses:
         '200':
           description: Emprestimos do veiculo
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Emprestimo'
+                $ref: '#/components/schemas/Emprestimos'
         '400':
           description: Algum parametro estava incorreto
         '404': 
@@ -234,7 +266,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Subscritor"
+              $ref: "#/components/schemas/Pessoa"
       responses:
         '201':
           description: O pedido foi enviado com sucesso 
@@ -372,6 +404,32 @@ paths:
           description: Algum parametro estava incorreto
         '404': 
           description: Recurso nao encontrado
+    post:
+      tags:
+        - Subscritores
+      summary: Adicionar notificacao ao subscritor
+      description: Adicionar nova notificacao ao Subscritor
+      operationId: "adicionarNotificacao"
+      parameters:
+      - name: nif
+        in: path
+        description: nif do cidadao
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EventoDeTransito"
+      responses:
+        '201':
+          description: O pedido foi enviado com sucesso 
+        '400':
+          description: Algum parametro estava incorreto
+        '409': 
+          description: O pedido ja se encontra criado.
 
   /api/subscritores/{nif}/notificacoes/{id}:
     get:
@@ -404,41 +462,10 @@ paths:
         '404': 
           description: Recurso nao encontrado
 
-  /api/subscritores/{nif}/notificacoes/{matricula}/pagamentos:
+  /api/login:
     post:
       tags:
-        - Subscritores
-      summary: Pagar a multa de transito
-      operationId: "pagarMulta"
-      parameters:
-      - name: nif
-        in: path
-        description: nif do cidadao
-        required: true
-        schema:
-          type: integer
-      - name: matricula
-        in: path
-        description: matricula
-        required: true
-        schema:
-          type: string
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/Pagamento"
-      responses:
-        '201':
-          description: Pagamento feito com sucesso
-        '400':
-          description: Algum parametro estava incorreto
-
-  /api/login:
-    get:
-      tags:
-      - subscritor
+      - Subscritores
       summary: Permite o Subscritor fazer login na aplicaçao
       operationId: loginDeSubscritor
       requestBody:
@@ -454,9 +481,9 @@ paths:
           description: Password ou username invalido
           
   /api/logout:
-    get:
+    post:
       tags:
-      - subscritor
+      - Subscritores
       summary: Permite o Subscritor encerrar a sessao
       operationId: logoutDeSubscritor
       responses:
@@ -554,6 +581,13 @@ components:
           type: string
         matricula:
           type: string
+    Emprestimos:
+      type: object
+      properties:
+        emprestimos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Emprestimo'
     Login:
       type: object
       properties:
