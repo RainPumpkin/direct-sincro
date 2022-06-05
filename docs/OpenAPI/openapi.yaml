@@ -10,20 +10,20 @@ tags:
   - name: Administradores
     description: Rotas de administrador
   - name: Subscritores
-    description: Operações disponíveis para cidadãos que já se subscreveram à api
-  - name: Cidadão
-    description: Operações disponíveis para cidadãos sem sessão iniciada
+    description: Operações disponiveis para cidadaos que ja se subscreveram à api
+  - name: Cidadao
+    description: Operações disponiveis para cidadaos sem sessao iniciada
 paths:
   /api/subscritores/{nif}/veiculos/{matricula}/eventos:
     post:
       tags:
         - Subscritores
-      summary: Associar evento de trânsito ao proprietário
+      summary: Associar evento de transito ao proprietario
       operationId: "adicionarEventoAEmprestar"
       parameters:
       - name: nif
         in: path
-        description: nif do cidadão
+        description: nif do cidadao
         required: true
         schema:
           type: integer
@@ -38,25 +38,25 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Notificacao"
+              $ref: "#/components/schemas/EventoDeTransito"
       responses:
         '201':
           description: O pedido foi enviado com sucesso 
         '400':
-          description: Algum parâmetro estava incorreto
+          description: Algum parametro estava incorreto
         '409': 
-          description: O pedido já se encontra criado.
+          description: O pedido ja se encontra criado.
 
   /api/subscritores/{nif}/alugados/{matricula}/eventos:
     post:
       tags:
         - Subscritores
-      summary: Associar evento de trânsito ao responsável pelo Emprestimo
+      summary: Associar evento de transito ao responsavel pelo Emprestimo
       operationId: "adicionarEventoEmprestado"
       parameters:
       - name: nif
         in: path
-        description: nif do cidadão
+        description: nif do cidadao
         required: true
         schema:
           type: integer
@@ -71,39 +71,34 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Notificacao"
+              $ref: "#/components/schemas/EventoDeTransito"
       responses:
         '201':
           description: O pedido foi enviado com sucesso 
         '400':
-          description: Algum parâmetro estava incorreto
+          description: Algum parametro estava incorreto
         '409': 
-          description: O pedido já se encontra criado.
+          description: O pedido ja se encontra criado.
 
   /api/subscritores/{nif}/veiculos/{matricula}/emprestimos:
     get:
       tags:
         - Subscritores
-      summary: Requerer os Emprestimos deste veículo
+      summary: Requerer os Emprestimos deste veiculo com data de inicio pretendida
       operationId: "pedirEmprestimos"
       parameters:
       - name: nif
         in: path
-        description: nif do cidadão
+        description: nif do cidadao
         required: true
         schema:
           type: integer
       - name: matricula
         in: path
-        description: matricula do veículo
+        description: matricula do veiculo
         required: true
         schema:
           type: string
-      - in: query
-        name: matricula
-        schema:
-          type: string
-        description: matricula do veículo a procurar
       - in: query
         name: datainicio
         schema:
@@ -111,27 +106,58 @@ paths:
         description: data em que Emprestimo iniciou
       responses:
         '200':
-          description: Emprestimos do veículo
+          description: Emprestimos do veiculo
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Emprestimo'
         '400':
-          description: Algum parâmetro estava incorreto
+          description: Algum parametro estava incorreto
         '404': 
-          description: O pedido não foi encontrado
+          description: O pedido nao foi encontrado
+    post:
+      tags:
+        - Subscritores
+      summary: Adicionar emprestimo ao veiculo
+      operationId: "fazerEmprestimo"
+      parameters:
+      - name: nif
+        in: path
+        description: nif do cidadao
+        required: true
+        schema:
+          type: integer
+      - name: matricula
+        in: path
+        description: matricula do veiculo
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Emprestimo"
+      responses:
+        '201':
+          description: O pedido foi enviado com sucesso 
+        '400':
+          description: Algum parametro estava incorreto
+        '409': 
+          description: O pedido ja se encontra criado.
 
   /api/subscritores/{nif}/veiculos/{matricula}/eventos/{numeroauto}/pedido:
     post:
       tags:
         - Subscritores
       summary: Fazer pedido de defesa
-      description: Fazer pedido de defesa associado ao evento específicado
+      description: Fazer pedido de defesa associado ao evento especificado
       operationId: "fazerPedido"
       parameters:
       - name: nif
         in: path
-        description: nif do cidadão
+        description: nif do cidadao
         required: true
         schema:
           type: integer
@@ -157,9 +183,9 @@ paths:
         '201':
           description: O pedido foi enviado com sucesso 
         '400':
-          description: Algum parâmetro estava incorreto
+          description: Algum parametro estava incorreto
         '409': 
-          description: O pedido já se encontra criado.
+          description: O pedido ja se encontra criado.
     get:
       tags:
         - Subscritores
@@ -168,91 +194,91 @@ paths:
       parameters:
       - name: nif
         in: path
-        description: nif do cidadão
+        description: nif do cidadao
         required: true
         schema:
           type: integer
       - name: matricula
         in: path
-        description: matricula do veículo
+        description: matricula do veiculo
         required: true
         schema:
           type: string
       - name: numeroauto
         in: path
-        description: número do Auto
+        description: numero do Auto
         required: true
         schema:
           type: integer
       responses:
         '200':
-          description: Pedido de defesa feito para número de auto
+          description: Pedido de defesa feito para numero de auto
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/PedidoDeDefesa'
         '400':
-          description: Algum parâmetro estava incorreto
+          description: Algum parametro estava incorreto
         '404': 
-          description: O pedido não foi encontrado
+          description: O pedido nao foi encontrado
 
   /api/subscritores:
     post:
       tags:
-        - Cidadão
-      summary: Criar nova conta de utilizador
-      description: Cidadão deverá inserir todos os parâmetros requeridos
-      operationId: "criarUtilizador"
+        - Cidadao
+      summary: Criar nova conta de Subscritor
+      description: Cidadao devera inserir todos os parametros requeridos
+      operationId: "criarSubscritor"
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Utilizador"
+              $ref: "#/components/schemas/Subscritor"
       responses:
         '201':
           description: O pedido foi enviado com sucesso 
         '400':
-          description: Algum parâmetro estava incorreto
+          description: Algum parametro estava incorreto
         '409': 
-          description: O pedido já se encontra criado.
+          description: O pedido ja se encontra criado.
 
   /api/subscritores/{nif}:
     get:
       tags:
         - Subscritores
-      summary: Pedir informação de utilizador
-      operationId: "pedirUtilizador"
+      summary: Pedir informaçao de Subscritor
+      operationId: "pedirSubscritor"
       parameters:
       - name: nif
         in: path
-        description: nif do cidadão
+        description: nif do cidadao
         required: true
         schema:
           type: integer
       responses:
         '200':
-          description: Toda a informação do utilizador
+          description: Toda a informaçao do Subscritor
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Utilizador'
+                $ref: '#/components/schemas/Subscritor'
         '400':
-          description: Algum parâmetro estava incorreto
+          description: Algum parametro estava incorreto
         '404': 
-          description: Recurso não encontrado
+          description: Recurso nao encontrado
 
   /api/subscritores/{nif}/veiculos:
     post:
       tags:
         - Subscritores
-      summary: Adicionar veículo ao subscritor
-      description: Adicionar novo veículo ao utilizador
-      operationId: "adicionarVeículo"
+      summary: Adicionar veiculo ao subscritor
+      description: Adicionar novo veiculo ao Subscritor
+      operationId: "adicionarVeiculo"
       parameters:
       - name: nif
         in: path
-        description: nif do cidadão
+        description: nif do cidadao
         required: true
         schema:
           type: integer
@@ -266,43 +292,43 @@ paths:
         '201':
           description: O pedido foi enviado com sucesso 
         '400':
-          description: Algum parâmetro estava incorreto
+          description: Algum parametro estava incorreto
         '409': 
-          description: O pedido já se encontra criado.
+          description: O pedido ja se encontra criado.
     get:
       tags:
         - Subscritores
-      summary: Pedir todos os veículos
-      operationId: "pedirVeículos"
+      summary: Pedir todos os veiculos
+      operationId: "pedirVeiculos"
       parameters:
       - name: nif
         in: path
-        description: nif do cidadão
+        description: nif do cidadao
         required: true
         schema:
           type: integer
       responses:
         '200':
-          description: Todos os veículos do cidadão com sessão aberta
+          description: Todos os veiculos do cidadao com sessao aberta
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Veiculo'
         '400':
-          description: Algum parâmetro estava incorreto
+          description: Algum parametro estava incorreto
         '404': 
-          description: Recurso não encontrado
+          description: Recurso nao encontrado
 
   /api/subscritores/{nif}/veiculos/{matricula}:
     delete:
       tags:
         - Subscritores
-      summary: Dissociar o veiculo ao utilizador
-      operationId: "removerVeículo"
+      summary: Dissociar o veiculo ao Subscritor
+      operationId: "removerVeiculo"
       parameters:
       - name: nif
         in: path
-        description: nif do cidadão
+        description: nif do cidadao
         required: true
         schema:
           type: integer
@@ -314,13 +340,13 @@ paths:
           type: string
       responses:
         '200':
-          description: O veículo foi removido com sucesso
+          description: O veiculo foi removido com sucesso
         '202':
-          description: Operação aceite
+          description: Operaçao aceite
         '204':
-          description: O veículo específico não se encontra na aplicação
+          description: O veiculo especifico nao se encontra na aplicaçao
         '403':
-          description: Não possui a autorização necessária
+          description: Nao possui a autorizaçao necessaria
 
   /api/subscritores/{nif}/notificacoes:
     get:
@@ -331,63 +357,63 @@ paths:
       parameters:
       - name: nif
         in: path
-        description: nif do cidadão
+        description: nif do cidadao
         required: true
         schema:
           type: integer
       responses:
         '200':
-          description: Todas as notificações do utilizador
+          description: Todas as notificações do Subscritor
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Notificacoes'
         '400':
-          description: Algum parâmetro estava incorreto
+          description: Algum parametro estava incorreto
         '404': 
-          description: Recurso não encontrado
+          description: Recurso nao encontrado
 
   /api/subscritores/{nif}/notificacoes/{id}:
     get:
       tags:
         - Subscritores
-      summary: Requerer a notificação com o id
-      operationId: "pedirNotificação"
+      summary: Requerer a notificaçao com o id
+      operationId: "pedirNotificaçao"
       parameters:
       - name: nif
         in: path
-        description: nif do cidadão
+        description: nif do cidadao
         required: true
         schema:
           type: integer
       - name: id
         in: path
-        description: id da notificação
+        description: id da notificaçao
         required: true
         schema:
           type: integer
       responses:
         '200':
-          description: Todas as notificações do utilizador
+          description: Todas as notificações do Subscritor
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Notificacao'
+                $ref: '#/components/schemas/EventoDeTransito'
         '400':
-          description: Algum parâmetro estava incorreto
+          description: Algum parametro estava incorreto
         '404': 
-          description: Recurso não encontrado
+          description: Recurso nao encontrado
 
   /api/subscritores/{nif}/notificacoes/{matricula}/pagamentos:
     post:
       tags:
         - Subscritores
-      summary: Pagar a multa de trânsito
+      summary: Pagar a multa de transito
       operationId: "pagarMulta"
       parameters:
       - name: nif
         in: path
-        description: nif do cidadão
+        description: nif do cidadao
         required: true
         schema:
           type: integer
@@ -407,14 +433,14 @@ paths:
         '201':
           description: Pagamento feito com sucesso
         '400':
-          description: Algum parâmetro estava incorreto
+          description: Algum parametro estava incorreto
 
   /api/login:
     get:
       tags:
-      - Subscritores
-      summary: Permite o utilizador fazer login na aplicação
-      operationId: loginDeUtilizador
+      - subscritor
+      summary: Permite o Subscritor fazer login na aplicaçao
+      operationId: loginDeSubscritor
       requestBody:
         required: true
         content:
@@ -423,59 +449,62 @@ paths:
               $ref: "#/components/schemas/Login"
       responses:
         "200":
-          description: operação com sucesso
+          description: operaçao com sucesso
         "400":
-          description: Password ou username inválido
+          description: Password ou username invalido
+          
   /api/logout:
     get:
       tags:
-      - Subscritores
-      summary: Permite o utilizador encerrar a sessão
-      operationId: logoutDeUtilizador
+      - subscritor
+      summary: Permite o Subscritor encerrar a sessao
+      operationId: logoutDeSubscritor
       responses:
         "200":
-          description: operação com sucesso
+          description: operaçao com sucesso
 components:
   schemas:
-    Utilizador:
+    Subscritor:
       type: object
       properties:
-        nome:
-          type: string
         nif:
           type: integer
-        numeroCondução:
-          type: string
-        email:
-          type: string
         password:
           type: string
+        notificações:
+          type: array
+        veiculos:
+          type: array
+        veiculosAlugados:
+          type: array
+        emprestimos:
+          type: array
     Admin:
       type: object
       properties:
-        nif: 
+        username: 
           type: string
         password:
           type: string
-    Notificacao:
+    EventoDeTransito:
       type: object
       properties:
         numeroAuto:
-          type: integer
+          type: string
         veiculoAutuado:
           type: string
-        dataHora:
-          type: string
+        data:
+          type: integer
         local:
           type: string
         normaInfrigida:
           type: string
         distrito:
           type: string
-        descriçãoSumaria:
+        descricaoSumaria:
           type: string
         dataLimiteDefesa:
-          type: string
+          type: integer
         estadoDoPagamento:
           type: string
         valorDaCoima:
@@ -484,7 +513,7 @@ components:
           type: string
         entidadeAutuante:
           type: string
-        dataNotification:
+        dataNoticacao:
           type: string
     Veiculo:
       type: object
@@ -501,23 +530,23 @@ components:
         Notificacoes:
           type: array
           items:
-            $ref: '#/components/schemas/Notificacao'
+            $ref: '#/components/schemas/EventoDeTransito'
     Pagamento:
       type: object
       properties:
-        métodoDePagamento: 
+        metodoDePagamento: 
           type: string
     PedidoDeDefesa:
       type: object
       properties:
         id:
           type: integer
-        descrição:
+        descricao:
           type: string
     Emprestimo:
       type: object
       properties:
-        dataInício:
+        dataInicio:
           type: string
         dataFim:
           type: string
@@ -531,4 +560,15 @@ components:
         username:
           type: string
         password:
+          type: string
+    Pessoa:
+      type: object
+      properties:
+        nome:
+          type: string
+        nif:
+          type: string
+        numeroConducao:
+          type: string
+        email:
           type: string

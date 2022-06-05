@@ -10,4 +10,8 @@ class NotificacaoService(private val db: NotificacaoDatabase, private val mapper
     fun getAllNotificacoes(nif: String) : List<Notificacao>{
         return mapper.multiple(db.getAll(nif))
     }
+
+    fun getNotificacao(id: Int) : Notificacao {
+        return mapper.single(db.get(id))
+    }
 }

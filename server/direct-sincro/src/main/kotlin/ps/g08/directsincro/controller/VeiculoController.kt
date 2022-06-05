@@ -26,4 +26,9 @@ class VeiculoController(
         val veiculos : List<Veiculo> = service.getAllVeiculos(nif)
         return ResponseEntity<Any>(getMultipleVeiculoModel(veiculos), HttpStatus.OK)
     }
+
+    @DeleteMapping("/{matricula}")
+    fun deleteVeiculo(@PathVariable matricula: String) : ResponseEntity<Any>{
+        return ResponseEntity<Any>(service.deleteVeiculos(matricula), HttpStatus.OK)
+    }
 }
