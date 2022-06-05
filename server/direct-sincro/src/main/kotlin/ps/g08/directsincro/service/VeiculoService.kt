@@ -11,4 +11,8 @@ class VeiculoService(private val veiculodb: VeiculoDatabase, private val veiculo
     fun getAllVeiculos(nif : String) : List<Veiculo>{
         return veiculoMapper.multiple(veiculodb.getAll(nif))
     }
+
+    fun deleteVeiculos(matricula: String) {
+        return veiculodb.delete(matricula)
+    }
 }
