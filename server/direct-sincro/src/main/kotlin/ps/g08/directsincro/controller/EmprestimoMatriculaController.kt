@@ -8,7 +8,7 @@ import ps.g08.directsincro.service.EmprestimoMatriculaService
 @RestController
 @RequestMapping("/api/subscritores/{nif}/veiculos/{matricula}/emprestimos")
 class EmprestimoMatriculaController(private val emprestimoMatriculaService: EmprestimoMatriculaService) {
-    //get e put
+
     @GetMapping("/{datainicio}") //emprestimo?matricula=string&datainicio=long
     fun getemprestimo(@PathVariable matricula: String, @PathVariable datainicio: Long): ResponseEntity<Any>{
         return responseOkWithBody(emprestimoMatriculaService.getEmprestimoMatricula(matricula, datainicio))
@@ -18,4 +18,7 @@ class EmprestimoMatriculaController(private val emprestimoMatriculaService: Empr
     fun getAllEmprestimo(@PathVariable matricula: String): ResponseEntity<Any>{
         return responseOkWithBody(emprestimoMatriculaService.getAllEmprestimosMatricula(matricula))
     }
+
+    //post emprestimo
+    //inputmodel com: usuario que recebe, datainicio, datafim.
 }
