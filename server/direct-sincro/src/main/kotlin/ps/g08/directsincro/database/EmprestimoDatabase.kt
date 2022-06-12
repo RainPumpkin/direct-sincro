@@ -72,8 +72,8 @@ class EmprestimoDatabase(private val source : Jdbi) {
                 .createUpdate(queryCreate)
                 .bind(0, matricula)
                 .bind(1, emprestimo.usuario)
-                .bind(2, emprestimo.dataInicio)
-                .bind(3, emprestimo.dataFim)
+                .bind(2, getTimestamp(emprestimo.dataInicio))
+                .bind(3, getTimestamp(emprestimo.dataFim))
                 .bind(4, emprestimo.estado)
                 .execute()
         }

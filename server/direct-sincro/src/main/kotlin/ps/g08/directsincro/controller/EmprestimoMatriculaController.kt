@@ -3,7 +3,11 @@ package ps.g08.directsincro.controller
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import ps.g08.directsincro.common.responseOkWithBody
+import ps.g08.directsincro.controller.inputmodels.EmprestimoInputModel
+import ps.g08.directsincro.controller.inputmodels.getEmprestimoFromInputModel
+import ps.g08.directsincro.controller.outputmodel.getEmprestimoMatriculaOutputModel
 import ps.g08.directsincro.service.EmprestimoMatriculaService
+import java.net.URI
 
 @RestController
 @RequestMapping("/api/subscritores/{nif}/veiculos/{matricula}/emprestimos")
@@ -11,7 +15,7 @@ class EmprestimoMatriculaController(private val emprestimoMatriculaService: Empr
 
     @GetMapping("/{datainicio}") //emprestimo?matricula=string&datainicio=long
     fun getemprestimo(@PathVariable matricula: String, @PathVariable datainicio: Long): ResponseEntity<Any>{
-        return responseOkWithBody(emprestimoMatriculaService.getEmprestimoMatricula(matricula, datainicio))
+        return responseOkWithBody(getEmprestimoMatriculaOutputModel(emprestimoMatriculaService.getEmprestimoMatricula(matricula, datainicio)))
     }
 
     @GetMapping
@@ -21,4 +25,10 @@ class EmprestimoMatriculaController(private val emprestimoMatriculaService: Empr
 
     //post emprestimo
     //inputmodel com: usuario que recebe, datainicio, datafim.
+
+    @PostMapping
+    fun createEmprestimo(@RequestBody input : EmprestimoInputModel, @PathVariable nif : String, @PathVariable matricula: String) : ResponseEntity<Any>{
+        emprestimoMatriculaService.createEmprestimo(getEmprestimoFromInputModel(input), matricula)
+        return ResponseEntity.created(URI.create("api/subscritores/${nif}/veiculos/${matricula}/emprestimos")).build()
+    }
 }

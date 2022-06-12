@@ -1,9 +1,9 @@
 package ps.g08.directsincro.controller
 
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.*
+import ps.g08.directsincro.common.responseOkWithBody
+import ps.g08.directsincro.controller.outputmodel.getEmprestimoMatriculaOutputModel
 import ps.g08.directsincro.service.EmprestimoUsuarioService
 
 @RestController
@@ -12,8 +12,8 @@ class EmprestimoUsuarioController(private val emprestimoUsuarioService: Empresti
     //get de emprestimos passados e aguardar
 
     @GetMapping//emprestimos?matricula=string&datainicio=long
-    fun getemprestimo(@RequestParam matricula: String, @RequestParam datainicio: Long){
-
+    fun getemprestimo(@RequestParam matricula: String, @RequestParam datainicio: Long): ResponseEntity<Any> {
+        return responseOkWithBody(getEmprestimoMatriculaOutputModel(emprestimoUsuarioService.getEmprestimoWithDate(matricula, datainicio)))
     }
     //path para transformar emprestimo aguardar em emprestado
 }

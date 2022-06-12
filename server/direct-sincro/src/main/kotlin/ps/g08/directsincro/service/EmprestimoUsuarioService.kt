@@ -11,4 +11,8 @@ class EmprestimoUsuarioService(private val db: EmprestimoDatabase, private val m
     fun getAllEmprestimosUsuario(nif : String) : List<EmprestimoUsuario>{
         return mapper.multiple(db.getAllMatricula(nif))
     }
+
+    fun getEmprestimoWithDate(matricula: String, dataInicio: Long) : EmprestimoUsuario {
+        return mapper.single(db.queryGetWithDate(matricula, dataInicio))
+    }
 }
