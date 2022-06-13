@@ -14,4 +14,8 @@ class NotificacaoService(private val db: NotificacaoDatabase, private val mapper
     fun getNotificacao(id: Int) : Notificacao {
         return mapper.single(db.get(id))
     }
+
+    fun createNotification(notificacao: Notificacao, subscritor: String) : Int{
+        return db.create(notificacao, subscritor)
+    }
 }
