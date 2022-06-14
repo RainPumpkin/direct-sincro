@@ -70,17 +70,17 @@ class EventoTransitoDatabase(private val source : Jdbi) {
                 .bind(0, evento.numeroAuto)
                 .bind(1, veiculo)
                 .bind(2, evento.estadoPagamento)
-                .bind(3, evento.data)
+                .bind(3, getTimestamp(evento.data))
                 .bind(4, evento.tipo)
                 .bind(5, evento.classificacaoInfracao)
                 .bind(6, evento.descricao)
                 .bind(7, evento.valor)
                 .bind(8, evento.localizao)
                 .bind(9, evento.entidadeAutuante)
-                .bind(10, evento.dataLimiteDefesa)
+                .bind(10, getTimestamp(evento.dataLimiteDefesa))
                 .execute()
         }
-        return evento.numeroAuto;
+        return evento.numeroAuto
     }
 
     fun delete(numeroAuto: String, data: Long, veiculo: String) {

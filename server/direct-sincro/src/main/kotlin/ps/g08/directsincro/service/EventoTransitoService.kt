@@ -11,4 +11,8 @@ class EventoTransitoService(private val db: EventoTransitoDatabase, private val 
     fun getAllEventos(matricula: String) : List<Evento_Transito>{
         return mapper.multiple(db.getAll(matricula))
     }
+
+    fun createEvento(evento: Evento_Transito, matricula: String): String {
+        return db.create(evento, matricula)
+    }
 }
