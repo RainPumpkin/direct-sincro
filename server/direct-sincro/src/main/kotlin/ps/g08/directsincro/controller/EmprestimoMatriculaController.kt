@@ -13,11 +13,13 @@ import java.net.URI
 @RequestMapping("/api/subscritores/{nif}/veiculos/{matricula}/emprestimos")
 class EmprestimoMatriculaController(private val emprestimoMatriculaService: EmprestimoMatriculaService) {
 
+    @CrossOrigin
     @GetMapping("/{datainicio}") //emprestimo?matricula=string&datainicio=long
     fun getemprestimo(@PathVariable matricula: String, @PathVariable datainicio: Long): ResponseEntity<Any>{
         return responseOkWithBody(getEmprestimoMatriculaOutputModel(emprestimoMatriculaService.getEmprestimoMatricula(matricula, datainicio)))
     }
 
+    @CrossOrigin
     @GetMapping
     fun getAllEmprestimo(@PathVariable matricula: String): ResponseEntity<Any>{
         return responseOkWithBody(emprestimoMatriculaService.getAllEmprestimosMatricula(matricula))
@@ -26,6 +28,7 @@ class EmprestimoMatriculaController(private val emprestimoMatriculaService: Empr
     //post emprestimo
     //inputmodel com: usuario que recebe, datainicio, datafim.
 
+    @CrossOrigin
     @PostMapping
     fun createEmprestimo(@RequestBody input : EmprestimoInputModel, @PathVariable nif : String, @PathVariable matricula: String) : ResponseEntity<Any>{
         emprestimoMatriculaService.createEmprestimo(getEmprestimoFromInputModel(input), matricula)

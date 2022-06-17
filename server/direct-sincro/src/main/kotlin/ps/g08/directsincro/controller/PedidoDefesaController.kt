@@ -14,11 +14,13 @@ class PedidoDefesaController (
     private val service: PedidoDefesaService
         ){
     //subscritores/nif/veiculos/matricula/eventos/numeroauto/pedido ->pedido de defesa desse evento. usado para GET e Post
+    @CrossOrigin
     @GetMapping("/subscritores/{nif}/veiculos/{matricula}/eventos/{numeroauto}/pedido/{id}")
     fun getPedido(@PathVariable nif: String, @PathVariable matricula: String, @PathVariable id: Int): ResponseEntity<Any> {
         return responseOkWithBody(service.getPedido(nif, id))
     }
 
+    @CrossOrigin
     @PostMapping("/subscritores/{nif}/veiculos/{matricula}/eventos/{numeroauto}/pedido")
     fun createPedido(@RequestBody input: PedidoDefesaInputModel, @PathVariable nif: String, @PathVariable matricula: String, @PathVariable numeroauto: String): ResponseEntity<Any>{
         val id = service.createPedido(getPedidoFromPedidoDefesaInputModel(input), numeroauto, nif)

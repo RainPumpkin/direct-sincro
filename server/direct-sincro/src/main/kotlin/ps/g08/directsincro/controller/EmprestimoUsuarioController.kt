@@ -11,6 +11,7 @@ import ps.g08.directsincro.service.EmprestimoUsuarioService
 class EmprestimoUsuarioController(private val emprestimoUsuarioService: EmprestimoUsuarioService) {
     //get de emprestimos passados e aguardar
 
+    @CrossOrigin
     @GetMapping//emprestimos?matricula=string&datainicio=long
     fun getemprestimo(@RequestParam matricula: String, @RequestParam datainicio: Long): ResponseEntity<Any> {
         return responseOkWithBody(getEmprestimoMatriculaOutputModel(emprestimoUsuarioService.getEmprestimoWithDate(matricula, datainicio)))

@@ -12,16 +12,19 @@ import java.net.URI
 @RequestMapping("/api/subscritores/{nif}/notificacoes")
 class NotificacaoController(private val notificacaoService: NotificacaoService) {
 
+    @CrossOrigin
     @GetMapping("/{id}")
     fun getsinglenotification(@PathVariable nif: String, @PathVariable id: Int) : ResponseEntity<Any> {
         return responseOkWithBody(notificacaoService.getNotificacao(id))
     }
 
+    @CrossOrigin
     @GetMapping
     fun getallnotifications(@PathVariable nif: String) : ResponseEntity<Any> {
         return responseOkWithBody(notificacaoService.getAllNotificacoes(nif))
     }
 
+    @CrossOrigin
     @PostMapping
     fun createNotification(@RequestBody input: NotificacaoInputModel, @PathVariable nif: String) : ResponseEntity<Any>{
         val id = notificacaoService.createNotification(getNotificacaoFromNotificacaoInputModel(input), nif)

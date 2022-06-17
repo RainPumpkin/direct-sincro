@@ -14,6 +14,7 @@ class EventoTransitoController(
 ) {
 
     //Evento proveniente do SIGET
+    @CrossOrigin
     @PostMapping("/eventos")
     fun receiveEvento(@RequestBody input : EventoTransitoInputModel) {
 
@@ -22,12 +23,14 @@ class EventoTransitoController(
     //subscritores/nif/veiculos/matricula/eventos ->eventos de transito do meu veiculo
     //subscritores/nif/alugados/matricula/eventos ->eventos de transito do veiculo alugado
 
+    @CrossOrigin
     @PostMapping("/subscritores/{nif}/veiculos/{matricula}/eventos")
     fun createEventoVeiculo(@RequestBody input: EventoTransitoInputModel, @PathVariable nif: String, @PathVariable matricula: String) : ResponseEntity<Any> {
         val numeroAuto = service.createEvento(getEventoFromEventoTransitoInputModel(input), matricula)
         return ResponseEntity.created(URI.create("/api/subscritores/${nif}/veiculos/${matricula}/eventos/${numeroAuto}")).build()
     }
 
+    @CrossOrigin
     @PostMapping("/subscritores/{nif}/alugados/{matricula}/eventos")
     fun createEventoAlugado(@RequestBody input: EventoTransitoInputModel, @PathVariable nif: String, @PathVariable matricula: String) : ResponseEntity<Any> {
         val numeroAuto = service.createEvento(getEventoFromEventoTransitoInputModel(input), matricula)

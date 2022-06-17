@@ -1,7 +1,7 @@
 openapi: 3.0.0
 servers:
   - description: Api Back-end 
-    url: ____________INSERT API URL!!!!_______________
+    url: http://localhost:8080
 info:
   description: This
   version: "1.0.0"
