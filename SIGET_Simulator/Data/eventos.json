@@ -51,7 +51,7 @@
     },
     {
         "evento": {
-            "DadosDoVeiculo" : {
+            "dadosDoVeiculo" : {
                 "matricula": "JH-08-78",
                 "categoria": "AUTOMÓVEL LIGEIRO",
                 "tipoDeInfracao": "PASSAGEIROS",

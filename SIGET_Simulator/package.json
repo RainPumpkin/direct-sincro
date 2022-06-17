@@ -4,11 +4,15 @@
   "description": "This is a simulator for the the system SIGET of ANSR, wich is responsible by capture transit events",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Daniel Azevedo",
+  "author": "G08",
   "license": "ISC",
   "dependencies": {
+    "body-parse": "^0.1.0",
+    "express": "^4.18.1",
+    "fs": "^0.0.1-security",
     "node-fetch": "^3.2.4"
   },
   "type": "module"
