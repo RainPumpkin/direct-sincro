@@ -18,3 +18,12 @@ class EmprestimoUsuarioController(private val emprestimoUsuarioService: Empresti
     }
     //path para transformar emprestimo aguardar em emprestado
 }
+/*
+GET all
+/api/subscritores/{nif}/alugados
+lista de veiculos emprestados a este usuário (output sem usuario)
+Query:
+Select * from
+join de veiculo e emprestimo no parametro veiculo/matricula
+where usuario = {nif}
+*/

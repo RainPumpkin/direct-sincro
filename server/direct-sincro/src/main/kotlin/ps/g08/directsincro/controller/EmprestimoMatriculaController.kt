@@ -35,3 +35,13 @@ class EmprestimoMatriculaController(private val emprestimoMatriculaService: Empr
         return ResponseEntity.created(URI.create("api/subscritores/${nif}/veiculos/${matricula}/emprestimos")).build()
     }
 }
+
+/*
+GET e POST
+/api/subscritores/{nif}/veiculos/{matricula}/emprestimos
+lista de emprestimos feitos deste carro a x pessoa (output sem info da tabela veiculo)
+Query:
+Select * from
+join de veiculo e emprestimo no parametro veiculo/matricula
+where matricula = {matricula}
+ */

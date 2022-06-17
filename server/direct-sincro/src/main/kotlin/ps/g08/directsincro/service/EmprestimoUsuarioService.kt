@@ -9,7 +9,7 @@ import ps.g08.directsincro.service.mappers.EmprestimoUsuarioMapper
 class EmprestimoUsuarioService(private val db: EmprestimoDatabase, private val mapper: EmprestimoUsuarioMapper) {
 
     fun getAllEmprestimosUsuario(nif : String) : List<EmprestimoUsuario>{
-        return mapper.multiple(db.getAllMatricula(nif))
+        return mapper.multiple(db.getAllUser(nif))
     }
 
     fun getEmprestimoWithDate(matricula: String, dataInicio: Long) : EmprestimoUsuario {

@@ -1,5 +1,6 @@
 package ps.g08.directsincro.controller
 
+import jdk.jshell.spi.ExecutionControl.NotImplementedException
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import ps.g08.directsincro.controller.inputmodels.EventoTransitoInputModel
@@ -31,9 +32,23 @@ class EventoTransitoController(
     }
 
     @CrossOrigin
+    @GetMapping("/subscritores/{nif}/veiculos/{matricula}/eventos")
+    fun getAllEventosVeiculo() : ResponseEntity<Any>{
+        //retorna todos os eventos do veiculo
+        throw NotImplementedException("getalleventos");
+    }
+
+    @CrossOrigin
     @PostMapping("/subscritores/{nif}/alugados/{matricula}/eventos")
     fun createEventoAlugado(@RequestBody input: EventoTransitoInputModel, @PathVariable nif: String, @PathVariable matricula: String) : ResponseEntity<Any> {
         val numeroAuto = service.createEvento(getEventoFromEventoTransitoInputModel(input), matricula)
-        return ResponseEntity.created(URI.create("/api/subscritores/${nif}/veiculos/${matricula}/eventos/${numeroAuto}")).build()
+        return ResponseEntity.created(URI.create("/api/subscritores/${nif}/alugados/${matricula}/eventos/${numeroAuto}")).build()
+    }
+
+    @CrossOrigin
+    @GetMapping("/subscritores/{nif}/alugados/{matricula}/eventos")
+    fun getAllEventosAlugado() : ResponseEntity<Any>{
+        //retorna apenas eventos entre datainicio e datafim do emprestimo
+        throw NotImplementedException("getalleventos");
     }
 }

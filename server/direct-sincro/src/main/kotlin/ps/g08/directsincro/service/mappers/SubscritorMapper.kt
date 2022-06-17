@@ -17,13 +17,13 @@ class SubscritorMapper(val veiculoService : VeiculoService, val notificaoService
         val notificacoes : List<Notificacao> by lazy {
             notificaoService.getAllNotificacoes(obj.nif)
         }
-        val veiculos : List<Veiculo> by lazy {
-            veiculoService.getAllVeiculos(obj.nif)
+        val veiculos : List<Veiculo> by lazy {//veiculos que possuimos que n estão emprestados
+            veiculoService.getAllVeiculos(obj.nif)//mudar para getAllVeiculosNaoAlugados
         }
-        val veiculosAlugados : List<Veiculo> by lazy {
+        val veiculosAlugados : List<Veiculo> by lazy {//veiculos que possuimos que estão emprestados
             veiculoAlugadoService.getAllVeiculosAlugados(obj.nif)
         }
-        val emprestimos : List<EmprestimoUsuario> by lazy {
+        val emprestimos : List<EmprestimoUsuario> by lazy {//emprestimos que recebeste
             emprestimoUsuarioService.getAllEmprestimosUsuario(obj.nif)
         }
         return Subscritor(

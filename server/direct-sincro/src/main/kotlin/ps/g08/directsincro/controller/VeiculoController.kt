@@ -19,6 +19,7 @@ class VeiculoController(
     @PostMapping()//recebe input model
     fun putveiculo(@RequestBody input : VeiculoInputModel, @PathVariable nif: String): ResponseEntity<Any>{
         val matricula = service.createVeiculo(getVeiculoFromVeiculoInputModel(input), nif)
+        //TODO pedido ao simulador do Daniel
         return ResponseEntity.created(URI.create("/api/subscritores/${nif}/veiculos/${matricula}")).build()
     }
 
