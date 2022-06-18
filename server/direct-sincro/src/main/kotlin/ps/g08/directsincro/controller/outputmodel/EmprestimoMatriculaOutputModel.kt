@@ -5,7 +5,7 @@ import ps.g08.directsincro.common.getTimestamp
 import java.sql.Timestamp
 
 data class EmprestimoMatriculaOutputModel(
-    val usuario: String,
+    val usuario: String?,
     val datainicio: Timestamp,
     val datafim: Timestamp,
     val estado: String

@@ -17,6 +17,7 @@ class VeiculoDatabase(private val source : Jdbi) {
     companion object {
         const val queryGet = "SELECT * FROM Veiculo WHERE matricula = ?"
         const val queryGetAll = "SELECT * FROM Veiculo WHERE owner = ? "
+        const val queryGetAllAlugados = "SELECT DISTINCT Veiculo.* FROM Veiculo RIGHT JOIN Emprestimo ON Veiculo.matricula = Emprestimo.matricula WHERE Veiculo.owner = ?"
         const val queryCreate = "INSERT INTO Veiculo(matricula, modelo, categoria, owner) VALUES (?,?,?,?)"
         const val queryUpdate = "UPDATE Veiculo SET owner = ? WHERE matricula = ?"
         const val queryDelete = "Delete FROM Veiculo WHERE matricula = ?"
@@ -41,6 +42,15 @@ class VeiculoDatabase(private val source : Jdbi) {
         }
     }
 
+    fun getAllAlugados(usuario: String): List<VeiculoDatabaseRow> {
+        return source.withHandleUnchecked { handle -> handle
+            .createQuery(queryGetAllAlugados)
+            .bind(0, usuario)
+            .mapTo(VeiculoDatabaseRow::class.java)
+            .list()
+        }
+    }
+
     fun create(veiculo : Veiculo, owner: String): String {
         source.withHandleUnchecked { handle ->
             handle
@@ -51,7 +61,7 @@ class VeiculoDatabase(private val source : Jdbi) {
                 .bind(3, owner)
                 .execute()
         }
-        return veiculo.matricula;
+        return veiculo.matricula
     }
 
     fun update(newowner: String, matricula : String){

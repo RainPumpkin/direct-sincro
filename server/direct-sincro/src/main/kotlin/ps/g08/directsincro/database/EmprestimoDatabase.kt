@@ -12,14 +12,14 @@ data class EmprestimoDatabaseRow(
         val dataFim: Timestamp,
         val estado: String,
         val matricula: String,
-        val usuario: String
+        val usuario: String?
 )
 
 @Component
 class EmprestimoDatabase(private val source : Jdbi) {
     companion object {
         const val queryGet = "SELECT * FROM Emprestimo WHERE usuario = ? AND matricula = ?"//user e matricula
-        const val queryGetAllUser = "SELECT * FROM Emprestimo WHERE usuario = ? "//getall for user
+        const val queryGetAllUser = "SELECT Emprestimo.matricula, Emprestimo.datainicio, Emprestimo.datafim, Emprestimo.estado FROM Veiculo Left JOIN Emprestimo ON Veiculo.matricula = Emprestimo.matricula WHERE Emprestimo.usuario = ? "//getall for user
         const val queryGetAllMatricula = "SELECT * FROM Emprestimo WHERE matricula = ? "//getall for matricula
         const val queryGetWithDate = "SELECT * FROM Emprestimo WHERE matricula = ? AND dataInicio = ?"
         const val queryCreate = "INSERT INTO Emprestimo(matricula, usuario, dataInicio, dataFim, estado) VALUES (?,?,?,?,?)"

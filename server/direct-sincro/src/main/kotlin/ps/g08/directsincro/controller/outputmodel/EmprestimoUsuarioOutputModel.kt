@@ -11,11 +11,19 @@ data class EmprestimoUsuarioOutputModel(
     val estado: String
 )
 
-fun getEmprestimoMatriculaOutputModel(emprestimoUsuario: EmprestimoUsuario) : EmprestimoUsuarioOutputModel {
+fun getEmprestimoUsuarioOutputModel(emprestimoUsuario: EmprestimoUsuario) : EmprestimoUsuarioOutputModel {
     return EmprestimoUsuarioOutputModel(
         matricula = emprestimoUsuario.matricula,
         datainicio = getTimestamp(emprestimoUsuario.dataInicio),
         datafim = getTimestamp(emprestimoUsuario.dataFim),
         estado = emprestimoUsuario.estado
     )
+}
+
+fun getAllEmprestimosUsuarioOutputModel(emprestimosUsuario: List<EmprestimoUsuario>): List<EmprestimoUsuarioOutputModel>{
+    val emprestimos = mutableListOf<EmprestimoUsuarioOutputModel>()
+    for (emprestimo in emprestimosUsuario){
+        emprestimos.add(getEmprestimoUsuarioOutputModel(emprestimo))
+    }
+    return emprestimos
 }

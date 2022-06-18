@@ -43,7 +43,7 @@ data class EmprestimoMatricula(
     val dataInicio: Long,
     val dataFim: Long,
     val estado: String,
-    val usuario: String
+    val usuario: String?
 )
 
 data class EmprestimoUsuario(

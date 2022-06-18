@@ -14,15 +14,11 @@ import java.net.URI
 class EmprestimoMatriculaController(private val emprestimoMatriculaService: EmprestimoMatriculaService) {
 
     @CrossOrigin
-    @GetMapping("/{datainicio}") //emprestimo?matricula=string&datainicio=long
-    fun getemprestimo(@PathVariable matricula: String, @PathVariable datainicio: Long): ResponseEntity<Any>{
+    @GetMapping//emprestimo?matricula=string&datainicio=long
+    fun getemprestimo(@PathVariable matricula: String, @RequestParam(value = "datainicio", required = false) datainicio: Long?): ResponseEntity<Any>{
+        if (datainicio == null)
+            return responseOkWithBody(emprestimoMatriculaService.getAllEmprestimosMatricula(matricula))
         return responseOkWithBody(getEmprestimoMatriculaOutputModel(emprestimoMatriculaService.getEmprestimoMatricula(matricula, datainicio)))
-    }
-
-    @CrossOrigin
-    @GetMapping
-    fun getAllEmprestimo(@PathVariable matricula: String): ResponseEntity<Any>{
-        return responseOkWithBody(emprestimoMatriculaService.getAllEmprestimosMatricula(matricula))
     }
 
     //post emprestimo
