@@ -12,7 +12,7 @@ class EmprestimoUsuarioService(private val db: EmprestimoDatabase, private val m
         return mapper.multiple(db.getAllUser(nif))
     }
 
-    fun getEmprestimoWithDate(matricula: String, dataInicio: Long) : EmprestimoUsuario {
-        return mapper.single(db.queryGetWithDate(matricula, dataInicio))
+    fun getEmprestimoWithDate(nif: String, matricula: String, dataInicio: Long) : EmprestimoUsuario {
+        return mapper.single(db.queryGetWithDate(nif,matricula, dataInicio))
     }
 }

@@ -14,8 +14,8 @@ class EmprestimoUsuarioController(private val emprestimoUsuarioService: Empresti
 
     @CrossOrigin
     @GetMapping("/emprestimos")//emprestimos?matricula=string&datainicio=long
-    fun getemprestimo(@RequestParam matricula: String, @RequestParam datainicio: Long): ResponseEntity<Any> {
-        return responseOkWithBody(getEmprestimoUsuarioOutputModel(emprestimoUsuarioService.getEmprestimoWithDate(matricula, datainicio)))
+    fun getemprestimo(@PathVariable nif: String, @RequestParam matricula: String, @RequestParam datainicio: Long): ResponseEntity<Any> {
+        return responseOkWithBody(getEmprestimoUsuarioOutputModel(emprestimoUsuarioService.getEmprestimoWithDate(nif ,matricula, datainicio)))
     }
 
     @CrossOrigin

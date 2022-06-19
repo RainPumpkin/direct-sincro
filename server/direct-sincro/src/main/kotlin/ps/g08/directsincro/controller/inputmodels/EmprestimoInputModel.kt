@@ -6,16 +6,16 @@ import ps.g08.directsincro.common.getTimestamp
 
 data class EmprestimoInputModel(
     val usuario: String,
-    val datainicio: Long,
-    val datafim: Long,
+    val dataInicio: Long,
+    val dataFim: Long,
     val estado: String
 )
 
 
 fun getEmprestimoFromInputModel(input : EmprestimoInputModel) : EmprestimoMatricula{
     return EmprestimoMatricula(
-        dataInicio = input.datainicio,
-        dataFim = input.datafim,
+        dataInicio = input.dataInicio,
+        dataFim = input.dataFim,
         usuario = input.usuario,
         estado = input.estado
     )

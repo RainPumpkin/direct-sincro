@@ -15,10 +15,10 @@ class EmprestimoMatriculaController(private val emprestimoMatriculaService: Empr
 
     @CrossOrigin
     @GetMapping//emprestimo?matricula=string&datainicio=long
-    fun getemprestimo(@PathVariable matricula: String, @RequestParam(value = "datainicio", required = false) datainicio: Long?): ResponseEntity<Any>{
+    fun getemprestimo(@PathVariable nif: String, @PathVariable matricula: String, @RequestParam(value = "datainicio", required = false) datainicio: Long?): ResponseEntity<Any>{
         if (datainicio == null)
             return responseOkWithBody(emprestimoMatriculaService.getAllEmprestimosMatricula(matricula))
-        return responseOkWithBody(getEmprestimoMatriculaOutputModel(emprestimoMatriculaService.getEmprestimoMatricula(matricula, datainicio)))
+        return responseOkWithBody(getEmprestimoMatriculaOutputModel(emprestimoMatriculaService.getEmprestimoMatricula(nif, matricula, datainicio)))
     }
 
     //post emprestimo

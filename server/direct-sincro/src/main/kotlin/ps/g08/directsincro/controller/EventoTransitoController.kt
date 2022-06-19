@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*
 import ps.g08.directsincro.common.responseOkWithBody
 import ps.g08.directsincro.controller.inputmodels.EventoTransitoInputModel
 import ps.g08.directsincro.controller.inputmodels.getEventoFromEventoTransitoInputModel
+import ps.g08.directsincro.controller.outputmodel.getMultipleEventoOutputModel
 import ps.g08.directsincro.service.EventoTransitoService
 import java.net.URI
 
@@ -35,9 +36,8 @@ class EventoTransitoController(
 
     @CrossOrigin
     @GetMapping("/subscritores/{nif}/veiculos/{matricula}/eventos")
-    fun getAllEventosVeiculo() : ResponseEntity<Any>{
-        //retorna todos os eventos do veiculo
-        throw NotImplementedException("getalleventos");
+    fun getAllEventosVeiculo(@PathVariable matricula: String) : ResponseEntity<Any>{
+        return responseOkWithBody(getMultipleEventoOutputModel(service.getAllEventos(matricula)))
     }
 
     @CrossOrigin

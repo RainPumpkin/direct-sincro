@@ -16,7 +16,7 @@ class EventoTransitoMapper : IMapper<EventoTransitoDatabaseRow, Evento_Transito>
             classificacaoInfracao = obj.classificacaoInfracao,
             descricao = obj.descricao,
             valor = obj.valor,
-            localizao = obj.localizacao,
+            localizacao = obj.localizacao,
             entidadeAutuante = obj.entidadeAutuante,
             dataLimiteDefesa = obj.dataLimiteDefesa.time//inverse is new Date(long)
         )

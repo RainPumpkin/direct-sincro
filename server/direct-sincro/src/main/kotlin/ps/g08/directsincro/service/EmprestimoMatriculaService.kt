@@ -11,8 +11,8 @@ class EmprestimoMatriculaService(private val db: EmprestimoDatabase, private val
         return mapper.multiple(db.getAllMatricula(matricula))
     }
 
-    fun getEmprestimoMatricula(matricula: String, dataInicio: Long) : EmprestimoMatricula{
-        return mapper.single(db.queryGetWithDate(matricula, dataInicio))
+    fun getEmprestimoMatricula(nif: String, matricula: String, dataInicio: Long) : EmprestimoMatricula{
+        return mapper.single(db.queryGetWithDate(nif, matricula, dataInicio))
     }
 
     fun createEmprestimo(emprestimoMatricula: EmprestimoMatricula, matricula: String) {

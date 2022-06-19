@@ -19,7 +19,7 @@ data class EventoTransitoDatabaseRow(
     val valor: Double,
     val localizacao: String,
     val entidadeAutuante: String,
-    val dataLimiteDefesa: Date
+    val dataLimiteDefesa: Timestamp
 )
 
 @Component
@@ -34,6 +34,8 @@ class EventoTransitoDatabase(private val source : Jdbi) {
     }
 
     fun get(numeroAuto: String) : EventoTransitoDatabaseRow{
+
+
         return source.withHandleUnchecked { handle ->
             handle
                 .createQuery(queryGet)
@@ -75,7 +77,7 @@ class EventoTransitoDatabase(private val source : Jdbi) {
                 .bind(5, evento.classificacaoInfracao)
                 .bind(6, evento.descricao)
                 .bind(7, evento.valor)
-                .bind(8, evento.localizao)
+                .bind(8, evento.localizacao)
                 .bind(9, evento.entidadeAutuante)
                 .bind(10, getTimestamp(evento.dataLimiteDefesa))
                 .execute()

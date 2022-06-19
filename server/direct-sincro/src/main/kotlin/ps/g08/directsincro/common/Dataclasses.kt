@@ -69,7 +69,7 @@ data class Evento_Transito(
     val classificacaoInfracao: String,
     val descricao: String,
     val valor: Double,
-    val localizao: String,
+    val localizacao: String,
     val entidadeAutuante: String,
     val dataLimiteDefesa: Long
 )

@@ -45,7 +45,7 @@ fun getEventoFromEventoTransitoInputModel(input: EventoTransitoInputModel) : Eve
                 classificacaoInfracao = input.evento.dadosDaInfracao.gravidade,
                 descricao = input.evento.dadosDaInfracao.descricaoSumaria,
                 valor = input.evento.dadosDaInfracao.valorDaCoima,
-                localizao = input.evento.dadosDaInfracao.local,
+                localizacao = input.evento.dadosDaInfracao.local,
                 entidadeAutuante = input.evento.dadosDaInfracao.entidadeAutuante,
                 dataLimiteDefesa = dataDefesa.time/1000
         )

@@ -56,11 +56,12 @@ class EmprestimoDatabase(private val source : Jdbi) {
         }
     }
 
-    fun queryGetWithDate(matricula: String, dataInicio: Long): EmprestimoDatabaseRow {
+    fun queryGetWithDate(nif: String, matricula: String, dataInicio: Long): EmprestimoDatabaseRow {
+        val timestamp: Timestamp = getTimestamp(dataInicio)
         return source.withHandleUnchecked { handle -> handle
             .createQuery(queryGetWithDate)
             .bind(0, matricula)
-            .bind(1, getTimestamp(dataInicio))
+            .bind(1, timestamp)
             .mapTo(EmprestimoDatabaseRow::class.java)
             .one()
         }

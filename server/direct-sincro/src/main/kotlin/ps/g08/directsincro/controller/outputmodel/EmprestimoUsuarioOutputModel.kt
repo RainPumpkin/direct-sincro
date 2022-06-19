@@ -6,16 +6,16 @@ import java.sql.Timestamp
 
 data class EmprestimoUsuarioOutputModel(
     val matricula: String,
-    val datainicio: Timestamp,
-    val datafim: Timestamp,
+    val datainicio: Long,
+    val datafim: Long,
     val estado: String
 )
 
 fun getEmprestimoUsuarioOutputModel(emprestimoUsuario: EmprestimoUsuario) : EmprestimoUsuarioOutputModel {
     return EmprestimoUsuarioOutputModel(
         matricula = emprestimoUsuario.matricula,
-        datainicio = getTimestamp(emprestimoUsuario.dataInicio),
-        datafim = getTimestamp(emprestimoUsuario.dataFim),
+        datainicio = emprestimoUsuario.dataInicio,
+        datafim = emprestimoUsuario.dataFim,
         estado = emprestimoUsuario.estado
     )
 }

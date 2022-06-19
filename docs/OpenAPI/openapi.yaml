@@ -26,7 +26,7 @@ paths:
         description: nif do cidadao
         required: true
         schema:
-          type: integer
+          type: string
       - name: matricula
         in: path
         description: matricula do veiculo
@@ -46,6 +46,33 @@ paths:
           description: Algum parametro estava incorreto
         '409': 
           description: O pedido ja se encontra criado.
+    get:
+      tags:
+        - Subscritores
+      summary: Obter eventos do veiculo
+      operationId: "obterEventoMatricula"
+      parameters:
+      - name: nif
+        in: path
+        description: nif do cidadao
+        required: true
+        schema:
+          type: string
+      - name: matricula
+        in: path
+        description: matricula do veiculo
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Eventos do veiculo
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EventoDeTransito"
+        '400':
+          description: Algum parametro estava incorreto
 
   /api/subscritores/{nif}/alugados/{matricula}/eventos:
     post:
@@ -59,7 +86,7 @@ paths:
         description: nif do cidadao
         required: true
         schema:
-          type: integer
+          type: string
       - name: matricula
         in: path
         description: matricula do veiculo
@@ -92,7 +119,7 @@ paths:
         description: nif do cidadao
         required: true
         schema:
-          type: integer
+          type: string
       - name: matricula
         in: query
         description: matricula do veiculo
@@ -103,7 +130,7 @@ paths:
         name: datainicio
         required: true
         schema:
-          type: string
+          type: integer
         description: data em que Emprestimo iniciou
       responses:
         '200':
@@ -129,7 +156,7 @@ paths:
         description: nif do cidadao
         required: true
         schema:
-          type: integer
+          type: string
       - name: matricula
         in: path
         description: matricula do veiculo
@@ -158,7 +185,7 @@ paths:
         description: nif do cidadao
         required: true
         schema:
-          type: integer
+          type: string
       - name: matricula
         in: path
         description: matricula do veiculo
@@ -192,7 +219,7 @@ paths:
         description: nif do cidadao
         required: true
         schema:
-          type: integer
+          type: string
       - name: matricula
         in: path
         description: matricula do veiculo
@@ -229,7 +256,7 @@ paths:
         description: nif do cidadao
         required: true
         schema:
-          type: integer
+          type: string
       - name: matricula
         in: path
         description: matricula do veiculo
@@ -287,7 +314,7 @@ paths:
         description: nif do cidadao
         required: true
         schema:
-          type: integer
+          type: string
       responses:
         '200':
           description: Toda a informaçao do Subscritor
@@ -313,7 +340,7 @@ paths:
         description: nif do cidadao
         required: true
         schema:
-          type: integer
+          type: string
       requestBody:
         required: true
         content:
@@ -338,7 +365,7 @@ paths:
         description: nif do cidadao
         required: true
         schema:
-          type: integer
+          type: string
       responses:
         '200':
           description: Todos os veiculos do cidadao com sessao aberta
@@ -363,7 +390,7 @@ paths:
         description: nif do cidadao
         required: true
         schema:
-          type: integer
+          type: string
       - in: path
         name: matricula
         required: true
@@ -392,7 +419,7 @@ paths:
         description: nif do cidadao
         required: true
         schema:
-          type: integer
+          type: string
       responses:
         '200':
           description: Todas as notificações do Subscritor
@@ -416,7 +443,7 @@ paths:
         description: nif do cidadao
         required: true
         schema:
-          type: integer
+          type: string
       requestBody:
         required: true
         content:
@@ -443,7 +470,7 @@ paths:
         description: nif do cidadao
         required: true
         schema:
-          type: integer
+          type: string
       - name: id
         in: path
         description: id da notificaçao
@@ -495,7 +522,7 @@ components:
       type: object
       properties:
         nif:
-          type: integer
+          type: string
         password:
           type: string
         notificações:
@@ -521,7 +548,7 @@ components:
         veiculoAutuado:
           type: string
         data:
-          type: integer
+          type: string
         local:
           type: string
         normaInfrigida:
@@ -531,7 +558,7 @@ components:
         descricaoSumaria:
           type: string
         dataLimiteDefesa:
-          type: integer
+          type: string
         estadoDoPagamento:
           type: string
         valorDaCoima:
@@ -574,12 +601,12 @@ components:
       type: object
       properties:
         dataInicio:
-          type: string
+          type: integer
         dataFim:
-          type: string
+          type: integer
         estado:
           type: string
-        matricula:
+        usuario:
           type: string
     Emprestimos:
       type: object
