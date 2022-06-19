@@ -2,19 +2,19 @@
     {
         "evento" : {
             "dadosDoVeiculo": {
-                "matricula" : "ZH-87-34",
+                "matricula" : "WN-23-DA",
                 "categoria" : "AUTOMÓVEL LIGEIRO",
                 "tipoDeInfracao" : "PASSAGEIROS",
                 "pais" : "PORTUGAL"
             },
             "dadosDaInfracao" : {
                 "numeroAuto" : "753456789",
-                "veiculoAutuado" : "ZH-87-34",
+                "veiculoAutuado" : "WN-23-DA",
                 "dataHora" : "2021-11-10 19:53",
                 "local" : "Rua da Praia, São Pedro da Afurada",
                 "normaInfrigida" : "27.º n.º 1",
                 "distrito" : "Porto",
-                "descriçaoSumaria" : "Cond. aut.lig. local., +de 20 Km/h até 40 Km/h",
+                "descricaoSumaria" : "Cond. aut.lig. local., +de 20 Km/h até 40 Km/h",
                 "dataLimiteDefesa" : "2021-12-14",
                 "estadoDoPagamento" : "Paga",
                 "valorDaCoima" : 120,
@@ -27,14 +27,14 @@
     {
         "evento" : {
             "dadosDoVeiculo": {
-                "matricula" : "23-GF-87",
+                "matricula" : "10-AG-AG",
                 "categoria": "AUTOMÓVEL LIGEIRO",
                 "tipoDeInfracao": "PASSAGEIROS",
                 "pais": "PORTUGAL"
             },
             "dadosDaInfracao": {
                 "numeroAuto" : "897356789",
-                "veiculoAutuado": "23-GF-87",
+                "veiculoAutuado": "10-AG-AG",
                 "dataHora": "2019-11-10 19:53",
                 "local": "IC2 km 164,400 Venda Nova",
                 "normaInfrigida": "27.º n.º 1",
@@ -52,14 +52,39 @@
     {
         "evento": {
             "dadosDoVeiculo" : {
-                "matricula": "JH-08-78",
+                "matricula": "KL-38-FG",
                 "categoria": "AUTOMÓVEL LIGEIRO",
                 "tipoDeInfracao": "PASSAGEIROS",
                 "pais": "PORTUGAL"
             },
             "dadosDaInfracao": {
                 "numeroAuto" : "753432789",
-                "veiculoAutuado": "JH-08-78",
+                "veiculoAutuado": "KL-38-FG",
+                "dataHora": "2020-11-10 19:53",
+                "local": "IC2 km 164,400 Venda Nova",
+                "normaInfrigida": "27.º n.º 1",
+                "distrito": "Coimbra",
+                "descricaoSumaria": "Cond. aut.lig. local., +de 20 Km/h até 40 Km/h",
+                "dataLimiteDefesa": "2020-12-14",
+                "estadoDoPagamento": "Por pagar",
+                "valorDaCoima": 120,
+                "gravidade": "Grave",
+                "entidadeAutuante": "DESTACAMENTO TRÂNSITO G.N.R. DE COIMBRA",
+                "dataNotificacao": "2019-11-29"
+            }
+        }
+    },
+    {
+        "evento": {
+            "dadosDoVeiculo" : {
+                "matricula": "03-42-LM",
+                "categoria": "AUTOMÓVEL PESADO",
+                "tipoDeInfracao": "CARGA",
+                "pais": "PORTUGAL"
+            },
+            "dadosDaInfracao": {
+                "numeroAuto" : "753432789",
+                "veiculoAutuado": "03-42-LM",
                 "dataHora": "2020-11-10 19:53",
                 "local": "IC2 km 164,400 Venda Nova",
                 "normaInfrigida": "27.º n.º 1",

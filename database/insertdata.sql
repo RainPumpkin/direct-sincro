@@ -11,3 +11,8 @@ Insert into Veiculo Values('WN-23-DA', 'Ford', 'nsei', '910999888');
 Insert into Veiculo Values('10-AG-AG', 'Seat', 'nsei', '910999888');
 Insert into Veiculo Values('KL-38-FG', 'Volkswagen', 'nsei', '910999888');
 Insert into Veiculo Values('FA-AF-90', 'Tesla', 'nsei', '910999888');
+
+Select * from subscritor;
+select * from veiculo;
+select * from evento_transito;
+delete from veiculo where matricula = '01-98-TY';

@@ -66,7 +66,7 @@ Create Table Evento_Transito(
 	veiculo 				char(8),
 	estadoPagamento 		varchar(10),
 	data 					timestamp,
-	tipo 					varchar(10),
+	tipo 					varchar(15),
 	classificacaoInfracao 	varchar(20),
 	descricao 				varchar(500),
 	valor 					decimal(6,2),

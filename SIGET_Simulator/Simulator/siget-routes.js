@@ -7,8 +7,9 @@ router.post('/veiculo', insertVehicle)
 router.delete('/veiculo', deleteVehicle)
 
 let matriculas = [
-    {"matricula" : "23-GF-87"},
-    {"matricula": "JH-08-78"}
+    {"matricula" : "WN-23-DA"},
+    {"matricula": "10-AG-AG"},
+    {"matricula": "KL-38-FG"}
 ]
 
 

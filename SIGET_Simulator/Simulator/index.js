@@ -8,10 +8,8 @@ import { matriculas } from './siget-routes.js'
  * Roots need to be refactored
  */
 //const SCOT = 'http://localhost:4000/scot/notificacoes'
-//const DIRECT_SINCRO = 'http://localhost:8080/api/notificacoes'
 const SCOT_URL = 'http://scot.requestcatcher.com/'
-const DIRECT_SINCRO_URL = 'http://direct_sincro.requestcatcher.com/'
-
+const DIRECT_SINCRO_URL = 'http://localhost:8080/api/eventos'
 
 function importEvents() {
   readFile('../Data/eventos.json','utf-8',function(err, jsonData){

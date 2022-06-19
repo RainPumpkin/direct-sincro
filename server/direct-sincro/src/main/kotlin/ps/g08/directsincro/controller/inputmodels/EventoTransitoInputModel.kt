@@ -1,6 +1,7 @@
 package ps.g08.directsincro.controller.inputmodels
 
 import ps.g08.directsincro.common.Evento_Transito
+import java.text.SimpleDateFormat
 
 data class EventoTransitoInputModel(
         val evento: Evento
@@ -12,39 +13,40 @@ data class Evento(
 )
 
 data class DadosDoVeiculo(
-        val Matricula : String,
-        val Categoria : String,
-        val TipoDeInfracao : String,
-        val Pais : String
+        val matricula : String,
+        val categoria : String,
+        val tipoDeInfracao : String,
+        val pais : String
 )
 
 data class DadosDaInfracao(
         val numeroAuto : String,
-        val VeiculoAutuado : String,
-        val DataHora : Long,
+        val veiculoAutuado : String,
+        val dataHora : String,
         val local : String,
-        val NormaInfigida : String,
-        val Distrito : String,
-        val DescricaoSumaria : String,
-        val DataLimiteDefesa : Long,
-        val EstadoDoPagamento : String,
-        val ValorDaCoima : Double,
-        val Gravidade : String,
-        val EntidadeAutuante : String,
-        val DataNotificacao : String
+        val normaInfrigida : String,
+        val distrito : String,
+        val descricaoSumaria : String,
+        val dataLimiteDefesa : String,
+        val estadoDoPagamento : String,
+        val valorDaCoima : Double,
+        val gravidade : String,
+        val entidadeAutuante : String,
+        val dataNotificacao : String
 )
-
 fun getEventoFromEventoTransitoInputModel(input: EventoTransitoInputModel) : Evento_Transito{
+        val data = SimpleDateFormat("yyyy-MM-dd HH:mm").parse(input.evento.dadosDaInfracao.dataHora)
+        val dataDefesa = SimpleDateFormat("yyyy-MM-dd").parse(input.evento.dadosDaInfracao.dataLimiteDefesa)
         return Evento_Transito(
                 numeroAuto = input.evento.dadosDaInfracao.numeroAuto,
-                estadoPagamento = input.evento.dadosDaInfracao.EstadoDoPagamento,
-                data = input.evento.dadosDaInfracao.DataHora,
-                tipo = input.evento.dadosDoVeiculo.TipoDeInfracao,
-                classificacaoInfracao = input.evento.dadosDaInfracao.Gravidade,
-                descricao = input.evento.dadosDaInfracao.DescricaoSumaria,
-                valor = input.evento.dadosDaInfracao.ValorDaCoima,
+                estadoPagamento = input.evento.dadosDaInfracao.estadoDoPagamento,
+                data = data.time/1000,
+                tipo = input.evento.dadosDoVeiculo.tipoDeInfracao,
+                classificacaoInfracao = input.evento.dadosDaInfracao.gravidade,
+                descricao = input.evento.dadosDaInfracao.descricaoSumaria,
+                valor = input.evento.dadosDaInfracao.valorDaCoima,
                 localizao = input.evento.dadosDaInfracao.local,
-                entidadeAutuante = input.evento.dadosDaInfracao.EntidadeAutuante,
-                dataLimiteDefesa = input.evento.dadosDaInfracao.DataLimiteDefesa
+                entidadeAutuante = input.evento.dadosDaInfracao.entidadeAutuante,
+                dataLimiteDefesa = dataDefesa.time/1000
         )
 }

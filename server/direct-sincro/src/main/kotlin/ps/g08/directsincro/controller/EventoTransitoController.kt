@@ -1,8 +1,10 @@
 package ps.g08.directsincro.controller
 
 import jdk.jshell.spi.ExecutionControl.NotImplementedException
+import mu.KotlinLogging
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import ps.g08.directsincro.common.responseOkWithBody
 import ps.g08.directsincro.controller.inputmodels.EventoTransitoInputModel
 import ps.g08.directsincro.controller.inputmodels.getEventoFromEventoTransitoInputModel
 import ps.g08.directsincro.service.EventoTransitoService
@@ -13,12 +15,12 @@ import java.net.URI
 class EventoTransitoController(
     private val service: EventoTransitoService
 ) {
-
     //Evento proveniente do SIGET
     @CrossOrigin
     @PostMapping("/eventos")
-    fun receiveEvento(@RequestBody input : EventoTransitoInputModel) {
-
+    fun receiveEvento(@RequestBody input : EventoTransitoInputModel) : ResponseEntity<Any> {
+        service.createEvento(getEventoFromEventoTransitoInputModel(input), input.evento.dadosDoVeiculo.matricula)
+        return responseOkWithBody(responseOkWithBody("Evento adicionado com sucesso"))
     }
 
     //subscritores/nif/veiculos/matricula/eventos ->eventos de transito do meu veiculo
