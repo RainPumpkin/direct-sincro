@@ -26,6 +26,8 @@ dependencies {
 	implementation("org.jdbi:jdbi3-core:3.28.0")
 	implementation("org.jdbi:jdbi3-kotlin:3.28.0")
 	implementation("org.postgresql:postgresql:42.1.4")
+	implementation("com.squareup.okhttp3:okhttp:3.14.9")
+	implementation("io.github.microutils:kotlin-logging:1.12.5")
 }
 
 tasks.withType<KotlinCompile> {
