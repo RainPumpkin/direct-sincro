@@ -1,41 +1,30 @@
-Create Table Pessoa(
+Create Table Cidadao(
 	nome 				varchar(100),
 	nif 				char(9),
 	numero_conducao 	char(9),--L-(numero 7 digitos)
 	email 				varchar(400),--google says 320
+	password			varchar(100),--autenticacao mudar isto para password+salt e guardar o hash
 
 	Primary Key(nif),
-	CONSTRAINT Pessoa_nif CHECK (nif ~ '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'),
-	CONSTRAINT Pessoa_conducao CHECK (numero_conducao ~ 'L-[0-9][0-9][0-9][0-9][0-9][0-9][0-9]')
+	CONSTRAINT Cidadao_nif CHECK (nif ~ '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'),
+	CONSTRAINT Cidadao_conducao CHECK (numero_conducao ~ 'L-[0-9][0-9][0-9][0-9][0-9][0-9][0-9]')
 );
 
 Create Table Subscritor(
 	nif 		char(9),
-	password	varchar(100),--autenticacao mudar isto para password+salt e guardar o hash
 	
 	Primary Key(nif),
-	Foreign Key(nif) References Pessoa(nif)
+	Foreign Key(nif) References Cidadao(nif)
 );
 
-Create Table Admin(
-	nif 		char(9),
-	username 	varchar(20),
-	password 	varchar(100),--autenticacao mudar isto para password+salt e guardar o hash
+Create Table DataSubscricao(
+	inicio			timestamp,
+	cancelamento	timestamp,
 
-	Primary Key(username),
-	Foreign Key(nif) References Pessoa(nif)
-);
+	nif 			char(9),
 
-Create Table Notificacao(
-	emitida 	boolean,--0->n/1->s
-	mensagem 	varchar(5000),
-	id 			serial,
-	recebida	boolean,--0->n/1->s
-	tipo 		varchar(100),
-	subscritor 	char(9),
-
-	Primary Key(id),
-	Foreign Key(subscritor) References Subscritor(nif)
+	Primary Key(nif, inicio),
+	Foreign Key(nif) References Subscritor(nif)
 );
 
 Create Table Veiculo(
@@ -49,45 +38,46 @@ Create Table Veiculo(
 	CONSTRAINT Veiculo_matricula CHECK (matricula ~ '([A-Z]|[0-9])([A-Z]|[0-9])-([A-Z]|[0-9])([A-Z]|[0-9])-([A-Z]|[0-9])([A-Z]|[0-9])')
 );
 
-Create Table Emprestimo(
-	matricula 	char(8),
-	usuario 	char(9),
+Create Table Delegacao(
 	dataInicio 	timestamp,
 	dataFim 	timestamp,
-	estado 		varchar(20),--aguardar/emprestado/devolvido
+
+	matricula 	char(8),
+	usuario 	char(9),
 
 	Primary Key(matricula, dataInicio),
 	Foreign key(matricula) References Veiculo(matricula),
 	Foreign Key(usuario) References Subscritor(nif)
 );
 
-Create Table Evento_Transito(
+Create Table Contraordenacao(
 	numeroAuto 				char(9),
-	veiculo 				char(8),
 	estadoPagamento 		varchar(10),
 	data 					timestamp,
-	tipo 					varchar(15),
+	catagoriaVeiculo		varchar(15),
 	classificacaoInfracao 	varchar(20),
 	descricao 				varchar(500),
-	valor 					decimal(6,2),
-	localizacao 			varchar(100),
+	valorCoima				decimal(6,2),
+	local					varchar(100),
 	entidadeAutuante 		varchar(50),
 	dataLimiteDefesa 		date,
+
+	veiculo 				char(8),
 
 	Primary Key(numeroAuto),
 	Foreign Key(veiculo) References Veiculo(matricula)
 );
 
-Create Table Pedido_Defesa(
-	id 					serial,--id interno, pedido n volta para o direct
-	moradaSede 			varchar(100),
-	justificacao		varchar(1500),
-	numero_conducao 	char(9),--L-(numero 7 digitos)
-	numeroAuto 			char(9) unique,
-	requeridor 			char(9),
+Create Table Notificacao(
+	emitida 		boolean,--0->n/1->s
+	mensagem 		varchar(5000),
+	recebida		boolean,--0->n/1->s
+	tipo 			varchar(100),
 
-	Primary Key(id),
-	Foreign Key(numeroAuto) References Evento_Transito(numeroAuto),
-	Foreign Key(requeridor) References Subscritor(nif),
-	CONSTRAINT Pedido_Defesa_conducao CHECK (numero_conducao ~ 'L-[0-9][0-9][0-9][0-9][0-9][0-9][0-9]')
+	subscritor 		char(9),
+	contraordenacao	char(9),
+
+	Primary Key(emitida, subscritor),
+	Foreign Key(subscritor) References Subscritor(nif),
+	Foreign Key(contraordenacao) References Contraordenacao(numeroAuto)
 );
