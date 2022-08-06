@@ -21,6 +21,8 @@ function importEvents() {
 
 /**
  * TODO: requests should retry until servers are up again
+ * All events are send to SCOT simulator and only the events which
+ * have matricula registered in Direct-Sincro are send to Direct-Sincro
  * @param {array} data 
  */
 async function prepareRequests(data) {
@@ -30,10 +32,9 @@ async function prepareRequests(data) {
   data.forEach(element => {
     const matricula = element.evento.dadosDoVeiculo.matricula
     const check = matriculas.find(m => m.matricula === matricula)
+    SCOT.push(element)
     if (check != undefined) {
       directSincroSubscriptions.push(element)
-    } else {
-      SCOT.push(element)
     }
   });
 

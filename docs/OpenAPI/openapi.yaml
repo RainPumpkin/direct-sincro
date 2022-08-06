@@ -78,7 +78,7 @@ paths:
     post:
       tags:
         - Subscritores
-      summary: Associar evento de transito ao responsavel pelo Emprestimo
+      summary: Associar evento de transito ao responsavel pelo Delegacao
       operationId: "adicionarEventoEmprestado"
       parameters:
       - name: nif
@@ -107,12 +107,12 @@ paths:
         '409': 
           description: O pedido ja se encontra criado.
 
-  /api/subscritores/{nif}/emprestimos?matricula=string&datainicio=long:
+  /api/subscritores/{nif}/delegacoes?matricula=string&datainicio=long:
     get:
       tags:
         - Subscritores
-      summary: Requerer os Emprestimos deste veiculo com data de inicio pretendida
-      operationId: "pedirEmprestimosComData"
+      summary: Requerer os Delegacoes deste veiculo com data de inicio pretendida
+      operationId: "pedirDelegacoesComData"
       parameters:
       - name: nif
         in: path
@@ -120,8 +120,8 @@ paths:
         required: true
         schema:
           type: string
-      - name: matricula
-        in: query
+      - in: query
+        name: matricula
         description: matricula do veiculo
         required: true
         schema:
@@ -131,25 +131,25 @@ paths:
         required: true
         schema:
           type: integer
-        description: data em que Emprestimo iniciou
+        description: data em que Delegacao iniciou
       responses:
         '200':
-          description: Emprestimos do veiculo
+          description: Delegacoes do veiculo
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Emprestimo'
+                $ref: '#/components/schemas/Delegacao'
         '400':
           description: Algum parametro estava incorreto
         '404': 
           description: O pedido nao foi encontrado
 
-  /api/subscritores/{nif}/veiculos/{matricula}/emprestimos:
+  /api/subscritores/{nif}/veiculos/{matricula}/delegacoes:
     get:
       tags:
         - Subscritores
-      summary: Requerer os Emprestimos deste veiculo
-      operationId: "pedirEmprestimos"
+      summary: Requerer os Delegacoes deste veiculo
+      operationId: "pedirDelegacoes"
       parameters:
       - name: nif
         in: path
@@ -165,11 +165,11 @@ paths:
           type: string
       responses:
         '200':
-          description: Emprestimos do veiculo
+          description: Delegacoes do veiculo
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Emprestimos'
+                $ref: '#/components/schemas/Delegacoes'
         '400':
           description: Algum parametro estava incorreto
         '404': 
@@ -177,8 +177,8 @@ paths:
     post:
       tags:
         - Subscritores
-      summary: Adicionar emprestimo ao veiculo
-      operationId: "fazerEmprestimo"
+      summary: Adicionar delegacao ao veiculo
+      operationId: "fazerDelegacao"
       parameters:
       - name: nif
         in: path
@@ -197,7 +197,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Emprestimo"
+              $ref: "#/components/schemas/Delegacao"
       responses:
         '201':
           description: O pedido foi enviado com sucesso 
@@ -293,7 +293,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Pessoa"
+              $ref: "#/components/schemas/Cidadao"
       responses:
         '201':
           description: O pedido foi enviado com sucesso 
@@ -526,13 +526,21 @@ components:
         password:
           type: string
         notificações:
-          type: array
+          type: object 
+          items:
+            $ref: '#/components/schemas/Notificacoes'
         veiculos:
           type: array
+          items:
+            $ref: '#/components/schemas/Veiculo'
         veiculosAlugados:
           type: array
-        emprestimos:
+          items:
+            $ref: '#/components/schemas/Veiculo'
+        delegacoes:
           type: array
+          items:
+            $ref: '#/components/schemas/Delegacao'
     Admin:
       type: object
       properties:
@@ -597,24 +605,22 @@ components:
           type: integer
         descricao:
           type: string
-    Emprestimo:
+    Delegacao:
       type: object
       properties:
         dataInicio:
           type: integer
         dataFim:
           type: integer
-        estado:
-          type: string
         usuario:
           type: string
-    Emprestimos:
+    Delegacoes:
       type: object
       properties:
-        emprestimos:
+        delegacoes:
           type: array
           items:
-            $ref: '#/components/schemas/Emprestimo'
+            $ref: '#/components/schemas/Delegacao'
     Login:
       type: object
       properties:
@@ -622,7 +628,7 @@ components:
           type: string
         password:
           type: string
-    Pessoa:
+    Cidadao:
       type: object
       properties:
         nome:
@@ -632,4 +638,6 @@ components:
         numeroConducao:
           type: string
         email:
+          type: string
+        password:
           type: string
