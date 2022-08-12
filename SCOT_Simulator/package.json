@@ -1,0 +1,16 @@
+{
+  "name": "scot_simulator",
+  "version": "1.0.0",
+  "description": "This is a simulator for the system SCOT of ANSR",
+  "main": "scot-server.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "G08",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "express": "^4.18.1",
+    "hbs": "^4.2.0"
+  }
+}

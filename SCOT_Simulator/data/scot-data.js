@@ -58,8 +58,8 @@ function getAllInformation(){
     return data
 }
 
-module.exports = {
+export default {
     addCarPlate,
     addEvent,
-    getAllInformation
+    getAllInformation, 
 }

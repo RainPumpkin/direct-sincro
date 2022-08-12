@@ -1,7 +1,7 @@
 import fetch from 'node-fetch'
 import { readFile } from "fs"
-import app from "./Simulator/siget_simulator/siget-server.js"
-import { matriculas } from './Simulator/siget_simulator/siget-routes.js'
+import app from "./siget-server.js"
+import { matriculas } from './siget-routes.js'
 
 
 /**
@@ -10,6 +10,7 @@ import { matriculas } from './Simulator/siget_simulator/siget-routes.js'
 const SCOT_URL = 'http://localhost:4000/scot/notificacoes'
 const DIRECT_SINCRO_URL = 'http://localhost:8080/api/eventos'
 
+
 function importEvents() {
   readFile('./Data/eventos.json','utf-8',function(err, jsonData){
     if (err) throw err;  
@@ -17,6 +18,7 @@ function importEvents() {
     prepareRequests(data)
   }); 
 }
+
 
 /**
  * TODO: requests should retry until servers are up again

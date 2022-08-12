@@ -1,9 +1,10 @@
 import app from 'express'
 const router = app.Router()
-const scot_data = require('./data/scot-data')
+import scot_data from './data/scot-data.js'
+
+
 
 router.post('/notificacoes', insertNotifications)
-
 
 function insertNotifications(req, res, next) {
     try {

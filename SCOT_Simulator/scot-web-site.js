@@ -1,7 +1,8 @@
 'use strict'
 
-const router = require('express').Router()
-const veiculos = require('./data/scot-data')
+import app from 'express'
+const router = app.Router()
+import veiculos from './data/scot-data.js'
 
 router.get('/', getHome)
 router.get('/about', getAbout)
@@ -20,4 +21,4 @@ function getAbout(req, res, next) {
     res.render('about')
 }
 
-module.exports = router
+export default router
