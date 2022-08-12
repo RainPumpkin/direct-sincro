@@ -6,17 +6,15 @@ import org.springframework.stereotype.Component
 import ps.g08.directsincro.common.Subscritor
 
 data class SubscritorDatabaseRow(
-    val nif: String,
-    val password: String
+    val nif: String
 )
 
 @Component
 class SubscritorDatabase(private val source : Jdbi) {
     companion object {
-        const val queryGet = "SELECT * FROM Subscritor WHERE nif = ? "
+        const val queryGet = "SELECT * FROM Subscritor WHERE nif = ? "//?
         //const val queryGetAll = "SELECT * FROM Subscritor"
-        const val queryCreate = "INSERT INTO Subscritor(nif, password) VALUES (?,?)"
-        const val queryUpdate = "UPDATE Subscritor SET password = ? WHERE nif = ?"
+        const val queryCreate = "INSERT INTO Subscritor(nif) VALUES (?)"
         const val queryDelete = "Delete FROM Subscritor WHERE nif = ?"
     }
 
@@ -30,25 +28,14 @@ class SubscritorDatabase(private val source : Jdbi) {
         }
     }
 
-    fun create(nif: String, password: String): String {
+    fun create(nif: String): String {
         source.withHandleUnchecked { handle ->
             handle
                 .createUpdate(queryCreate)
                 .bind(0, nif)
-                .bind(1, password)
                 .execute()
         }
         return nif
-    }
-
-    fun update(password: String, nif : String){
-        source.withHandleUnchecked { handle ->
-            handle
-                .createUpdate(queryUpdate)
-                .bind(0, password)
-                .bind(1, nif)
-                .execute()
-        }
     }
 
     fun delete(nif : String) {
