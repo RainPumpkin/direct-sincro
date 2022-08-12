@@ -69,7 +69,7 @@ Create Table Contraordenacao(
 );
 
 Create Table Notificacao(
-	emitida 		boolean,--0->n/1->s
+	emitida 		timestamp,
 	mensagem 		varchar(5000),
 	recebida		boolean,--0->n/1->s
 	tipo 			varchar(100),
