@@ -3,11 +3,11 @@ package ps.g08.directsincro.service.mappers
 import org.springframework.stereotype.Component
 import ps.g08.directsincro.common.EmprestimoMatricula
 import ps.g08.directsincro.common.getEpoch
-import ps.g08.directsincro.database.EmprestimoDatabaseRow
+import ps.g08.directsincro.database.DelegacaoDatabaseRow
 
 @Component
-class EmprestimoMatriculaMapper : IMapper<EmprestimoDatabaseRow, EmprestimoMatricula> {
-    override fun single(obj: EmprestimoDatabaseRow): EmprestimoMatricula {
+class EmprestimoMatriculaMapper : IMapper<DelegacaoDatabaseRow, EmprestimoMatricula> {
+    override fun single(obj: DelegacaoDatabaseRow): EmprestimoMatricula {
         return EmprestimoMatricula(
             dataFim = getEpoch(obj.dataFim),
             dataInicio = getEpoch(obj.dataInicio),
@@ -16,7 +16,7 @@ class EmprestimoMatriculaMapper : IMapper<EmprestimoDatabaseRow, EmprestimoMatri
         )
     }
 
-    override fun multiple(objs: List<EmprestimoDatabaseRow>): List<EmprestimoMatricula> {
+    override fun multiple(objs: List<DelegacaoDatabaseRow>): List<EmprestimoMatricula> {
         val ret : MutableList<EmprestimoMatricula> = mutableListOf()
 
         for (obj in objs) {

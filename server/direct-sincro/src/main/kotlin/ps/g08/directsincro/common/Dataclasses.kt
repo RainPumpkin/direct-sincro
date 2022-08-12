@@ -35,7 +35,7 @@ data class Veiculo(
     val matricula: String,
     val modelo: String,
     val categoria: String,
-    val eventos: List<Evento_Transito>,
+    val eventos: List<Contraordenacao>,
     val emprestimos: List<EmprestimoMatricula>
 )
 
@@ -61,15 +61,15 @@ data class SubscritorPessoa(
     val password: String
 )
 
-data class Evento_Transito(
+data class Contraordenacao(
     val numeroAuto: String,
     val estadoPagamento: String,
     val data: Long,
-    val tipo: String,
+    val catagoriaVeiculo: String,
     val classificacaoInfracao: String,
     val descricao: String,
-    val valor: Double,
-    val localizacao: String,
+    val valorCoima: Double,
+    val local: String,
     val entidadeAutuante: String,
     val dataLimiteDefesa: Long
 )

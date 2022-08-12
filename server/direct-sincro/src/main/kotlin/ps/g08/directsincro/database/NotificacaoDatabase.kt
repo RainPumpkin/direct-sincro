@@ -4,11 +4,12 @@ import org.jdbi.v3.core.Jdbi
 import org.jdbi.v3.core.kotlin.withHandleUnchecked
 import org.springframework.stereotype.Component
 import ps.g08.directsincro.common.Notificacao
+import ps.g08.directsincro.common.getTimestamp
 
 data class NotificacaoDatabaseRow(
-    val emitida: Boolean,
+    val emitida: Long,
     val mensagem: String,
-    val id: Int,
+    val contraordenacao: String,
     val recebida: Boolean,
     val tipo: String,
     val subscritor: String
@@ -17,18 +18,19 @@ data class NotificacaoDatabaseRow(
 @Component
 class NotificacaoDatabase(private val source : Jdbi) {
     companion object {
-        const val queryGet = "SELECT * FROM Notificacao WHERE id = ?"
+        const val queryGet = "SELECT * FROM Notificacao WHERE subscritor = ? AND emitida = ?"
         const val queryGetAll = "SELECT * FROM Notificacao WHERE subscritor = ? "
-        const val queryCreate = "INSERT INTO Notificacao(emitida, mensagem, recebida, tipo, subscritor) VALUES (?,?,?,?,?) RETURNING id"
-        const val queryUpdate = "UPDATE Notificacao SET emitida = ?, mensagem = ?, recebida = ?, tipo = ?, subscritor = ? WHERE id = ?"
-        const val queryDelete = "Delete FROM Notificacao WHERE id = ? AND subscritor = ?"
+        const val queryCreate = "INSERT INTO Notificacao(emitida, mensagem, recebida, tipo, subscritor, contraordenacao) VALUES (?,?,?,?,?,?)"
+        const val queryUpdate = "UPDATE Notificacao SET mensagem = ?, recebida = ?, tipo = ?,  WHERE subscritor = ? AND emitida = ?"
+        const val queryDelete = "Delete FROM Notificacao WHERE emitida = ? AND subscritor = ?"
     }
 
-    fun get(id: Int) : NotificacaoDatabaseRow{
+    fun get(subscritor: String, emitida: Long) : NotificacaoDatabaseRow{
         return source.withHandleUnchecked { handle ->
             handle
                 .createQuery(queryGet)
-                .bind(0, id)
+                .bind(0, subscritor)
+                .bind(1, getTimestamp(emitida))
                 .mapTo(NotificacaoDatabaseRow::class.java)
                 .one()
         }
@@ -43,7 +45,7 @@ class NotificacaoDatabase(private val source : Jdbi) {
         }
     }
 
-    fun create(notificacao : Notificacao, subscritor: String): Int {
+    fun create(notificacao : Notificacao, subscritor: String, contraordenacao: String): Int {
         return source.withHandleUnchecked { handle ->
             handle
                 .createUpdate(queryCreate)
@@ -52,30 +54,30 @@ class NotificacaoDatabase(private val source : Jdbi) {
                 .bind(2, notificacao.recebida)
                 .bind(3, notificacao.tipo)
                 .bind(4, subscritor)
+                .bind(5, contraordenacao)
                 .executeAndReturnGeneratedKeys()
                 .mapTo(Int::class.java)
                 .one()
         }
     }
 
-    fun update(emitida: Boolean, mensagem: String, recebida: Boolean, tipo: String, subscritor: String, id: Int){
+    fun update(emitida: Long, mensagem: String, recebida: Boolean, tipo: String, subscritor: String){
         source.withHandleUnchecked { handle ->
             handle
                 .createUpdate(queryUpdate)
-                .bind(0, emitida)
-                .bind(1, mensagem)
-                .bind(2, recebida)
-                .bind(3, tipo)
-                .bind(4, subscritor)
-                .bind(5, id)
+                .bind(0, mensagem)
+                .bind(1, recebida)
+                .bind(2, tipo)
+                .bind(3, subscritor)
+                .bind(4, emitida)
                 .execute()
         }
     }
 
-    fun delete(id: Int, subscritor: String) {
+    fun delete(emitida: Long, subscritor: String) {
         source.withHandleUnchecked { handle -> handle
             .createUpdate(queryDelete)
-            .bind(0, id)
+            .bind(0, getTimestamp(emitida))
             .bind(1, subscritor)
             .execute()
         }

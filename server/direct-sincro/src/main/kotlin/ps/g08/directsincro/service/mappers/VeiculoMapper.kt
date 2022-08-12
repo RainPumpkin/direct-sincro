@@ -2,7 +2,7 @@ package ps.g08.directsincro.service.mappers
 
 import org.springframework.stereotype.Component
 import ps.g08.directsincro.common.EmprestimoMatricula
-import ps.g08.directsincro.common.Evento_Transito
+import ps.g08.directsincro.common.Contraordenacao
 import ps.g08.directsincro.common.Veiculo
 import ps.g08.directsincro.database.VeiculoDatabaseRow
 import ps.g08.directsincro.service.EmprestimoMatriculaService
@@ -15,7 +15,7 @@ class VeiculoMapper(val emprestimoMatriculaService: EmprestimoMatriculaService, 
             emprestimoMatriculaService.getAllEmprestimosMatricula(obj.matricula)
         }
 
-        val eventos : List<Evento_Transito> by lazy {
+        val eventos : List<Contraordenacao> by lazy {
             eventoTransitoService.getAllEventos(obj.matricula)
         }
 

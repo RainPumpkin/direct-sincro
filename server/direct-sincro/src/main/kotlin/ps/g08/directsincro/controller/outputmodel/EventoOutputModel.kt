@@ -1,6 +1,6 @@
 package ps.g08.directsincro.controller.outputmodel
 
-import ps.g08.directsincro.common.Evento_Transito
+import ps.g08.directsincro.common.Contraordenacao
 
 data class EventoOutputModel (
     val numeroAuto: String,
@@ -20,22 +20,22 @@ data class MultipleEventoOutputModel(
     val number : Int
 )
 
-fun getEventoOutputModel(obj: Evento_Transito) : EventoOutputModel{
+fun getEventoOutputModel(obj: Contraordenacao) : EventoOutputModel{
     return EventoOutputModel(
         numeroAuto = obj.numeroAuto,
         estadoPagamento = obj.estadoPagamento,
         data = obj.data,
-        tipo = obj.tipo,
+        tipo = obj.catagoriaVeiculo,
         classificacaoInfracao = obj.classificacaoInfracao,
         descricao = obj.descricao,
-        valor = obj.valor,
-        localizacao = obj.localizacao,
+        valor = obj.valorCoima,
+        localizacao = obj.local,
         entidadeAutuante = obj.entidadeAutuante,
         dataLimiteDefesa = obj.dataLimiteDefesa
     )
 }
 
-fun getMultipleEventoOutputModel(eventos : List<Evento_Transito>) : MultipleEventoOutputModel{
+fun getMultipleEventoOutputModel(eventos : List<Contraordenacao>) : MultipleEventoOutputModel{
     val result = mutableListOf<EventoOutputModel>()
 
     for (evento in eventos) {

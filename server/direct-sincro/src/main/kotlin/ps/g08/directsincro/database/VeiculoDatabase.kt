@@ -17,7 +17,7 @@ class VeiculoDatabase(private val source : Jdbi) {
     companion object {
         const val queryGet = "SELECT * FROM Veiculo WHERE matricula = ?"
         const val queryGetAll = "SELECT * FROM Veiculo WHERE owner = ? "
-        const val queryGetAllAlugados = "SELECT DISTINCT Veiculo.* FROM Veiculo RIGHT JOIN Emprestimo ON Veiculo.matricula = Emprestimo.matricula WHERE Veiculo.owner = ?"
+        const val queryGetAllAlugados = "SELECT DISTINCT Veiculo.* FROM Veiculo RIGHT JOIN Delegacao ON Veiculo.matricula = Delegacao.matricula WHERE Veiculo.owner = ?"
         const val queryCreate = "INSERT INTO Veiculo(matricula, modelo, categoria, owner) VALUES (?,?,?,?)"
         const val queryUpdate = "UPDATE Veiculo SET owner = ? WHERE matricula = ?"
         const val queryDelete = "Delete FROM Veiculo WHERE matricula = ?"

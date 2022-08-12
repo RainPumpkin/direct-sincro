@@ -1,6 +1,6 @@
 package ps.g08.directsincro.controller.inputmodels
 
-import ps.g08.directsincro.common.Evento_Transito
+import ps.g08.directsincro.common.Contraordenacao
 import java.text.SimpleDateFormat
 
 data class EventoTransitoInputModel(
@@ -34,18 +34,18 @@ data class DadosDaInfracao(
         val entidadeAutuante : String,
         val dataNotificacao : String
 )
-fun getEventoFromEventoTransitoInputModel(input: EventoTransitoInputModel) : Evento_Transito{
+fun getEventoFromEventoTransitoInputModel(input: EventoTransitoInputModel) : Contraordenacao{
         val data = SimpleDateFormat("yyyy-MM-dd HH:mm").parse(input.evento.dadosDaInfracao.dataHora)
         val dataDefesa = SimpleDateFormat("yyyy-MM-dd").parse(input.evento.dadosDaInfracao.dataLimiteDefesa)
-        return Evento_Transito(
+        return Contraordenacao(
                 numeroAuto = input.evento.dadosDaInfracao.numeroAuto,
                 estadoPagamento = input.evento.dadosDaInfracao.estadoDoPagamento,
                 data = data.time/1000,
-                tipo = input.evento.dadosDoVeiculo.tipoDeInfracao,
+                catagoriaVeiculo = input.evento.dadosDoVeiculo.tipoDeInfracao,
                 classificacaoInfracao = input.evento.dadosDaInfracao.gravidade,
                 descricao = input.evento.dadosDaInfracao.descricaoSumaria,
-                valor = input.evento.dadosDaInfracao.valorDaCoima,
-                localizacao = input.evento.dadosDaInfracao.local,
+                valorCoima = input.evento.dadosDaInfracao.valorDaCoima,
+                local = input.evento.dadosDaInfracao.local,
                 entidadeAutuante = input.evento.dadosDaInfracao.entidadeAutuante,
                 dataLimiteDefesa = dataDefesa.time/1000
         )
