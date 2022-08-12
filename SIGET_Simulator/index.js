@@ -1,18 +1,17 @@
 import fetch from 'node-fetch'
 import { readFile } from "fs"
-import app from "./siget-server.js"
-import { matriculas } from './siget-routes.js'
+import app from "./Simulator/siget_simulator/siget-server.js"
+import { matriculas } from './Simulator/siget_simulator/siget-routes.js'
 
 
 /**
  * Roots need to be refactored
  */
-//const SCOT = 'http://localhost:4000/scot/notificacoes'
-const SCOT_URL = 'http://scot.requestcatcher.com/'
+const SCOT_URL = 'http://localhost:4000/scot/notificacoes'
 const DIRECT_SINCRO_URL = 'http://localhost:8080/api/eventos'
 
 function importEvents() {
-  readFile('../Data/eventos.json','utf-8',function(err, jsonData){
+  readFile('./Data/eventos.json','utf-8',function(err, jsonData){
     if (err) throw err;  
     const data = JSON.parse(jsonData)
     prepareRequests(data)
