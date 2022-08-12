@@ -3,7 +3,7 @@ package ps.g08.directsincro.database
 import org.jdbi.v3.core.Jdbi
 import org.jdbi.v3.core.kotlin.withHandleUnchecked
 import org.springframework.stereotype.Component
-import ps.g08.directsincro.common.Pessoa
+import ps.g08.directsincro.common.Cidadao
 
 data class CidadaoDatabaseRow(
         val nome: String,

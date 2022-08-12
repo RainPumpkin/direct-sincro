@@ -28,7 +28,6 @@ class SubscritorMapper(val veiculoService : VeiculoService, val notificaoService
         }
         return Subscritor(
             nif = obj.nif,
-            password = obj.password,
             notificacoes = notificacoes,
             veiculos = veiculos,
             veiculosAlugados = veiculosAlugados,

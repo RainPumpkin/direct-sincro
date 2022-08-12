@@ -1,26 +1,20 @@
 package ps.g08.directsincro.common
 
-data class Pessoa(
+data class Cidadao(
     val nome: String,
     val nif: String,
     val numero_conducao: String,
     val email: String,
-    val subscritor: Subscritor?,
-    val admin: Admin?
+    val password: String,
+    val subscritor: Subscritor?
 )
 
 data class Subscritor(
     val nif: String,
-    val password: String,
     val notificacoes: List<Notificacao>,
     val veiculos: List<Veiculo>,
     val veiculosAlugados: List<Veiculo>,
     val emprestimos: List<EmprestimoUsuario>
-)
-
-data class Admin(
-    val username: String,
-    val password: String
 )
 
 data class Notificacao(
@@ -53,7 +47,7 @@ data class EmprestimoUsuario(
     val matricula: String
 )
 
-data class SubscritorPessoa(
+data class SubscritorCidadao(
     val nome: String,
     val nif: String,
     val numero_conducao: String,
@@ -72,13 +66,4 @@ data class Contraordenacao(
     val local: String,
     val entidadeAutuante: String,
     val dataLimiteDefesa: Long
-)
-
-data class Pedido_Defesa(
-    val id: Int,
-    val moradaSede: String,
-    val justificacao: String,
-    val numero_conducao: String
-    //numeroAuto,
-    //requeridor,
 )

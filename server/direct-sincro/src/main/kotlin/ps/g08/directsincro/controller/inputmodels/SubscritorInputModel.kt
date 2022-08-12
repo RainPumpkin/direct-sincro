@@ -1,7 +1,6 @@
 package ps.g08.directsincro.controller.inputmodels
 
-import ps.g08.directsincro.common.Subscritor
-import ps.g08.directsincro.common.SubscritorPessoa
+import ps.g08.directsincro.common.SubscritorCidadao
 
 data class SubscritorInputModel(
     val nome: String,
@@ -11,8 +10,8 @@ data class SubscritorInputModel(
     val password: String
 )
 
-fun getSubscritorPessoaFromSubscritorInputModel(input : SubscritorInputModel) : SubscritorPessoa{
-    return SubscritorPessoa(
+fun getSubscritorPessoaFromSubscritorInputModel(input : SubscritorInputModel) : SubscritorCidadao{
+    return SubscritorCidadao(
         nif = input.nif,
         password = input.password,
         nome = input.nome,
