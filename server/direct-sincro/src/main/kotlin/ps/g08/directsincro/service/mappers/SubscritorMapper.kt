@@ -1,18 +1,18 @@
 package ps.g08.directsincro.service.mappers
 
 import org.springframework.stereotype.Component
-import ps.g08.directsincro.common.EmprestimoUsuario
+import ps.g08.directsincro.common.DelegacaoSubscritor
 import ps.g08.directsincro.common.Notificacao
 import ps.g08.directsincro.common.Subscritor
 import ps.g08.directsincro.common.Veiculo
 import ps.g08.directsincro.database.SubscritorDatabaseRow
-import ps.g08.directsincro.service.EmprestimoUsuarioService
+import ps.g08.directsincro.service.DelegacaoSubscritorService
 import ps.g08.directsincro.service.VeiculoService
 import ps.g08.directsincro.service.NotificacaoService
 import ps.g08.directsincro.service.VeiculoAlugadoService
 
 @Component
-class SubscritorMapper(val veiculoService : VeiculoService, val notificaoService : NotificacaoService, val veiculoAlugadoService : VeiculoAlugadoService, val emprestimoUsuarioService : EmprestimoUsuarioService) : IMapper<SubscritorDatabaseRow, Subscritor>{
+class SubscritorMapper(val veiculoService : VeiculoService, val notificaoService : NotificacaoService, val veiculoAlugadoService : VeiculoAlugadoService, val delegacaoSubscritorService : DelegacaoSubscritorService) : IMapper<SubscritorDatabaseRow, Subscritor>{
     override fun single(obj: SubscritorDatabaseRow): Subscritor {
         val notificacoes : List<Notificacao> by lazy {
             notificaoService.getAllNotificacoes(obj.nif)
@@ -23,15 +23,15 @@ class SubscritorMapper(val veiculoService : VeiculoService, val notificaoService
         val veiculosAlugados : List<Veiculo> by lazy {//veiculos que possuimos que estão emprestados
             veiculoAlugadoService.getAllVeiculosAlugados(obj.nif)
         }
-        val emprestimos : List<EmprestimoUsuario> by lazy {//emprestimos que recebeste
-            emprestimoUsuarioService.getAllEmprestimosUsuario(obj.nif)
+        val emprestimos : List<DelegacaoSubscritor> by lazy {//emprestimos que recebeste
+            delegacaoSubscritorService.getAllDelegacoesSubscritor(obj.nif)
         }
         return Subscritor(
             nif = obj.nif,
             notificacoes = notificacoes,
             veiculos = veiculos,
             veiculosAlugados = veiculosAlugados,
-            emprestimos = emprestimos
+            delegacoes = emprestimos
         )
     }
 

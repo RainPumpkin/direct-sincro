@@ -14,13 +14,12 @@ data class Subscritor(
     val notificacoes: List<Notificacao>,
     val veiculos: List<Veiculo>,
     val veiculosAlugados: List<Veiculo>,
-    val emprestimos: List<EmprestimoUsuario>
+    val delegacoes: List<DelegacaoSubscritor>
 )
 
 data class Notificacao(
-    val emitida: Boolean,
+    val emitida: Long,
     val mensagem: String,
-    val id: Int,
     val recebida: Boolean,
     val tipo: String
 )
@@ -29,21 +28,19 @@ data class Veiculo(
     val matricula: String,
     val modelo: String,
     val categoria: String,
-    val eventos: List<Contraordenacao>,
-    val emprestimos: List<EmprestimoMatricula>
+    val contraordenacoes: List<Contraordenacao>,
+    val delegacoes: List<DelegacaoVeiculo>
 )
 
-data class EmprestimoMatricula(
+data class DelegacaoVeiculo(
     val dataInicio: Long,
     val dataFim: Long,
-    val estado: String,
     val usuario: String?
 )
 
-data class EmprestimoUsuario(
+data class DelegacaoSubscritor(
     val dataInicio: Long,
     val dataFim: Long,
-    val estado: String,
     val matricula: String
 )
 

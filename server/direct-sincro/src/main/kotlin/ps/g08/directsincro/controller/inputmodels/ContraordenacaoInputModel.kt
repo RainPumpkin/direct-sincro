@@ -3,7 +3,7 @@ package ps.g08.directsincro.controller.inputmodels
 import ps.g08.directsincro.common.Contraordenacao
 import java.text.SimpleDateFormat
 
-data class EventoTransitoInputModel(
+data class ContraordenacaoInputModel(
         val evento: Evento
 )
 
@@ -34,7 +34,7 @@ data class DadosDaInfracao(
         val entidadeAutuante : String,
         val dataNotificacao : String
 )
-fun getEventoFromEventoTransitoInputModel(input: EventoTransitoInputModel) : Contraordenacao{
+fun getContraordenacaoFromContraordenacaoInputModel(input: ContraordenacaoInputModel) : Contraordenacao{
         val data = SimpleDateFormat("yyyy-MM-dd HH:mm").parse(input.evento.dadosDaInfracao.dataHora)
         val dataDefesa = SimpleDateFormat("yyyy-MM-dd").parse(input.evento.dadosDaInfracao.dataLimiteDefesa)
         return Contraordenacao(

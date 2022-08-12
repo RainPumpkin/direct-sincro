@@ -13,7 +13,7 @@ fun getVeiculoFromVeiculoInputModel(input : VeiculoInputModel) : Veiculo {
         matricula = input.matricula,
         modelo = input.modelo,
         categoria = input.categoria,
-        emprestimos = emptyList(),
-        eventos = emptyList()
+        delegacoes = emptyList(),
+        contraordenacoes = emptyList()
     )
 }

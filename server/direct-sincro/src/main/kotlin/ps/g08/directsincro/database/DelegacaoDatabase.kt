@@ -3,7 +3,7 @@ package ps.g08.directsincro.database
 import org.jdbi.v3.core.Jdbi
 import org.jdbi.v3.core.kotlin.withHandleUnchecked
 import org.springframework.stereotype.Component
-import ps.g08.directsincro.common.EmprestimoMatricula
+import ps.g08.directsincro.common.DelegacaoVeiculo
 import ps.g08.directsincro.common.getTimestamp
 import java.sql.Timestamp
 
@@ -66,7 +66,7 @@ class DelegacaoDatabase(private val source : Jdbi) {
         }
     }
 
-    fun create(emprestimo: EmprestimoMatricula, matricula: String){
+    fun create(emprestimo: DelegacaoVeiculo, matricula: String){
         source.withHandleUnchecked { handle ->
             handle
                 .createUpdate(queryCreate)

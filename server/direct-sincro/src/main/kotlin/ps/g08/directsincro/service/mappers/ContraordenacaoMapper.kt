@@ -6,7 +6,7 @@ import ps.g08.directsincro.common.getEpoch
 import ps.g08.directsincro.database.ContraordenacaoDatabaseRow
 
 @Component
-class EventoTransitoMapper : IMapper<ContraordenacaoDatabaseRow, Contraordenacao> {
+class ContraordenacaoMapper : IMapper<ContraordenacaoDatabaseRow, Contraordenacao> {
     override fun single(obj: ContraordenacaoDatabaseRow): Contraordenacao {
         return Contraordenacao(
             numeroAuto = obj.numeroAuto,

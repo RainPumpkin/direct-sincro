@@ -11,11 +11,11 @@ class NotificacaoService(private val db: NotificacaoDatabase, private val mapper
         return mapper.multiple(db.getAll(nif))
     }
 
-    fun getNotificacao(id: Int) : Notificacao {
-        return mapper.single(db.get(id))
+    fun getNotificacao(subscritor: String, emitida: Long) : Notificacao {
+        return mapper.single(db.get(subscritor, emitida))
     }
 
-    fun createNotification(notificacao: Notificacao, subscritor: String) : Int{
-        return db.create(notificacao, subscritor)
-    }
+    /*fun createNotification(notificacao: Notificacao, subscritor: String, contraordenacao: String) : Int{
+        return db.create(notificacao, subscritor, contraordenacao)
+    }*/
 }

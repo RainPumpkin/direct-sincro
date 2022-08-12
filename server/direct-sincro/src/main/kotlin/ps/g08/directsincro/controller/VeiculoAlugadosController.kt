@@ -8,7 +8,7 @@ import ps.g08.directsincro.service.VeiculoAlugadoService
 May be later merged with veiculos
  */
 @RestController
-@RequestMapping("/api/subscritores/{nif}/alugados")
+@RequestMapping("/api/subscritores/{nif}/delegados")
 class VeiculoAlugadosController(private val veiculoAlugadoService: VeiculoAlugadoService) {
 
 }
