@@ -1,13 +1,18 @@
 package ps.g08.directsincro.common
 
 import org.springframework.stereotype.Component
-import java.util.*
+import java.util.Random
 import kotlin.collections.HashMap
+
+data class User(
+    val nif: String,
+    val password: String
+)
 
 @Component
 class CookieManager {
 
-    //private val inMemoryCookieManager: HashMap<String, Subscritor> = HashMap()
+    private val inMemoryCookieManager: HashMap<String, User> = HashMap()
 
     private val validChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 
@@ -20,17 +25,21 @@ class CookieManager {
         return builder.toString()
     }
 
-    /*
-    fun newCookieValue(user: Subscritor): String {
+
+    fun newCookieValue(nif: String, password: String): String {
         var str = generateRandom(50)
         while(inMemoryCookieManager.containsKey(str)) {
             str = generateRandom(50)
         }
-        inMemoryCookieManager[str] = user
+        inMemoryCookieManager[str] = User(nif, password)
         return str
-    }*/
+    }
 
-    //get
+    fun getUser(cookie: String): User? {
+        return inMemoryCookieManager[cookie]
+    }
 
-    //remove
+    fun removeCookie(value: String) {
+        inMemoryCookieManager.remove(value)
+    }
 }
