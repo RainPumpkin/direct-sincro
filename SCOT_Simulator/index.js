@@ -11,6 +11,15 @@ app.use(express.static('public'))
 app.use('/scot', apiRouter)
 app.use('/debugger', webSiteRouter)
 
+/* error debugging */
+app.use((err, req, resp, _next) => {
+  resp
+      .status(err.status || 500)
+      .json({
+          message: err.message
+      }) 
+})
+
 app.listen(PORT, err => {
     if (err) {
       return console.log("ERROR", err);

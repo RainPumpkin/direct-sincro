@@ -1,7 +1,6 @@
 //grupos e coisas guardadas no filesystem 
 let data = [
-    {   
-        matricula : "XM-23-DA",
+    {   matricula : "XM-23-DA",
         eventos : [
             {
                 dadosDoVeiculo: {
@@ -27,39 +26,60 @@ let data = [
                 }
             }
         ]
-    }
+    },
+    { matricula : "WN-23-DA", eventos : [] },
+    { matricula : "10-AG-AG", eventos : [] },
+    { matricula : "KL-38-FG", eventos : [] },
+    { matricula : "03-42-LM", eventos : [] }
 ]//Array<Matriculas>
 
+/* Error builder */
+function erro(msg, code){
+    return {message: msg, status: code}
+}
+
+function getCar(matricula) {
+    let veiculo = data.find(car => car.matricula == matricula)
+    return Promise.resolve(veiculo)
+}
+
 function addCarPlate(matricula){
-    let matriculaNova = {
-        matricula,
-        eventos : []
-    }
-    let exist = data.forEach(matricula_eventos => {
-        const check = matricula_eventos.find(m => m.matricula === matricula)
-    });
-    if(exist == undefined) {
-        data.push(matriculaNova)
-    }
+    let checkMatricula = getCar(matricula)
+    if (checkMatricula == undefined) {
+        let newMatricula = {
+            matricula,
+            eventos : []
+        }
+        data.push(newMatricula)
+        Promise.resolve(newMatricula)
+    } else {
+        Promise.reject(erro('Car template is already inserted in SCOT', 409))
+    } 
+    
 } 
 
 function addEvent(evento){
     let matricula = evento.dadosDoVeiculo.matricula
-    data.forEach(matricula_eventos => {
-        const veiculo = matricula_eventos.find(m => m.matricula === matricula)
-        if(veiculo != undefined) {
-            veiculo.eventos.push(evento)
-            console.log(`Evento adicionado ao veiculo : ${veiculo}`)
-        }});
+    let veiculo = getCar(matricula)
+    if (veiculo == undefined) {
+      return Promise.reject(erro('Invalid input, car doesnt exist', 400))
+    } else {
+        const veiculo = {
+            matricula : matricula,
+            eventos : [evento]
+        }
+        data.push(veiculo)
+        return Promise.resolve(veiculo)
+    }
 
 }
 
-function getAllInformation(){
-    return data
+function getAllCarsEvents(){
+    return Promise.resolve(data)
 }
 
 export default {
     addCarPlate,
     addEvent,
-    getAllInformation, 
+    getAllCarsEvents, 
 }

@@ -39,6 +39,7 @@ async function prepareRequests(data) {
     }
   });
 
+  /*
   const DirectSincro_Requests = await Promise.all(
     directSincroSubscriptions.map(async evento => {
       console.log(`DirectSincro_Requests = ${JSON.stringify(evento)}`)
@@ -50,7 +51,7 @@ async function prepareRequests(data) {
     })
   );
   console.log(`DirectSincro_responses -> ${DirectSincro_Requests}\n`)
-
+*/
   const SCOT_Requests = await Promise.all(
     SCOT.map(async evento => {
       console.log(`SCOT_Requests = ${JSON.stringify(evento)}`)

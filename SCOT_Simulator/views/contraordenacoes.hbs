@@ -1,10 +1,24 @@
 <div class="col-sm-10">
-    <p>Eventos:</p>
+    <p>Matrículas e Contra ordenações associadas:</p>
     <ul>
-        {{#each eventos}}
-
-        <li>{{matricula}}</li>
-
+        {{#each events}}
+        <header>{{matricula}}</header>
+            {{#each eventos}}
+                <li>{{dadosDaInfracao.numeroAuto}}</li>
+                <li>{{dadosDaInfracao.veiculoAutuado}}</li>
+                <li>{{dadosDaInfracao.dataHora}}</li>
+                <li>{{dadosDaInfracao.local}}</li>
+                <li>{{dadosDaInfracao.normaInfrigida}}</li>
+                <li>{{dadosDaInfracao.distrito}}</li>
+                <li>{{dadosDaInfracao.descricaoSumaria}}</li>
+                <li>{{dadosDaInfracao.dataLimiteDefesa}}</li>
+                <li>{{dadosDaInfracao.estadoDoPagamento}}</li>
+                <li>{{dadosDaInfracao.valorDaCoima}}</li>
+                <li>{{dadosDaInfracao.gravidade}}</li>
+                <li>{{dadosDaInfracao.entidadeAutuante}}</li>
+                <li>{{dadosDaInfracao.dataNotificacao}}</li>
+                <br></br>
+            {{/each}}           
         {{/each}}
     </ul>
 </div>
