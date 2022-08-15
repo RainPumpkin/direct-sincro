@@ -11,18 +11,9 @@ router.get('/about', getAbout)
 router.get('/events', getEvents)
 
 function getEvents(req, res, next) { 
-    let allEvents = veiculos
+    veiculos
         .getAllCarsEvents()
-        .then(events => {
-            /*
-            events = events.map(car => {
-                return {
-
-                }
-            })
-            */
-            return res.render('contraordenacoes', {'events' : events})
-        })
+        .then(events => res.render('contraordenacoes', {'events' : events}))
         .catch(next)
 }
 
