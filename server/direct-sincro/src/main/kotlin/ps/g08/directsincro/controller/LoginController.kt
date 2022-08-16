@@ -46,4 +46,5 @@ class LoginController(
         headers.add("Set-Cookie", "Authorization=; Expires=Thu, 01 Jan 1970 00:00:01 GMT; Path=/; Secure; HttpOnly; SameSite=Strict")
         return ResponseEntity.ok().headers(headers).build()
     }
+
 }

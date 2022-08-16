@@ -1,18 +1,20 @@
 package ps.g08.directsincro.service.mappers
 
+import org.springframework.stereotype.Component
 import ps.g08.directsincro.common.Cidadao
 import ps.g08.directsincro.database.CidadaoDatabaseRow
-import ps.g08.directsincro.service.SubscritorService
+import ps.g08.directsincro.service.CidadaoService
 
-class CidadaoMapper(val subscritorService: SubscritorService) : IMapper<CidadaoDatabaseRow, Cidadao> {
+@Component
+class CidadaoMapper(val cidadaoService: CidadaoService) : IMapper<CidadaoDatabaseRow, Cidadao> {
     override fun single(obj: CidadaoDatabaseRow): Cidadao {
         return Cidadao(
             nome = obj.nome,
-            nif = obj.nif.toString(),
+            nif = obj.nif,
             numero_conducao = obj.numero_conducao,
             email = obj.email,
             password = obj.password,
-            subscritor = subscritorService.getSubscritorUnsafe(obj.nif.toString())
+            subscritor = cidadaoService.getSubscritorUnsafe(obj.nif)
         )
     }
 

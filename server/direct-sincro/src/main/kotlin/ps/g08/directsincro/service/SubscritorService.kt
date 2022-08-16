@@ -18,12 +18,10 @@ class SubscritorService(
         return subsMapper.single(subsDb.get(nif))
     }
 
-    fun getSubscritorUnsafe(nif: String): Subscritor?{
-        return subsMapper.single(subsDb.get(nif))
-    }
 
     fun checkPassword(nif: String, passIn: String) : Boolean{
-        val password = cidMapper.single(cidadaoDb.get(nif.toInt())).password
+        val cidadao = cidMapper.single(cidadaoDb.get(nif))
+        val password = cidadao.password
         return password == passIn
     }
 

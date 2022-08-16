@@ -18,7 +18,7 @@ data class DelegacaoDatabaseRow(
 class DelegacaoDatabase(private val source : Jdbi) {
     companion object {
         const val queryGet = "SELECT * FROM Delegacao WHERE usuario = ? AND matricula = ?"//user e matricula
-        const val queryGetAllUser = "SELECT Delegacao.matricula, Delegacao.datainicio, Delegacao.datafim, Delegacao.estado FROM Veiculo Left JOIN Delegacao ON Veiculo.matricula = Delegacao.matricula WHERE Delegacao.usuario = ? "//getall for user
+        const val queryGetAllUser = "SELECT Delegacao.matricula, Delegacao.datainicio, Delegacao.datafim FROM Veiculo Left JOIN Delegacao ON Veiculo.matricula = Delegacao.matricula WHERE Delegacao.usuario = ? "//getall for user
         const val queryGetAllMatricula = "SELECT * FROM Delegacao WHERE matricula = ? "//getall for matricula
         const val queryGetWithDate = "SELECT * FROM Delegacao WHERE matricula = ? AND dataInicio = ?"
         const val queryCreate = "INSERT INTO Delegacao(matricula, usuario, dataInicio, dataFim) VALUES (?,?,?,?,?)"

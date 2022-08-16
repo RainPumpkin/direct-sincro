@@ -7,7 +7,7 @@ import ps.g08.directsincro.common.Cidadao
 
 data class CidadaoDatabaseRow(
         val nome: String,
-        val nif: Int,
+        val nif: String,
         val numero_conducao: String,
         val email: String,
         val password: String
@@ -24,7 +24,7 @@ class PessoaDatabase(private val source: Jdbi) {
         const val queryDelete = "Delete FROM Cidadao WHERE nif = ?"
     }
 
-    fun get(nif: Int) : CidadaoDatabaseRow{
+    fun get(nif: String) : CidadaoDatabaseRow{
         return source.withHandleUnchecked { handle ->
             handle
                 .createQuery(queryGet)
