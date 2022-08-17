@@ -1,17 +1,13 @@
 import app from 'express'
 const router = app.Router()
+import matriculas from './Data/matriculas.js'
 //in case file memory is the most appropriate way
 //import vehicles from '../Data/veículosSubscritos.json' assert {type: 'json'}
 
+//TODO: make routes async
+
 router.post('/veiculo', insertVehicle)
 router.delete('/veiculo', deleteVehicle)
-
-let matriculas = [
-    {"matricula" : "WN-23-DA"},
-    {"matricula": "10-AG-AG"},
-    {"matricula": "KL-38-FG"}
-]
-
 
 function insertVehicle(req, res, next) {
     try {
