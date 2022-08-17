@@ -1,9 +1,11 @@
 //import logo from './logo.svg';
 //import './App.css';
-//import { UserContainer } from "./Components/UserContext"
+import { UserContainer } from "./Components/UserContext"
 
 import { BrowserRouter, Route, Routes } from "react-router-dom"
-
+import { Login } from "./Pages/LoginPage"
+import { Home } from "./Pages/HomePage"
+import { LoginVerifier } from "./Components/LoginCheck"
 
 
 /**
@@ -14,19 +16,19 @@ import { BrowserRouter, Route, Routes } from "react-router-dom"
 
  const App = () => {
   return(
-    //<UserContainer>
-      //<Navbar /> como é mobile maybe n faz sentido ter Navbar
-      <BrowserRouter>
+    <UserContainer>
+      <BrowserRouter> 
         <div style={{margin: "auto", width: "90%"}}>
           <Routes>
+            <Route path="/login" element={<Login />}/>
+            <Route path="/" element={<LoginVerifier><Home /></LoginVerifier>}/>
           </Routes>
         </div>
       </BrowserRouter>
-    //</UserContainer>
+    </UserContainer>
   )
 }
 //rotas
-//<Route path="/login" element={<Login />}/>
 //<Route path="PATH" element={<LoginVerifier><OurPage /></LoginVerifier>}/>
 export default App;
 /*
@@ -40,7 +42,7 @@ function App() {
           Edit <code>src/App.js</code> and save to reload.
         </p>
         <a
-          className="App-link"
+                  className="App-link"
           href="https://reactjs.org"
           target="_blank"
           rel="noopener noreferrer"
