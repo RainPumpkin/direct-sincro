@@ -36,7 +36,7 @@ class AuthFilter(private val cookieManager: CookieManager, private val subscrito
             val user = cookieManager.getUser(cookie.value)
             if (user == null) return respondWithUnauthorized(httpResponse, "User does not exist")
 
-            if (subscritorService.checkPassword(user.nif, user.password)) chain.doFilter(request, response)
+            if (subscritorService.checkPassword(user.nif, user.password)!=null) chain.doFilter(request, response)
             else return respondWithUnauthorized(httpResponse, "User invalid credentials")
         }
 

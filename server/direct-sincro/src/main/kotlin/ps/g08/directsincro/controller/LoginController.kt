@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController
 import ps.g08.directsincro.common.CookieManager
 import ps.g08.directsincro.common.ErrorMessage
 import ps.g08.directsincro.controller.inputmodels.LoginInputModel
+import ps.g08.directsincro.controller.outputmodel.getLoginOutputModel
 import ps.g08.directsincro.service.SubscritorService
 import java.time.Duration
 import javax.servlet.http.HttpServletRequest
@@ -21,11 +22,12 @@ class LoginController(
     @PostMapping("/login")
     fun login(@RequestBody input: LoginInputModel): ResponseEntity<Any> {
         val correct = subs.checkPassword(input.nif, input.password)
-        if (correct){
+        if (correct!=null){
             val value = cookieManager.newCookieValue(input.nif, input.password)
             val headers = HttpHeaders()
+            val out = getLoginOutputModel(correct)
             headers.add("Set-Cookie", "Authorization=${value}; Max-Age=${Duration.ofDays(365).toSeconds()}; Path=/; Secure; HttpOnly; SameSite=Strict")
-            return ResponseEntity.ok().headers(headers).build()
+            return ResponseEntity.ok().headers(headers).body(out)
         } else {
             return ResponseEntity.badRequest().body(
                 ErrorMessage(
@@ -48,3 +50,4 @@ class LoginController(
     }
 
 }
+

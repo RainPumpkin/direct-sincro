@@ -5,9 +5,11 @@ import { Navigate } from 'react-router-dom';
 export const LoginVerifier = (props) => {
 
   const [user] = useContext(UserContext)
+  console.log(user)
 
   let content = props.children
-  if(!user.logged) content = <Navigate to="/login"/>
+  if(!user || !user.logged) content = <Navigate to="/login"/>
+  //if(!user.subscritor) content = <Navigate to="/NaoSubscritor">
 
   return(
     <Fragment>

@@ -5,7 +5,7 @@ import { cancellableFetch } from "../Services/CancellableFetch"
 
 const request = (uri, opts, dispatch) => {
     const fetch = cancellableFetch(uri, opts)
-    fetch.ready.then((response) => {if(!fetch.signal.aborted) dispatch(response.ok)})
+    fetch.ready.then((response) => {if(!fetch.signal.aborted) dispatch(response.ok, response.json())})
     .catch((error) => { console.log(error) })
     return fetch.abort
 }
@@ -18,12 +18,14 @@ export const Login = () => {
     const onSubmitHandler = (event) => {
         event.preventDefault()
         const body = {nif: event.target.nif.value, password: event.target.password.value}
-        const func = (ok) => {
+        const func = (ok, json) => {
             if(ok) {
-                dispatch({logged: true, username: event.target.nif.value})
-                setWarning(null)
+                json.then((user)  => {
+                    dispatch({logged: true, nif: event.target.nif.value, nome: user.nome, email: user.email, subscritor: user.subscritor})
+                    setWarning(null)
+                })
             } else {
-                dispatch({logged: false, username: null})
+                dispatch({logged: false, nif: null, nome:null, email:null, subscritor:null})
                 setWarning("Invalid credentials")
             }
         }
@@ -36,7 +38,7 @@ export const Login = () => {
     }
 
     let redirect = null
-    if(user.logged) redirect = <Navigate to="/"/>
+    if(user!=null && user.logged) redirect = <Navigate to="/"/>
 
     return (
         <Fragment>

@@ -1,6 +1,7 @@
 package ps.g08.directsincro.service
 
 import org.springframework.stereotype.Component
+import ps.g08.directsincro.common.Cidadao
 import ps.g08.directsincro.common.Subscritor
 import ps.g08.directsincro.common.SubscritorCidadao
 import ps.g08.directsincro.database.PessoaDatabase
@@ -19,10 +20,17 @@ class SubscritorService(
     }
 
 
-    fun checkPassword(nif: String, passIn: String) : Boolean{
-        val cidadao = cidMapper.single(cidadaoDb.get(nif))
+    fun checkPassword(nif: String, passIn: String) : Cidadao?{
+        val cidadao : Cidadao?
+        try {
+            cidadao = cidMapper.single(cidadaoDb.get(nif))
+        } catch (e : Exception){
+            return null
+        }
+
         val password = cidadao.password
-        return password == passIn
+        if (password == passIn) return cidadao
+        else return null
     }
 
     fun createSubscritor(subs: SubscritorCidadao): String {
