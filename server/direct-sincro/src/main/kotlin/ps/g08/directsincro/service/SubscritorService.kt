@@ -19,6 +19,16 @@ class SubscritorService(
         return subsMapper.single(subsDb.get(nif))
     }
 
+    fun getCidadao(nif: String):Cidadao?{
+        val cidadao : Cidadao?
+        try {
+            cidadao = cidMapper.single(cidadaoDb.get(nif))
+            return cidadao
+        } catch (e : Exception){
+            return null
+        }
+    }
+
 
     fun checkPassword(nif: String, passIn: String) : Cidadao?{
         val cidadao : Cidadao?

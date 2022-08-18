@@ -2,6 +2,7 @@ package ps.g08.directsincro.controller
 
 import org.springframework.http.HttpHeaders
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
@@ -49,5 +50,13 @@ class LoginController(
         return ResponseEntity.ok().headers(headers).build()
     }
 
+    @GetMapping("/check")
+    fun checkLogin(request: HttpServletRequest): ResponseEntity<Any> {
+        val cookies = request.cookies!!
+        val cookie = cookies.find { it.name == "Authorization" }!!
+        val user = cookieManager.getUser(cookie.value)!!
+        val cidadao = subs.getCidadao(user.nif)!!
+        return ResponseEntity.ok().body(getLoginOutputModel(cidadao))
+    }
 }
 
