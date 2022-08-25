@@ -4,10 +4,10 @@ import webSiteRouter from './scot-web-site.js'
 import apiRouter from './scot-routes.js'
 const PORT = 4000
 
+app.use(express.static('public'))
 app.set('view engine', 'hbs')
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 app.use(express.json()) // => Parses HTTP request body and populates req.body
-app.use(express.static('public'))
 app.use('/scot', apiRouter)
 app.use('/debugger', webSiteRouter)
 

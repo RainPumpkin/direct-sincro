@@ -1,61 +1,52 @@
 <div class="col-sm-10">
-    <p>Matrículas e Contra ordenações associadas:</p>
-    <ul>
-        {{#each events}}
-        <header>{{matricula}}</header>
-            {{#each eventos}}
-                <head>
-                    <style>
-                    table, th, td {
-                    border: 1px solid black;
-                    border-collapse: collapse;
+    <h1 style="text-align:left;color:azure;margin: 20px;">Matrículas e Contra ordenações associadas:</h1>
+    <br></br>
+    {{#each events}}
+    <h2 style="text-align:left;color:azure;margin: 20px;" color="white">{{matricula}}</h2>
+        {{#each eventos}}
+            <head>
+                <link href="/css/style.css" rel="stylesheet"/>
+                <style>
+                    h1 {
+                    text-align: center;
                     }
-
-                    tr:nth-child(even) {
-                    background-color: rgba(150, 212, 212, 0.4);
-                    }
-
-                    th:nth-child(even),td:nth-child(even) {
-                    background-color: rgba(150, 212, 212, 0.4);
-                    }
-                    </style>
-                </head>
-                <body>
-                    <table style="width:100%">
-                        <tr>
-                            <th>Numero Auto</th>
-                            <th>Veiculo Autuado</th>
-                            <th>Data Hora</th>
-                            <th>Local</th>
-                            <th>Norma Infrigida</th>
-                            <th>Distrito</th>
-                            <th>Descrição Sumária</th>
-                            <th>Data limite de Defesa</th>
-                            <th>Estado do Pagamento</th>
-                            <th>Valor da Coima</th>
-                            <th>Gravidade</th>
-                            <th>Entidade Autuante</th>
-                            <th>Data de Notificação</th>
-                        </tr>
-                        <tr>
-                            <td>{{dadosDaInfracao.numeroAuto}}</td>
-                            <td>{{dadosDaInfracao.veiculoAutuado}}</td>
-                            <td>{{dadosDaInfracao.dataHora}}</td>
-                            <td>{{dadosDaInfracao.local}}</td>
-                            <td>{{dadosDaInfracao.normaInfrigida}}</td>
-                            <td>{{dadosDaInfracao.distrito}}</td>
-                            <td>{{dadosDaInfracao.descricaoSumaria}}</td>
-                            <td>{{dadosDaInfracao.dataLimiteDefesa}}</td>
-                            <td>{{dadosDaInfracao.estadoDoPagamento}}</td>
-                            <td>{{dadosDaInfracao.valorDaCoima}}</td>
-                            <td>{{dadosDaInfracao.gravidade}}</td>
-                            <td>{{dadosDaInfracao.entidadeAutuante}}</td>
-                            <td>{{dadosDaInfracao.dataNotificacao}}</td>
-                        </tr>
-                    </table>
-                </body>
-                <br></br>
-            {{/each}}           
-        {{/each}}
-    </ul>
+                </style>
+            </head>
+            <body>
+                <table style="width:100%">
+                    <tr>
+                        <th>Numero Auto</th>
+                        <th>Veiculo Autuado</th>
+                        <th>Data Hora</th>
+                        <th>Local</th>
+                        <th>Norma Infrigida</th>
+                        <th>Distrito</th>
+                        <th>Descrição Sumária</th>
+                        <th>Data limite de Defesa</th>
+                        <th>Estado do Pagamento</th>
+                        <th>Valor da Coima</th>
+                        <th>Gravidade</th>
+                        <th>Entidade Autuante</th>
+                        <th>Data de Notificação</th>
+                    </tr>
+                    <tr>
+                        <td>{{dadosDaInfracao.numeroAuto}}</td>
+                        <td>{{dadosDaInfracao.veiculoAutuado}}</td>
+                        <td>{{dadosDaInfracao.dataHora}}</td>
+                        <td>{{dadosDaInfracao.local}}</td>
+                        <td>{{dadosDaInfracao.normaInfrigida}}</td>
+                        <td>{{dadosDaInfracao.distrito}}</td>
+                        <td>{{dadosDaInfracao.descricaoSumaria}}</td>
+                        <td>{{dadosDaInfracao.dataLimiteDefesa}}</td>
+                        <td>{{dadosDaInfracao.estadoDoPagamento}}</td>
+                        <td>{{dadosDaInfracao.valorDaCoima}}</td>
+                        <td>{{dadosDaInfracao.gravidade}}</td>
+                        <td>{{dadosDaInfracao.entidadeAutuante}}</td>
+                        <td>{{dadosDaInfracao.dataNotificacao}}</td>
+                    </tr>
+                </table>
+            </body>
+            <br></br>
+        {{/each}}           
+    {{/each}}
 </div>
