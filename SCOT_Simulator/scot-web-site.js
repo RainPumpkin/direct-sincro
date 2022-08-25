@@ -4,9 +4,9 @@ import app from 'express'
 const router = app.Router()
 import veiculos from './data/scot-data.js'
 
-router.get('/about', getAbout)
-
 router.get('/events', getEvents)
+
+router.get('/home', getHome)
 
 function getEvents(req, res, next) { 
     veiculos
@@ -15,8 +15,8 @@ function getEvents(req, res, next) {
         .catch(next)
 }
 
-function getAbout(req, res, next) {
-    res.render('about')
+function getHome(req, res, next) {
+    res.render('home')
 }
 
 export default router

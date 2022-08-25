@@ -1,6 +1,25 @@
-<div class="col-sm-10">
-    <h1 style="text-align:left;color:azure;margin: 20px;">Matrículas e Contra ordenações associadas:</h1>
+<link href="/css/menu.css" rel="stylesheet"/>
+<input type="checkbox" id="ham-menu">
+<label for="ham-menu">
+  <div class="hide-des">
+    <span class="menu-line"></span>
+    <span class="menu-line"></span>
+  </div>
+
+</label>
+<div class="full-page-green"></div>
+<div class="ham-menu">
+  <ul class="centre-text bold-text">
+    <li onclick="location.href='https://www.google.pt/';">Home</li>
+    <li onclick="location.href='https://www.google.pt/';">Veiculos Registados</li>
+  </ul>
+</div>
+
+<div class="tablesWithEvents">
     <br></br>
+    <br></br>
+    <br></br>
+    <h1 style="text-align:left;color:azure;margin: 20px;">Matrículas e Contra ordenações associadas:</h1>
     {{#each events}}
     <h2 style="text-align:left;color:azure;margin: 20px;" color="white">{{matricula}}</h2>
         {{#each eventos}}
