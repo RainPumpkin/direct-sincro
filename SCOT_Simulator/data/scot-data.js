@@ -39,13 +39,20 @@ function erro(msg, code) {
     return { message: msg, status: code }
 }
 
-function getCar(matricula) {
+function getVehicle(matricula) {
     let veiculo = data.find(car => car.matricula == matricula)
     return Promise.resolve(veiculo)
 }
 
-function addCarPlate(matricula) {
-    let checkMatricula = getCar(matricula)
+function getVehicles(){
+    let veiculos = data.map(matricula => {
+        return {matricula: matricula.matricula}
+    })
+    return Promise.resolve(veiculos)
+}
+
+function addVehicle(matricula) {
+    let checkMatricula = getVehicle(matricula)
     if (checkMatricula == undefined) {
         let newMatricula = {
             matricula,
@@ -60,7 +67,7 @@ function addCarPlate(matricula) {
 
 function addEvent(evento) {
     let matricula = evento.dadosDoVeiculo.matricula
-    getCar(matricula)
+    getVehicle(matricula)
         .then(veiculo => {
             if (veiculo == undefined) {
                 return Promise.reject(erro('Invalid input, car doesnt exist', 400))
@@ -71,12 +78,13 @@ function addEvent(evento) {
         })
 }
 
-function getAllCarsEvents() {
+function getEvents() {
     return Promise.resolve(data)
 }
 
 export default {
-    addCarPlate,
+    addVehicle,
     addEvent,
-    getAllCarsEvents,
+    getEvents,
+    getVehicles
 }

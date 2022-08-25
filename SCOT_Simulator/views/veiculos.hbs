@@ -1,0 +1,33 @@
+<link href="/css/menu.css" rel="stylesheet"/>
+<input type="checkbox" id="ham-menu">
+<label for="ham-menu">
+  <div class="hide-des">
+    <span class="menu-line"></span>
+    <span class="menu-line"></span>
+  </div>
+
+</label>
+<div class="full-page-green"></div>
+<div class="ham-menu">
+  <ul class="centre-text bold-text">
+    <li onclick="location.href='http://localhost:4000/debugger/home/';">Home</li>
+    <li onclick="location.href='http://localhost:4000/debugger/events/';">Contraordenações</li>
+  </ul>
+</div>    
+
+<div class="vehiclesBullet"></div>
+<br></br>
+<br></br>
+<br></br>
+<link href="/css/style.css" rel="stylesheet"/>
+<head>
+    <h1 style="text-align:left;color:azure;margin: 20px;font-size:35px">Matrículas do simulador SCOT:</h1>
+</head>
+<body>
+    <ul style="text-align:left;color:azure;margin: 20px;font-size:30px;" color="white">
+        {{#each vehicles}}
+             <li>{{matricula}}</li>
+        {{/each}}
+    </ul>
+</body>
+</div>  
