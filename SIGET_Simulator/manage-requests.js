@@ -17,7 +17,6 @@ import fetch from 'node-fetch'
  */
  async function sendEvents(data) {
     let directSincroSubscriptions = []
-    console.log(data)
     data.forEach(element => {
       const matricula = element.evento.dadosDoVeiculo.matricula
       const check = matriculas.find(m => m.matricula === matricula)
@@ -25,30 +24,50 @@ import fetch from 'node-fetch'
         directSincroSubscriptions.push(element)
       }
     });
-    /*
     const DirectSincro_Requests = await Promise.all(
       directSincroSubscriptions.map(async evento => {
-        console.log(`DirectSincro_Requests = ${JSON.stringify(evento)}`)
-        await fetch(DIRECT_SINCRO_URL, {
+        console.log(`\nDirectSincro_Requests = ${JSON.stringify(evento)}`)
+        return await fetch(DIRECT_SINCRO_URL, {
           method: 'post',
           body: JSON.stringify(evento),
           headers: {'Content-Type': 'application/json'}
-        });
+          })
+          .then(async response => {
+            // check for error response
+            if (!response.ok) {
+                // get error message from body or default to response status
+                const error = (data && data.message) || response.status;
+                return Promise.reject(error);
+            }
+          })
+          .catch(error => {
+              console.error('There was an error!', error);
+          });
       })
     );
-    console.log(`DirectSincro_responses -> ${DirectSincro_Requests}\n`)
-    */
+    console.log(`\nDirectSincro_responses -> ${JSON.stringify(DirectSincro_Requests)}\n`)
     const SCOT_Requests = await Promise.all(
       data.map(async evento => {
         console.log(`SCOT_Requests = ${JSON.stringify(evento)}`)
-        await fetch(SCOT_URL, {
+        return await fetch(SCOT_URL, {
           method: 'post',
           body: JSON.stringify(evento),
           headers: {'Content-Type': 'application/json'}
+        })
+        .then(async response => {
+          // check for error response
+          if (!response.ok) {
+              // get error message from body or default to response status
+              const error = (data && data.message) || response.status;
+              return Promise.reject(error);
+          }
+        })
+        .catch(error => {
+            console.error('There was an error!', error);
         });
       })
     );
-    console.log(`SCOT_responses -> ${SCOT_Requests}\n`)
+    console.log(`\nSCOT_responses -> ${JSON.stringify(SCOT_Requests)}\n`)
   }
 
   export default sendEvents
