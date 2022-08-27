@@ -3,71 +3,57 @@ import matriculas from './Data/matriculas.js'
 import fetch from 'node-fetch'
 
 
-/**
- * Roots need to be refactored
- */
- const SCOT_URL = 'http://localhost:4000/scot/notificacoes'
- const DIRECT_SINCRO_URL = 'http://localhost:8080/api/eventos'
+const SCOT_URL = 'http://localhost:4000/scot/notificacoes'
+const DIRECT_SINCRO_URL = 'http://localhost:8080/api/contraordenacoes'
 
 /**
- * TODO: requests should retry until servers are up again
- * All events are send to SCOT simulator and only the events which
- * have matricula registered in Direct-Sincro are send to Direct-Sincro
+ * Recebe todos os eventos de trânsito e procura os veículos subscritos em Direct-Sincro 
+ * para depois inserir num array dedicado para pedidos ao Direct-Sincro
  * @param {array} data 
  */
- async function sendEvents(data) {
-    let directSincroSubscriptions = []
-    data.forEach(element => {
-      const matricula = element.evento.dadosDoVeiculo.matricula
-      const check = matriculas.find(m => m.matricula === matricula)
-      if (check != undefined) {
-        directSincroSubscriptions.push(element)
-      }
-    });
-    const DirectSincro_Requests = await Promise.all(
-      directSincroSubscriptions.map(async evento => {
-        console.log(`\nDirectSincro_Requests = ${JSON.stringify(evento)}`)
-        return await fetch(DIRECT_SINCRO_URL, {
-          method: 'post',
-          body: JSON.stringify(evento),
-          headers: {'Content-Type': 'application/json'}
-          })
-          .then(async response => {
-            // check for error response
-            if (!response.ok) {
-                // get error message from body or default to response status
-                const error = (data && data.message) || response.status;
-                return Promise.reject(error);
-            }
-          })
-          .catch(error => {
-              console.error('There was an error!', error);
-          });
-      })
-    );
-    console.log(`\nDirectSincro_responses -> ${JSON.stringify(DirectSincro_Requests)}\n`)
-    const SCOT_Requests = await Promise.all(
-      data.map(async evento => {
-        console.log(`SCOT_Requests = ${JSON.stringify(evento)}`)
-        return await fetch(SCOT_URL, {
-          method: 'post',
-          body: JSON.stringify(evento),
-          headers: {'Content-Type': 'application/json'}
+async function filterRequests(data) {
+  let directSincroSubscriptions = []
+  data.forEach(obj => {
+    const matricula = obj.evento.dadosDoVeiculo.matricula
+    const check = matriculas.find(m => m.matricula === matricula)
+    if (check != undefined) {
+      directSincroSubscriptions.push(obj)
+    }
+  });
+  return directSincroSubscriptions
+}
+
+/**
+ * Recebe os array com os eventos de trânsito e processa os pedidos para o sistema pretendido
+ * @param {array} events 
+ * @param {string} url description
+ */
+async function makeRequests(events, url) {
+  const responses = await Promise.all(
+    events.map(async evento => {
+      console.log(`\n${url}_Requests = ${JSON.stringify(evento)}`)
+      return await fetch(url, {
+        method: 'post',
+        body: JSON.stringify(evento),
+        headers: {'Content-Type': 'application/json'}
         })
-        .then(async response => {
-          // check for error response
-          if (!response.ok) {
-              // get error message from body or default to response status
-              const error = (data && data.message) || response.status;
-              return Promise.reject(error);
-          }
-        })
+        .then(res => res.json())
         .catch(error => {
             console.error('There was an error!', error);
         });
-      })
-    );
-    console.log(`\nSCOT_responses -> ${JSON.stringify(SCOT_Requests)}\n`)
-  }
+    })
+  );
+  console.log(`\nResponse from ${url}:\n ${JSON.stringify(responses)}`)
+}
 
-  export default sendEvents
+/**
+ * Controlador 
+ * @param {array} data de contraordenações simuladas 
+ */
+async function sendEvents(data) {
+  const directSincroRequests = await filterRequests(data)
+  makeRequests(directSincroRequests, DIRECT_SINCRO_URL)
+  makeRequests(data, SCOT_URL)
+}
+
+export default sendEvents

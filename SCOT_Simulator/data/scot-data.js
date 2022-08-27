@@ -19,7 +19,7 @@ let data = [
                     distrito: "Porto",
                     descricaoSumaria: "Cond. aut.lig. local., +de 20 Km/h até 40 Km/h",
                     dataLimiteDefesa: "2021-12-14",
-                    estadoDoPagamento: "Paga",
+                    estadoDoPagamento: "Por pagar",
                     valorDaCoima: 120,
                     gravidade: "Grave",
                     entidadeAutuante: "DESTACAMENTO DE TRÂNSITO DE PORTO",
@@ -34,24 +34,33 @@ let data = [
     { matricula: "03-42-LM", eventos: [] }
 ]//Array<Matriculas>
 
-/* Error builder */
+/**
+ * Recebe mensagem e estatus code do erro, para construir um objeto erro
+ * @param {string} msg 
+ * @param {number} code 
+ * @returns erro
+ */
 function erro(msg, code) {
     return { message: msg, status: code }
 }
 
-function getVehicle(matricula) {
+async function getEvents() {
+    return Promise.resolve(data)
+}
+
+async function getVehicle(matricula) {
     let veiculo = data.find(car => car.matricula == matricula)
     return Promise.resolve(veiculo)
 }
 
-function getVehicles(){
+async function getVehicles(){
     let veiculos = data.map(matricula => {
         return {matricula: matricula.matricula}
     })
     return Promise.resolve(veiculos)
 }
 
-function addVehicle(matricula) {
+async function addVehicle(matricula) {
     let checkMatricula = getVehicle(matricula)
     if (checkMatricula == undefined) {
         let newMatricula = {
@@ -61,30 +70,53 @@ function addVehicle(matricula) {
         data.push(newMatricula)
         Promise.resolve(newMatricula)
     } else {
-        Promise.reject(erro('Car template is already inserted in SCOT', 409))
+        Promise.reject(erro('O Veiculo já está inserido no simulador SCOT.', 409))
     }
 }
 
-function addEvent(evento) {
+/**
+ * Recebe um objeto evento, e insere na memória do Simulador SCOT
+ * returns o evento inserido
+ * @param {object} evento 
+ */
+async function addEvent(evento) {
     let matricula = evento.dadosDoVeiculo.matricula
-    getVehicle(matricula)
-        .then(veiculo => {
-            if (veiculo == undefined) {
-                return Promise.reject(erro('Invalid input, car doesnt exist', 400))
-            } else {
-                veiculo.eventos.push(evento)
-                return Promise.resolve(evento)
-            }
-        })
+        return getVehicle(matricula)
+            .then(veiculo => {
+                if (veiculo == undefined) {
+                    return erro('Input inválido, o veículo não existe.', 400)
+                } else {
+                    veiculo.eventos.push(evento)
+                    return Promise.resolve(evento)
+                }
+            })
 }
 
-function getEvents() {
-    return Promise.resolve(data)
+/**
+ * Atualiza a informação de pagamento de uma contraodernação
+ * Returns o evento atualizado
+ * @param {string} numeroAuto de uma contraordenação 
+ */
+async function payEvent(numeroAuto) { 
+    let veiculo = getVehicle()
+    return veiculo.eventos.find(e => e.dadosDaInfracao.numeroAuto == numeroAuto)
+        .then((evento) => {
+            if (evento == undefined) {
+                return Promise.reject(erro('Input inválido, a contraordenação não existe no simulador SCOT.', 400))
+            }
+            if (evento.dadosDaInfracao.estadoDoPagamento == 'Por pagar') {
+                evento.dadosDaInfracao.estadoDoPagamento = 'Pago'
+                return Promise.resolve(evento)
+            } else {
+                return Promise.reject(erro('A contraordenação com o estado de pagamento incorreto.', 400))
+            }
+        })
 }
 
 export default {
     addVehicle,
     addEvent,
     getEvents,
-    getVehicles
+    getVehicles,
+    payEvent
 }
