@@ -15,4 +15,8 @@ class ContraordenacaoService(private val db: ContraordenacaoDatabase, private va
     fun createContraordenacao(evento: Contraordenacao, matricula: String): String {
         return db.create(evento, matricula)
     }
+
+    fun updateEstadoPagamento(numeroAuto : String) {
+        return db.update(numeroAuto)
+    }
 }

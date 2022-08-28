@@ -97,10 +97,13 @@ async function addEvent(evento) {
  * Returns o evento atualizado
  * @param {string} numeroAuto de uma contraordenação 
  */
-async function payEvent(numeroAuto) { 
-    let veiculo = getVehicle()
-    return veiculo.eventos.find(e => e.dadosDaInfracao.numeroAuto == numeroAuto)
+
+/*
+async function payEvent(numeroAuto, matricula) { 
+    let veiculo = await getVehicle(matricula)
+    return veiculo.eventos.find(e => e.dadosDaInfracao.numeroAuto === numeroAuto)
         .then((evento) => {
+            console.log(`asdfsadasdasdasdasdas ${JSON.stringify(evento)}`)
             if (evento == undefined) {
                 return Promise.reject(erro('Input inválido, a contraordenação não existe no simulador SCOT.', 400))
             }
@@ -112,7 +115,24 @@ async function payEvent(numeroAuto) {
             }
         })
 }
+*/
 
+async function payEvent(numeroAuto, matricula) { 
+    return getVehicle(matricula)
+            .then((veiculo) => veiculo.eventos.find(e => e.dadosDaInfracao.numeroAuto == numeroAuto))
+            .then((evento) => {
+                console.log(`asdfsadasdasdasdasdas ${JSON.stringify(evento)}`)
+                if (evento == undefined) {
+                    return Promise.reject(erro('Input inválido, a contraordenação não existe no simulador SCOT.', 400))
+                }
+                if (evento.dadosDaInfracao.estadoDoPagamento == 'Por pagar') {
+                    evento.dadosDaInfracao.estadoDoPagamento = 'Pago'
+                    return Promise.resolve(evento)
+                } else {
+                    return Promise.reject(erro('A contraordenação com o estado de pagamento incorreto.', 400))
+                }
+            })
+}
 export default {
     addVehicle,
     addEvent,

@@ -281,6 +281,40 @@ paths:
         '404': 
           description: O pedido nao foi encontrado
 
+  /api/subscritores/{nif}/veiculos/{matricula}/contraordenacoes/{numeroauto}:
+    post:
+      tags:
+        - Subscritores
+      summary: Fazer pagamento da Contraordenação
+      description: Permite fazer a atualização do estado de pagamento da Contraordenação na base de dados de Direct-Sincro e no simulador SCOT
+      operationId: "efetuarPagamento"
+      parameters:
+      - name: nif
+        in: path
+        description: nif do cidadao
+        required: true
+        schema:
+          type: string
+      - name: matricula
+        in: path
+        description: matricula do veiculo
+        required: true
+        schema:
+          type: string
+      - name: numeroauto
+        in: path
+        description: numero do Auto
+        required: true
+        schema:
+          type: integer
+      responses:
+        '201':
+          description: O pedido foi enviado com sucesso 
+        '400':
+          description: Algum parametro estava incorreto
+        '409': 
+          description: O pedido ja se encontra criado.
+
   /api/subscritores:
     post:
       tags:

@@ -1,6 +1,9 @@
 package ps.g08.directsincro.controller
 
 import jdk.jshell.spi.ExecutionControl.NotImplementedException
+import okhttp3.MediaType
+import okhttp3.Request
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import ps.g08.directsincro.common.responseOkWithBody
@@ -9,6 +12,19 @@ import ps.g08.directsincro.controller.inputmodels.getContraordenacaoFromContraor
 import ps.g08.directsincro.controller.outputmodel.getMultipleContraordenacaoOutputModel
 import ps.g08.directsincro.service.ContraordenacaoService
 import java.net.URI
+
+private const val SCOT = "http://localhost:4000/scot/pagamento"
+private val contentType : MediaType = MediaType.get("application/json; charset=utf-8")
+
+fun updateEstadoDePagamentoSCOT(numeroAuto: String, matricula: String) : Int? {
+    val body = okhttp3.RequestBody.create(contentType, "{\"numeroAuto\":\"$numeroAuto\", \"matricula\":\"$matricula\"}")
+    val response = Request.Builder()
+        .url(SCOT)
+        .post(body)
+        .build()
+        .execute()
+    return response?.code()
+}
 
 @RestController
 @RequestMapping("/api")
@@ -51,5 +67,20 @@ class ContraordenacaoController(
     fun getAllEventosAlugado() : ResponseEntity<Any>{
         //retorna apenas eventos entre datainicio e datafim do emprestimo
         throw NotImplementedException("getalleventos");
+    }
+
+    @CrossOrigin
+    @PostMapping("/subscritores/{nif}/veiculos/{matricula}/contraordenacoes/{numeroauto}")
+    fun updateEstadoPagamento(@PathVariable nif: String, @PathVariable matricula: String, @PathVariable numeroauto: String): ResponseEntity<Any> {
+        //if response from simulator siget status is valid 200 - 300 status, Direct-Sincro can then
+        //update estado de pagamento of event in DB
+        val responseFromSCOT = updateEstadoDePagamentoSCOT(numeroauto, matricula)
+        if (responseFromSCOT != null) {
+            if (responseFromSCOT in 200..300) {
+                service.updateEstadoPagamento(numeroauto)
+                return ResponseEntity.created(URI.create("/api/subscritores/${nif}/veiculos/${matricula}/eventos/${numeroauto}")).build()
+            }
+        }
+        return ResponseEntity<Any>(HttpStatus.NOT_ACCEPTABLE)
     }
 }

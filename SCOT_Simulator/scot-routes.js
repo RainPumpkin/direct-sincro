@@ -5,7 +5,7 @@ import scot_data from './data/scot-data.js'
 
 router.post('/notificacoes', insertNotifications)
 
-router.put('/pagamento', makePayment)
+router.post('/pagamento', makePayment)
 
 function insertNotifications(req, res, next) {
     const evento = req.body.evento
@@ -23,13 +23,15 @@ function insertNotifications(req, res, next) {
 
 function makePayment(req, res, next) {
     const numeroAuto = req.body.numeroAuto
+    const matricula = req.body.matricula
+    console.log(`\nPayment request at numero de auto = ${numeroAuto}`)
     if (numeroAuto == null) {
         res.status(400)
         res.send('Por favor insira o número auto')
         next
     }
     scot_data
-        .payEvent(numeroAuto)
+        .payEvent(numeroAuto, matricula)
         .then((evt) => {res.status(200); res.json(evt);})
         .catch(next)
 }

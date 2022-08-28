@@ -24,7 +24,7 @@ fun Request.execute(): Response? {
     var response: Response? = null
     try {
         response = client.newCall(this).execute()
-        logger.info("Response from SIGET = $response")
+        logger.info("Response from Simulator on ${this.url()} = $response")
     } catch (e : Exception) {
         e.printStackTrace()
     }
@@ -57,12 +57,14 @@ class VeiculoController(
     @CrossOrigin
     @PostMapping()//recebe input model
     fun putveiculo(@RequestBody input : VeiculoInputModel, @PathVariable nif: String): ResponseEntity<Any>{
-        //if response from simulator siget status is 201, Direct-Sincro can then save new vehicle in DB
+        //if response from simulator siget status is valid 200 - 300 status, Direct-Sincro can then save new vehicle in DB
         //car must match the citizen's nif (IMT)
         val responseFromSiget = postMatriculaToSiget(input.matricula, nif)
-        if (responseFromSiget!! >= 200 && responseFromSiget <= 300) {
-            val matricula = service.createVeiculo(getVeiculoFromVeiculoInputModel(input), nif)
-            return ResponseEntity.created(URI.create("/api/subscritores/${nif}/veiculos/${matricula}")).build()
+        if (responseFromSiget != null) {
+            if (responseFromSiget in 200..300) {
+                val matricula = service.createVeiculo(getVeiculoFromVeiculoInputModel(input), nif)
+                return ResponseEntity.created(URI.create("/api/subscritores/${nif}/veiculos/${matricula}")).build()
+            }
         }
         return ResponseEntity<Any>(HttpStatus.NOT_ACCEPTABLE)
     }

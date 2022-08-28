@@ -30,11 +30,10 @@ class ContraordenacaoDatabase(private val source : Jdbi) {
         const val queryCreate = "INSERT INTO Contraordenacao(numeroAuto, veiculo, estadoPagamento, data, " +
                 "catagoriaVeiculo, classificacaoInfracao, descricao, valorCoima, local, entidadeAutuante, dataLimiteDefesa) VALUES (?,?,?,?,?,?,?,?,?,?,?)"
         const val queryDelete = "Delete FROM Contraordenacao WHERE numeroAuto = ? AND data = ? AND veiculo = ?"//defesa aceite I guess?
+        const val queryUpdate = "UPDATE Contraordenacao SET estadoPagamento = 'Pago' WHERE numeroauto = ?"
     }
 
     fun get(numeroAuto: String) : ContraordenacaoDatabaseRow{
-
-
         return source.withHandleUnchecked { handle ->
             handle
                 .createQuery(queryGet)
@@ -82,6 +81,15 @@ class ContraordenacaoDatabase(private val source : Jdbi) {
                 .execute()
         }
         return evento.numeroAuto
+    }
+
+    fun update(numeroAuto: String) {
+        source.withHandleUnchecked { handle ->
+            handle
+                .createUpdate(queryUpdate)
+                .bind(0, numeroAuto)
+                .execute()
+        }
     }
 
     fun delete(numeroAuto: String, data: Long, veiculo: String) {
