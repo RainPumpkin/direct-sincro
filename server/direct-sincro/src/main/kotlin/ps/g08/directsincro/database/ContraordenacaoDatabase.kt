@@ -31,6 +31,7 @@ class ContraordenacaoDatabase(private val source : Jdbi) {
                 "catagoriaVeiculo, classificacaoInfracao, descricao, valorCoima, local, entidadeAutuante, dataLimiteDefesa) VALUES (?,?,?,?,?,?,?,?,?,?,?)"
         const val queryDelete = "Delete FROM Contraordenacao WHERE numeroAuto = ? AND data = ? AND veiculo = ?"//defesa aceite I guess?
         const val queryUpdate = "UPDATE Contraordenacao SET estadoPagamento = 'Pago' WHERE numeroauto = ?"
+
     }
 
     fun get(numeroAuto: String) : ContraordenacaoDatabaseRow{

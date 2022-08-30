@@ -32,9 +32,9 @@ class LoginController(
         } else {
             return ResponseEntity.badRequest().body(
                 ErrorMessage(
-                code = 400,
-                title = "Bad request",
-                description = "User invalid credentials"
+                    code = 400,
+                    title = "Bad request",
+                    description = "User invalid credentials"
                 )
             )
         }

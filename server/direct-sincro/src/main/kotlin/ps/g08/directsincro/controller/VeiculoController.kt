@@ -9,17 +9,17 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import ps.g08.directsincro.common.Veiculo
+import ps.g08.directsincro.common.responseOkWithBody
 import ps.g08.directsincro.controller.inputmodels.VeiculoInputModel
 import ps.g08.directsincro.controller.inputmodels.getVeiculoFromVeiculoInputModel
 import ps.g08.directsincro.controller.outputmodel.getMultipleVeiculoModel
+import ps.g08.directsincro.controller.outputmodel.getVeiculoAllOutputModel
 import ps.g08.directsincro.service.VeiculoService
 import java.net.URI
-
 private val logger = KotlinLogging.logger("VeiculoController")
 private const val SIGET = "http://localhost:3000/siget/veiculo"
 private val contentType : MediaType = MediaType.get("application/json; charset=utf-8")
 private val client = OkHttpClient()
-
 fun Request.execute(): Response? {
     var response: Response? = null
     try {
@@ -39,7 +39,6 @@ fun postMatriculaToSiget(matricula: String, nif: String) : Int? {
         .execute()
     return response?.code()
 }
-
 fun String.deleteMatriculaFromSiget() {
     val body = okhttp3.RequestBody.create(contentType, "{\"matricula\":\"$this\"}")
     val response = Request.Builder()
@@ -48,6 +47,7 @@ fun String.deleteMatriculaFromSiget() {
         .build()
         .execute()
 }
+
 
 @RestController
 @RequestMapping("/api/subscritores/{nif}/veiculos")
@@ -82,5 +82,12 @@ class VeiculoController(
         val responseEntity = ResponseEntity<Any>(service.deleteVeiculos(matricula), HttpStatus.OK)
         matricula.deleteMatriculaFromSiget()
         return responseEntity
+    }
+
+    @GetMapping("/{matricula}/all")
+    fun getVeiculoInfo(@PathVariable matricula: String) : ResponseEntity<Any>{
+        val veiculo = service.getVeiculo(matricula)
+        val out = getVeiculoAllOutputModel(veiculo)
+        return responseOkWithBody(out)
     }
 }

@@ -19,4 +19,8 @@ class VeiculoService(private val veiculodb: VeiculoDatabase, private val veiculo
     fun deleteVeiculos(matricula: String) {
         return veiculodb.delete(matricula)
     }
+
+    fun getVeiculo(matricula: String) : Veiculo{
+        return veiculoMapper.single(veiculodb.get(matricula))
+    }
 }

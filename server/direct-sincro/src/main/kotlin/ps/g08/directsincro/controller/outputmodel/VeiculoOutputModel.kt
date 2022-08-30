@@ -8,6 +8,14 @@ data class VeiculoOutputModel(
     val categoria: String
 )
 
+data class VeiculoAllOutputModel(
+    val matricula: String,
+    val modelo: String,
+    val categoria: String,
+    val contraordenacoes: MultipleContraordenacaoOutputModel,
+    val delegacoes: List<DelegacaoVeiculoOutputModel>
+)
+
 data class MultipleVeiculoOutputModel(
     val veiculos: List<VeiculoOutputModel>,
     val number : Int
@@ -18,6 +26,16 @@ fun getVeiculoOutputModel(veiculo: Veiculo) : VeiculoOutputModel{
         matricula = veiculo.matricula,
         modelo = veiculo.modelo,
         categoria = veiculo.categoria
+    )
+}
+
+fun getVeiculoAllOutputModel(veiculo: Veiculo) : VeiculoAllOutputModel{
+    return VeiculoAllOutputModel(
+        matricula = veiculo.matricula,
+        modelo = veiculo.modelo,
+        categoria = veiculo.categoria,
+        contraordenacoes = getMultipleContraordenacaoOutputModel(veiculo.contraordenacoes),
+        delegacoes = getAllDelegacaoVeiculoOutputModel(veiculo.delegacoes)
     )
 }
 

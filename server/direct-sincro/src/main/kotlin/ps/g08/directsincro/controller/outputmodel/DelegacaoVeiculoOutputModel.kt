@@ -15,3 +15,11 @@ fun getDelegacaoVeiculoOutputModel(delegacaoVeiculo: DelegacaoVeiculo) : Delegac
         datafim = delegacaoVeiculo.dataFim,
     )
 }
+
+fun getAllDelegacaoVeiculoOutputModel(delegacoesVeiculo: List<DelegacaoVeiculo>): List<DelegacaoVeiculoOutputModel>{
+    val delegacoes = mutableListOf<DelegacaoVeiculoOutputModel>()
+    for (delegacao in delegacoesVeiculo){
+        delegacoes.add(getDelegacaoVeiculoOutputModel(delegacao))
+    }
+    return delegacoes
+}
