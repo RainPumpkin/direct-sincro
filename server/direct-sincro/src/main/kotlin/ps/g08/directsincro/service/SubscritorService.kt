@@ -4,14 +4,14 @@ import org.springframework.stereotype.Component
 import ps.g08.directsincro.common.Cidadao
 import ps.g08.directsincro.common.Subscritor
 import ps.g08.directsincro.common.SubscritorCidadao
-import ps.g08.directsincro.database.PessoaDatabase
+import ps.g08.directsincro.database.CidadaoDatabase
 import ps.g08.directsincro.database.SubscritorDatabase
 import ps.g08.directsincro.service.mappers.CidadaoMapper
 import ps.g08.directsincro.service.mappers.SubscritorMapper
 
 @Component
 class SubscritorService(
-    private val cidadaoDb: PessoaDatabase,
+    private val cidadaoDb: CidadaoDatabase,
     private val subsDb: SubscritorDatabase,
     private val subsMapper: SubscritorMapper,
     private val cidMapper: CidadaoMapper) {
