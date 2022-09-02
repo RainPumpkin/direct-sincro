@@ -17,7 +17,7 @@ data class ContraordenacaoOutputModel (
 )
 
 data class MultipleContraordenacaoOutputModel(
-    val contraordenacaos : List<ContraordenacaoOutputModel>,
+    val contraordenacoes : List<ContraordenacaoOutputModel>,
     val number : Int
 )
 
@@ -44,5 +44,5 @@ fun getMultipleContraordenacaoOutputModel(contraordenacoes : List<Contraordenaca
         result.add(getContraordenacaoOutputModel(contraordenacao))
     }
 
-    return MultipleContraordenacaoOutputModel(contraordenacaos = result, number = result.size)
+    return MultipleContraordenacaoOutputModel(contraordenacoes = result, number = result.size)
 }

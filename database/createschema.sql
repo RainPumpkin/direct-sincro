@@ -1,13 +1,13 @@
 Create Table Cidadao(
 	nome 				varchar(100),
 	nif 				char(9),
-	titutloConducao  	char(9),--L-(numero 7 digitos)
+	tituloConducao  	char(9),--L-(numero 7 digitos)
 	email 				varchar(400),--google says 320
 	password			varchar(100),--autenticacao mudar isto para password+salt e guardar o hash
 
 	Primary Key(nif),
 	CONSTRAINT Cidadao_nif CHECK (nif ~ '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'),
-	CONSTRAINT Cidadao_conducao CHECK (titutloConducao ~ 'L-[0-9][0-9][0-9][0-9][0-9][0-9][0-9]')
+	CONSTRAINT Cidadao_conducao CHECK (tituloConducao ~ 'L-[0-9][0-9][0-9][0-9][0-9][0-9][0-9]')
 );
 
 Create Table Subscritor(

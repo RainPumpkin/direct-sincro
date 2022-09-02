@@ -44,7 +44,7 @@ class SubscritorService(
     }
 
     fun createSubscritor(subs: SubscritorCidadao): String {
-        cidadaoDb.create(subs.nome, subs.nif, subs.numero_conducao, subs.email, subs.password)
+        cidadaoDb.create(subs.nome, subs.nif, subs.tituloConducao, subs.email, subs.password)
         return  subsDb.create(subs.nif)
     }
 }

@@ -10,7 +10,7 @@ class NotificacaoMapper : IMapper<NotificacaoDatabaseRow, Notificacao>{
         return Notificacao(
             emitida = obj.emitida,
             mensagem = obj.mensagem,
-            visualizada = obj.recebida,
+            visualizada = obj.visualizada,
             tipo = obj.tipo
         )
     }

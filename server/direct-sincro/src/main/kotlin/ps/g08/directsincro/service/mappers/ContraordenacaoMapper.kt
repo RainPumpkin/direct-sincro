@@ -12,7 +12,7 @@ class ContraordenacaoMapper : IMapper<ContraordenacaoDatabaseRow, Contraordenaca
             numeroAuto = obj.numeroAuto,
             estadoPagamento = obj.estadoPagamento,
             data = getEpoch(obj.data),
-            catagoriaVeiculo = obj.catagoriaVeiculo,
+            categoriaVeiculo = obj.categoriaVeiculo,
             classificacaoInfracao = obj.classificacaoInfracao,
             descricao = obj.descricao,
             valorCoima = obj.valorCoima,

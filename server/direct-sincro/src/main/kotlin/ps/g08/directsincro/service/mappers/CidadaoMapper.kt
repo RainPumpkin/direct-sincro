@@ -11,7 +11,7 @@ class CidadaoMapper(val cidadaoService: CidadaoService) : IMapper<CidadaoDatabas
         return Cidadao(
             nome = obj.nome,
             nif = obj.nif,
-            numero_conducao = obj.numero_conducao,
+            tituloConducao = obj.tituloConducao,
             email = obj.email,
             password = obj.password,
             subscritor = cidadaoService.getSubscritorUnsafe(obj.nif)

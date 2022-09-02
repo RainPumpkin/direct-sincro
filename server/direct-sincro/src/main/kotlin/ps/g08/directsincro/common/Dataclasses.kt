@@ -3,7 +3,7 @@ package ps.g08.directsincro.common
 data class Cidadao(
     val nome: String,
     val nif: String,
-    val numero_conducao: String,
+    val tituloConducao: String,
     val email: String,
     val password: String,
     val subscritor: Subscritor?
