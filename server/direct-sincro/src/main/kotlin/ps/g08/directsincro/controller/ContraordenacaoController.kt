@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*
 import ps.g08.directsincro.common.responseOkWithBody
 import ps.g08.directsincro.controller.inputmodels.ContraordenacaoInputModel
 import ps.g08.directsincro.controller.inputmodels.getContraordenacaoFromContraordenacaoInputModel
+import ps.g08.directsincro.controller.outputmodel.getContraordenacaoOutputModel
 import ps.g08.directsincro.controller.outputmodel.getMultipleContraordenacaoOutputModel
 import ps.g08.directsincro.service.ContraordenacaoService
 import java.net.URI
@@ -34,7 +35,7 @@ class ContraordenacaoController(
     //Evento proveniente do SIGET
     @CrossOrigin
     @PostMapping("/contraordenacoes")
-    fun receiveEvento(@RequestBody input : ContraordenacaoInputModel) : ResponseEntity<Any> {
+    fun receiveContraordenacao(@RequestBody input : ContraordenacaoInputModel) : ResponseEntity<Any> {
         service.createContraordenacao(getContraordenacaoFromContraordenacaoInputModel(input), input.evento.dadosDoVeiculo.matricula)
         return responseOkWithBody(responseOkWithBody("Evento adicionado com sucesso"))
     }
@@ -44,27 +45,33 @@ class ContraordenacaoController(
 
     @CrossOrigin
     @PostMapping("/subscritores/{nif}/veiculos/{matricula}/contraordenacoes")
-    fun createEventoVeiculo(@RequestBody input: ContraordenacaoInputModel, @PathVariable nif: String, @PathVariable matricula: String) : ResponseEntity<Any> {
+    fun createContraordenacaoVeiculo(@RequestBody input: ContraordenacaoInputModel, @PathVariable nif: String, @PathVariable matricula: String) : ResponseEntity<Any> {
         val numeroAuto = service.createContraordenacao(getContraordenacaoFromContraordenacaoInputModel(input), matricula)
         return ResponseEntity.created(URI.create("/api/subscritores/${nif}/veiculos/${matricula}/eventos/${numeroAuto}")).build()
     }
 
     @CrossOrigin
     @GetMapping("/subscritores/{nif}/veiculos/{matricula}/contraordenacoes")
-    fun getAllEventosVeiculo(@PathVariable matricula: String) : ResponseEntity<Any>{
+    fun getAllContraordenacoesVeiculo(@PathVariable matricula: String) : ResponseEntity<Any>{
         return responseOkWithBody(getMultipleContraordenacaoOutputModel(service.getAllContraordenacoes(matricula)))
     }
 
     @CrossOrigin
+    @GetMapping("/subscritores/{nif}/veiculos/{matricula}/contraordenacoes/{numeroauto}")
+    fun getContraordenacaoVeiculo(@PathVariable numeroauto: String) : ResponseEntity<Any>{
+        return responseOkWithBody(getContraordenacaoOutputModel(service.getContraordenação(numeroauto)))
+    }
+
+    @CrossOrigin
     @PostMapping("/subscritores/{nif}/alugados/{matricula}/contraordenacoes")
-    fun createEventoAlugado(@RequestBody input: ContraordenacaoInputModel, @PathVariable nif: String, @PathVariable matricula: String) : ResponseEntity<Any> {
+    fun createContraordenacaoAlugado(@RequestBody input: ContraordenacaoInputModel, @PathVariable nif: String, @PathVariable matricula: String) : ResponseEntity<Any> {
         val numeroAuto = service.createContraordenacao(getContraordenacaoFromContraordenacaoInputModel(input), matricula)
         return ResponseEntity.created(URI.create("/api/subscritores/${nif}/alugados/${matricula}/eventos/${numeroAuto}")).build()
     }
 
     @CrossOrigin
     @GetMapping("/subscritores/{nif}/alugados/{matricula}/contraordenacoes")
-    fun getAllEventosAlugado() : ResponseEntity<Any>{
+    fun getAllContraordenacoesAlugado() : ResponseEntity<Any>{
         //retorna apenas eventos entre datainicio e datafim do emprestimo
         throw NotImplementedException("getalleventos");
     }

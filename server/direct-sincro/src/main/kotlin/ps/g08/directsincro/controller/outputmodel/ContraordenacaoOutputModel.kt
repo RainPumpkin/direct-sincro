@@ -44,4 +44,3 @@ fun getMultipleContraordenacaoOutputModel(contraordenacoes : List<Contraordenaca
 
     return MultipleContraordenacaoOutputModel(contraordenacaos = result, number = result.size)
 }
-

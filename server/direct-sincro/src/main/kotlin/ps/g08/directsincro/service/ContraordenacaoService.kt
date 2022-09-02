@@ -9,6 +9,10 @@ import ps.g08.directsincro.service.mappers.ContraordenacaoMapper
 @Component
 class ContraordenacaoService(private val db: ContraordenacaoDatabase, private val mapper: ContraordenacaoMapper) {
 
+    fun getContraordenação(numeroAuto: String) : Contraordenacao {
+        return mapper.single(db.get(numeroAuto))
+    }
+
     fun getAllContraordenacoes(matricula: String) : List<Contraordenacao>{
         val rows : List<ContraordenacaoDatabaseRow>
         try {
