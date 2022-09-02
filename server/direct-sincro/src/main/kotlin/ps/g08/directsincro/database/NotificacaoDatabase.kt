@@ -10,7 +10,7 @@ data class NotificacaoDatabaseRow(
     val emitida: Long,
     val mensagem: String,
     val contraordenacao: String,
-    val recebida: Boolean,
+    val visualizada: Boolean,
     val tipo: String,
     val subscritor: String
 )
@@ -20,8 +20,8 @@ class NotificacaoDatabase(private val source : Jdbi) {
     companion object {
         const val queryGet = "SELECT * FROM Notificacao WHERE subscritor = ? AND emitida = ?"
         const val queryGetAll = "SELECT * FROM Notificacao WHERE subscritor = ? "
-        const val queryCreate = "INSERT INTO Notificacao(emitida, mensagem, recebida, tipo, subscritor, contraordenacao) VALUES (?,?,?,?,?,?)"
-        const val queryUpdate = "UPDATE Notificacao SET mensagem = ?, recebida = ?, tipo = ?,  WHERE subscritor = ? AND emitida = ?"
+        const val queryCreate = "INSERT INTO Notificacao(emitida, mensagem, visualizada, tipo, subscritor, contraordenacao) VALUES (?,?,?,?,?,?)"
+        const val queryUpdate = "UPDATE Notificacao SET mensagem = ?, visualizada = ?, tipo = ?,  WHERE subscritor = ? AND emitida = ?"
         const val queryDelete = "Delete FROM Notificacao WHERE emitida = ? AND subscritor = ?"
     }
 
@@ -51,7 +51,7 @@ class NotificacaoDatabase(private val source : Jdbi) {
                 .createUpdate(queryCreate)
                 .bind(0, notificacao.emitida)
                 .bind(1, notificacao.mensagem)
-                .bind(2, notificacao.recebida)
+                .bind(2, notificacao.visualizada)
                 .bind(3, notificacao.tipo)
                 .bind(4, subscritor)
                 .bind(5, contraordenacao)

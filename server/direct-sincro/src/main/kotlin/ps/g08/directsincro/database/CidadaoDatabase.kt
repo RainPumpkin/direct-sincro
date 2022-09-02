@@ -8,7 +8,7 @@ import ps.g08.directsincro.common.Cidadao
 data class CidadaoDatabaseRow(
         val nome: String,
         val nif: String,
-        val numero_conducao: String,
+        val tituloConducao: String,
         val email: String,
         val password: String
 )
@@ -18,7 +18,7 @@ class CidadaoDatabase(private val source: Jdbi) {
     companion object {
         const val queryGet = "SELECT * FROM Cidadao WHERE nif = ? "
         //const val queryGetAll = "SELECT * FROM Pessoa WHERE nif = ? "
-        const val queryCreate = "INSERT INTO Cidadao(nome, nif, numero_conducao, email, password) VALUES (?,?,?,?,?)"
+        const val queryCreate = "INSERT INTO Cidadao(nome, nif, tituloConducao, email, password) VALUES (?,?,?,?,?)"
         const val queryUpdate = "UPDATE Cidadao SET email = ? WHERE nif = ?"
         const val queryUpdatePass = "UPDATE Cidadao SET password = ? WHERE nif = ?"
         const val queryDelete = "Delete FROM Cidadao WHERE nif = ?"
@@ -34,13 +34,13 @@ class CidadaoDatabase(private val source: Jdbi) {
         }
     }
 
-    fun create(nome: String, nif: String, numero_conducao: String, email: String, password: String): String {
+    fun create(nome: String, nif: String, tituloConducao: String, email: String, password: String): String {
         source.withHandleUnchecked { handle ->
             handle
                 .createUpdate(queryCreate)
                 .bind(0, nome)
                 .bind(1, nif)
-                .bind(2, numero_conducao)
+                .bind(2, tituloConducao)
                 .bind(3, email)
                 .bind(4, password)
                 .execute()

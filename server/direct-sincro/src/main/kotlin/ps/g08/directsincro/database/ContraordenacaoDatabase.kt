@@ -12,13 +12,14 @@ data class ContraordenacaoDatabaseRow(
     val veiculo: String,
     val estadoPagamento: String,
     val data: Timestamp,
-    val catagoriaVeiculo: String,
+    val categoriaVeiculo: String,
     val classificacaoInfracao: String,
     val descricao: String,
     val valorCoima: Double,
     val local: String,
     val entidadeAutuante: String,
-    val dataLimiteDefesa: Timestamp
+    val dataLimiteDefesa: Timestamp,
+    val normaInfringida: String
 )
 
 @Component
@@ -28,7 +29,7 @@ class ContraordenacaoDatabase(private val source : Jdbi) {
         const val queryGetAll = "SELECT * FROM Contraordenacao WHERE veiculo = ?"//getall for matricula
         const val queryGetAllTime = "SELECT * FROM Contraordenacao WHERE veiculo = ? AND data BETWEEN ? AND ?"//mesmo de cima mas entre duas datas
         const val queryCreate = "INSERT INTO Contraordenacao(numeroAuto, veiculo, estadoPagamento, data, " +
-                "catagoriaVeiculo, classificacaoInfracao, descricao, valorCoima, local, entidadeAutuante, dataLimiteDefesa) VALUES (?,?,?,?,?,?,?,?,?,?,?)"
+                "categoriaVeiculo, classificacaoInfracao, descricao, valorCoima, local, entidadeAutuante, dataLimiteDefesa, normaInfringida) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)"
         const val queryDelete = "Delete FROM Contraordenacao WHERE numeroAuto = ? AND data = ? AND veiculo = ?"//defesa aceite I guess?
         const val queryUpdate = "UPDATE Contraordenacao SET estadoPagamento = 'Pago' WHERE numeroauto = ?"
 
@@ -72,13 +73,14 @@ class ContraordenacaoDatabase(private val source : Jdbi) {
                 .bind(1, veiculo)
                 .bind(2, evento.estadoPagamento)
                 .bind(3, getTimestamp(evento.data))
-                .bind(4, evento.catagoriaVeiculo)
+                .bind(4, evento.categoriaVeiculo)
                 .bind(5, evento.classificacaoInfracao)
                 .bind(6, evento.descricao)
                 .bind(7, evento.valorCoima)
                 .bind(8, evento.local)
                 .bind(9, evento.entidadeAutuante)
                 .bind(10, getTimestamp(evento.dataLimiteDefesa))
+                .bind(11, evento.normaInfringida)
                 .execute()
         }
         return evento.numeroAuto

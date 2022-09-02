@@ -5,7 +5,7 @@ import ps.g08.directsincro.common.SubscritorCidadao
 data class SubscritorInputModel(
     val nome: String,
     val nif: String,
-    val numeroConducao: String,
+    val tituloConducao: String,
     val email: String,
     val password: String
 )
@@ -15,7 +15,7 @@ fun getSubscritorPessoaFromSubscritorInputModel(input : SubscritorInputModel) : 
         nif = input.nif,
         password = input.password,
         nome = input.nome,
-        numero_conducao = input.numeroConducao,
+        tituloConducao = input.tituloConducao,
         email = input.email
     )
 }

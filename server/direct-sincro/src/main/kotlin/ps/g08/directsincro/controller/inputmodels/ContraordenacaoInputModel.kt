@@ -15,7 +15,7 @@ data class Evento(
 data class DadosDoVeiculo(
         val matricula : String,
         val categoria : String,
-        val tipoDeInfracao : String,
+        val categoriaVeiculo : String,
         val pais : String
 )
 
@@ -24,7 +24,7 @@ data class DadosDaInfracao(
         val veiculoAutuado : String,
         val dataHora : String,
         val local : String,
-        val normaInfrigida : String,
+        val normaInfringida : String,
         val distrito : String,
         val descricaoSumaria : String,
         val dataLimiteDefesa : String,
@@ -32,7 +32,7 @@ data class DadosDaInfracao(
         val valorDaCoima : Double,
         val gravidade : String,
         val entidadeAutuante : String,
-        val dataNotificacao : String
+        val dataNotificacao : String,
 )
 fun getContraordenacaoFromContraordenacaoInputModel(input: ContraordenacaoInputModel) : Contraordenacao{
         val data = SimpleDateFormat("yyyy-MM-dd HH:mm").parse(input.evento.dadosDaInfracao.dataHora)
@@ -41,12 +41,13 @@ fun getContraordenacaoFromContraordenacaoInputModel(input: ContraordenacaoInputM
                 numeroAuto = input.evento.dadosDaInfracao.numeroAuto,
                 estadoPagamento = input.evento.dadosDaInfracao.estadoDoPagamento,
                 data = data.time/1000,
-                catagoriaVeiculo = input.evento.dadosDoVeiculo.tipoDeInfracao,
+                categoriaVeiculo = input.evento.dadosDoVeiculo.categoriaVeiculo,
                 classificacaoInfracao = input.evento.dadosDaInfracao.gravidade,
                 descricao = input.evento.dadosDaInfracao.descricaoSumaria,
                 valorCoima = input.evento.dadosDaInfracao.valorDaCoima,
                 local = input.evento.dadosDaInfracao.local,
                 entidadeAutuante = input.evento.dadosDaInfracao.entidadeAutuante,
-                dataLimiteDefesa = dataDefesa.time/1000
+                dataLimiteDefesa = dataDefesa.time/1000,
+                normaInfringida = input.evento.dadosDaInfracao.normaInfringida
         )
 }

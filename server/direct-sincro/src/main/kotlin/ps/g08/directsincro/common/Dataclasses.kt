@@ -20,7 +20,7 @@ data class Subscritor(
 data class Notificacao(
     val emitida: Long,
     val mensagem: String,
-    val recebida: Boolean,
+    val visualizada: Boolean,
     val tipo: String
 )
 
@@ -47,7 +47,7 @@ data class DelegacaoSubscritor(
 data class SubscritorCidadao(
     val nome: String,
     val nif: String,
-    val numero_conducao: String,
+    val tituloConducao: String,
     val email: String,
     val password: String
 )
@@ -56,11 +56,12 @@ data class Contraordenacao(
     val numeroAuto: String,
     val estadoPagamento: String,
     val data: Long,
-    val catagoriaVeiculo: String,
+    val categoriaVeiculo: String,
     val classificacaoInfracao: String,
     val descricao: String,
     val valorCoima: Double,
     val local: String,
     val entidadeAutuante: String,
-    val dataLimiteDefesa: Long
+    val dataLimiteDefesa: Long,
+    val normaInfringida: String
 )
