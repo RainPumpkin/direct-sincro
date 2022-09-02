@@ -13,7 +13,8 @@ data class ContraordenacaoOutputModel (
     val local: String,
     val entidadeAutuante: String,
     val dataLimiteDefesa: Long,
-    val normaInfringida: String
+    val normaInfringida: String,
+    val visualizada: Boolean
 )
 
 data class MultipleContraordenacaoOutputModel(
@@ -33,7 +34,8 @@ fun getContraordenacaoOutputModel(obj: Contraordenacao) : ContraordenacaoOutputM
         local = obj.local,
         entidadeAutuante = obj.entidadeAutuante,
         dataLimiteDefesa = obj.dataLimiteDefesa,
-        normaInfringida = obj.normaInfringida
+        normaInfringida = obj.normaInfringida,
+        visualizada = obj.visualizada
     )
 }
 

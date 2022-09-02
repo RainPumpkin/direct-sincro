@@ -19,7 +19,8 @@ data class ContraordenacaoDatabaseRow(
     val local: String,
     val entidadeAutuante: String,
     val dataLimiteDefesa: Timestamp,
-    val normaInfringida: String
+    val normaInfringida: String,
+    val visualizada: Boolean
 )
 
 @Component

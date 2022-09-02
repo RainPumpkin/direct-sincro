@@ -63,5 +63,6 @@ data class Contraordenacao(
     val local: String,
     val entidadeAutuante: String,
     val dataLimiteDefesa: Long,
-    val normaInfringida: String
+    val normaInfringida: String,
+    val visualizada: Boolean
 )

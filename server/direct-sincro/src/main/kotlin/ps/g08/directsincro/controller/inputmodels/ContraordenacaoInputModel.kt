@@ -48,6 +48,7 @@ fun getContraordenacaoFromContraordenacaoInputModel(input: ContraordenacaoInputM
                 local = input.evento.dadosDaInfracao.local,
                 entidadeAutuante = input.evento.dadosDaInfracao.entidadeAutuante,
                 dataLimiteDefesa = dataDefesa.time/1000,
-                normaInfringida = input.evento.dadosDaInfracao.normaInfringida
+                normaInfringida = input.evento.dadosDaInfracao.normaInfringida,
+                visualizada = false
         )
 }

@@ -35,7 +35,7 @@ Create Table Veiculo(
 
 	Primary Key(matricula),
 	Foreign Key(owner) References Subscritor(nif),
-	CONSTRAINT Veiculo_matricula CHECK (matricula in ('[A-Z][A-Z]-[0-9][0-9]-[0-9][0-9]', '[A-Z][A-Z]-[0-9][0-9]-[A-Z][A-Z]', '[0-9][0-9]-[0-9][0-9]-[A-Z][A-Z]', '[0-9][0-9]-[A-Z][A-Z]-[0-9][0-9]'))
+	CONSTRAINT Veiculo_matricula CHECK (matricula ~ '([A-Z]|[0-9])([A-Z]|[0-9])-([A-Z]|[0-9])([A-Z]|[0-9])-([A-Z]|[0-9])([A-Z]|[0-9])')
 );
 
 Create Table Delegacao(
@@ -62,11 +62,12 @@ Create Table Contraordenacao(
 	entidadeAutuante 		varchar(50),
 	dataLimiteDefesa 		date,
 	normaInfringida			varchar(20),
+	visualizada				boolean default false,
 
 	veiculo 				char(8),
 
 	Primary Key(numeroAuto),
-	Foreign Key(veiculo) References Veiculo(matricula)
+	Foreign Key(veiculo) References Veiculo(matricula),
 	CONSTRAINT Estado_Pagamento CHECK (estadoPagamento in ('Pago','Por Pagar','Não Pago'))
 );
 
