@@ -14,8 +14,8 @@ data class Evento(
 
 data class DadosDoVeiculo(
         val matricula : String,
-        val categoria : String,
         val categoriaVeiculo : String,
+        val tipoDeInfracao : String,
         val pais : String
 )
 

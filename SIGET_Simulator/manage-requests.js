@@ -31,7 +31,7 @@ async function filterRequests(data) {
 async function makeRequests(events, url) {
   const responses = await Promise.all(
     events.map(async evento => {
-      console.log(`\n${url}_Requests = ${JSON.stringify(evento)}`)
+      console.log(`\nRequests = ${url} \n ${JSON.stringify(evento)}`)
       return await fetch(url, {
         method: 'post',
         body: JSON.stringify(evento),
@@ -43,7 +43,7 @@ async function makeRequests(events, url) {
         });
     })
   );
-  console.log(`\nResponse from ${url}:\n ${JSON.stringify(responses)}`)
+  console.info(`\nResponse from ${url}:\n ${JSON.stringify(responses, null, "  ")}`)
 }
 
 /**

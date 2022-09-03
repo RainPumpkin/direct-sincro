@@ -3,7 +3,7 @@
         "evento" : {
             "dadosDoVeiculo": {
                 "matricula" : "WN-23-DA",
-                "categoria" : "AUTOMÓVEL LIGEIRO",
+                "categoriaVeiculo" : "AUTOMÓVEL LIGEIRO",
                 "tipoDeInfracao" : "PASSAGEIROS",
                 "pais" : "PORTUGAL"
             },
@@ -12,7 +12,7 @@
                 "veiculoAutuado" : "WN-23-DA",
                 "dataHora" : "2021-11-10 19:53",
                 "local" : "Rua da Praia, São Pedro da Afurada",
-                "normaInfrigida" : "27.º n.º 1",
+                "normaInfringida" : "27.º n.º 1",
                 "distrito" : "Porto",
                 "descricaoSumaria" : "Cond. aut.lig. local., +de 20 Km/h até 40 Km/h",
                 "dataLimiteDefesa" : "2021-12-14",
@@ -28,7 +28,7 @@
         "evento" : {
             "dadosDoVeiculo": {
                 "matricula" : "10-AG-AG",
-                "categoria": "AUTOMÓVEL LIGEIRO",
+                "categoriaVeiculo": "AUTOMÓVEL LIGEIRO",
                 "tipoDeInfracao": "PASSAGEIROS",
                 "pais": "PORTUGAL"
             },
@@ -37,7 +37,7 @@
                 "veiculoAutuado": "10-AG-AG",
                 "dataHora": "2019-11-10 19:53",
                 "local": "IC2 km 164,400 Venda Nova",
-                "normaInfrigida": "27.º n.º 1",
+                "normaInfringida": "27.º n.º 1",
                 "distrito": "Coimbra",
                 "descricaoSumaria": "Cond. aut.lig. local., +de 20 Km/h até 40 Km/h",
                 "dataLimiteDefesa": "2019-12-14",
@@ -53,7 +53,7 @@
         "evento": {
             "dadosDoVeiculo" : {
                 "matricula": "KL-38-FG",
-                "categoria": "AUTOMÓVEL LIGEIRO",
+                "categoriaVeiculo": "AUTOMÓVEL LIGEIRO",
                 "tipoDeInfracao": "PASSAGEIROS",
                 "pais": "PORTUGAL"
             },
@@ -62,7 +62,7 @@
                 "veiculoAutuado": "KL-38-FG",
                 "dataHora": "2020-11-10 19:53",
                 "local": "IC2 km 164,400 Venda Nova",
-                "normaInfrigida": "27.º n.º 1",
+                "normaInfringida": "27.º n.º 1",
                 "distrito": "Coimbra",
                 "descricaoSumaria": "Cond. aut.lig. local., +de 20 Km/h até 40 Km/h",
                 "dataLimiteDefesa": "2020-12-14",
@@ -78,7 +78,7 @@
         "evento": {
             "dadosDoVeiculo" : {
                 "matricula": "03-42-LM",
-                "categoria": "AUTOMÓVEL PESADO",
+                "categoriaVeiculo": "AUTOMÓVEL PESADO",
                 "tipoDeInfracao": "CARGA",
                 "pais": "PORTUGAL"
             },
@@ -87,7 +87,7 @@
                 "veiculoAutuado": "03-42-LM",
                 "dataHora": "2020-11-10 19:53",
                 "local": "IC2 km 164,400 Venda Nova",
-                "normaInfrigida": "27.º n.º 1",
+                "normaInfringida": "27.º n.º 1",
                 "distrito": "Coimbra",
                 "descricaoSumaria": "Cond. aut.lig. local., +de 20 Km/h até 40 Km/h",
                 "dataLimiteDefesa": "2020-12-14",

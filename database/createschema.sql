@@ -54,7 +54,7 @@ Create Table Contraordenacao(
 	numeroAuto 				char(9),
 	estadoPagamento 		varchar(10),
 	data 					timestamp,
-	categoriaVeiculo		varchar(15),
+	categoriaVeiculo		varchar(70),
 	classificacaoInfracao 	varchar(20),
 	descricao 				varchar(500),
 	valorCoima				decimal(6,2),
@@ -68,7 +68,7 @@ Create Table Contraordenacao(
 
 	Primary Key(numeroAuto),
 	Foreign Key(veiculo) References Veiculo(matricula),
-	CONSTRAINT Estado_Pagamento CHECK (estadoPagamento in ('Pago','Por Pagar','Não Pago'))
+	CONSTRAINT Estado_Pagamento CHECK (estadoPagamento in ('Pago','Por pagar','Não pago'))
 );
 
 Create Table Notificacao(

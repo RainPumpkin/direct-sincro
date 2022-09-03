@@ -1,7 +1,9 @@
 openapi: 3.0.0
 servers:
-  - description: Api Back-end 
-    url: http://localhost:8080
+  - url: http://localhost:8080
+    description: Api Back-end (DIRECT-SINCRO)
+  - url: http://localhost:3000
+    description: Simulador do SIGET
 info:
   description: This
   version: "1.0.0"
@@ -10,20 +12,22 @@ tags:
   - name: Administradores
     description: Rotas de administrador
   - name: Subscritores
-    description: Operações disponiveis para cidadaos que ja se subscreveram à api
+    description: Operações disponiveis para cidadãos que ja se subscreveram à api
   - name: Cidadao
-    description: Operações disponiveis para cidadaos sem sessao iniciada
+    description: Operações disponiveis para cidadãos sem sessao iniciada
+  - name: Simulador do SIGET 
+    description: Adicionar contraodenação
 paths:
-  /api/subscritores/{nif}/veiculos/{matricula}/eventos:
+  /api/subscritores/{nif}/veiculos/{matricula}/contraordenacoes:
     post:
       tags:
         - Subscritores
-      summary: Associar evento de transito ao proprietario
+      summary: Associar contraordenação ao proprietário
       operationId: "adicionarEventoAEmprestar"
       parameters:
       - name: nif
         in: path
-        description: nif do cidadao
+        description: nif do cidadão
         required: true
         schema:
           type: string
@@ -38,7 +42,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/EventoDeTransito"
+              $ref: "#/components/schemas/Contraordenacao"
       responses:
         '201':
           description: O pedido foi enviado com sucesso 
@@ -49,12 +53,12 @@ paths:
     get:
       tags:
         - Subscritores
-      summary: Obter eventos do veiculo
+      summary: Obter contraordenações do veiculo
       operationId: "obterEventoMatricula"
       parameters:
       - name: nif
         in: path
-        description: nif do cidadao
+        description: nif do cidadão
         required: true
         schema:
           type: string
@@ -66,24 +70,24 @@ paths:
           type: string
       responses:
         '200':
-          description: Eventos do veiculo
+          description: Contraordenações do veiculo
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/EventoDeTransito"
+                $ref: "#/components/schemas/Contraordenacao"
         '400':
           description: Algum parametro estava incorreto
 
-  /api/subscritores/{nif}/alugados/{matricula}/eventos:
+  /api/subscritores/{nif}/alugados/{matricula}/contraordenacoes:
     post:
       tags:
         - Subscritores
-      summary: Associar evento de transito ao responsavel pelo Delegacao
+      summary: Associar contraordenacao ao responsavel pelo Delegacao
       operationId: "adicionarEventoEmprestado"
       parameters:
       - name: nif
         in: path
-        description: nif do cidadao
+        description: nif do cidadão
         required: true
         schema:
           type: string
@@ -98,7 +102,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/EventoDeTransito"
+              $ref: "#/components/schemas/Contraordenacao"
       responses:
         '201':
           description: O pedido foi enviado com sucesso 
@@ -116,7 +120,7 @@ paths:
       parameters:
       - name: nif
         in: path
-        description: nif do cidadao
+        description: nif do cidadão
         required: true
         schema:
           type: string
@@ -142,7 +146,7 @@ paths:
         '400':
           description: Algum parametro estava incorreto
         '404': 
-          description: O pedido nao foi encontrado
+          description: O pedido não foi encontrado
 
   /api/subscritores/{nif}/veiculos/{matricula}/delegacoes:
     get:
@@ -153,7 +157,7 @@ paths:
       parameters:
       - name: nif
         in: path
-        description: nif do cidadao
+        description: nif do cidadão
         required: true
         schema:
           type: string
@@ -173,7 +177,7 @@ paths:
         '400':
           description: Algum parametro estava incorreto
         '404': 
-          description: O pedido nao foi encontrado
+          description: O pedido não foi encontrado
     post:
       tags:
         - Subscritores
@@ -182,7 +186,7 @@ paths:
       parameters:
       - name: nif
         in: path
-        description: nif do cidadao
+        description: nif do cidadão
         required: true
         schema:
           type: string
@@ -206,7 +210,7 @@ paths:
         '409': 
           description: O pedido ja se encontra criado.
 
-  /api/subscritores/{nif}/veiculos/{matricula}/eventos/{numeroauto}/pedido:
+  /api/subscritores/{nif}/veiculos/{matricula}/contraordenacoes/{numeroauto}/pedido:
     post:
       tags:
         - Subscritores
@@ -216,7 +220,7 @@ paths:
       parameters:
       - name: nif
         in: path
-        description: nif do cidadao
+        description: nif do cidadão
         required: true
         schema:
           type: string
@@ -253,7 +257,7 @@ paths:
       parameters:
       - name: nif
         in: path
-        description: nif do cidadao
+        description: nif do cidadão
         required: true
         schema:
           type: string
@@ -279,7 +283,7 @@ paths:
         '400':
           description: Algum parametro estava incorreto
         '404': 
-          description: O pedido nao foi encontrado
+          description: O pedido não foi encontrado
 
   /api/subscritores/{nif}/veiculos/{matricula}/contraordenacoes/{numeroauto}:
     post:
@@ -291,7 +295,7 @@ paths:
       parameters:
       - name: nif
         in: path
-        description: nif do cidadao
+        description: nif do cidadão
         required: true
         schema:
           type: string
@@ -320,7 +324,7 @@ paths:
       tags:
         - Cidadao
       summary: Criar nova conta de Subscritor
-      description: Cidadao devera inserir todos os parametros requeridos
+      description: Cidadão devera inserir todos os parametros requeridos
       operationId: "criarSubscritor"
       requestBody:
         required: true
@@ -345,7 +349,7 @@ paths:
       parameters:
       - name: nif
         in: path
-        description: nif do cidadao
+        description: nif do cidadão
         required: true
         schema:
           type: string
@@ -359,7 +363,7 @@ paths:
         '400':
           description: Algum parametro estava incorreto
         '404': 
-          description: Recurso nao encontrado
+          description: Recurso não encontrado
 
   /api/subscritores/{nif}/veiculos:
     post:
@@ -371,7 +375,7 @@ paths:
       parameters:
       - name: nif
         in: path
-        description: nif do cidadao
+        description: nif do cidadão
         required: true
         schema:
           type: string
@@ -396,13 +400,13 @@ paths:
       parameters:
       - name: nif
         in: path
-        description: nif do cidadao
+        description: nif do cidadão
         required: true
         schema:
           type: string
       responses:
         '200':
-          description: Todos os veiculos do cidadao com sessao aberta
+          description: Todos os veiculos do cidadão com sessao aberta
           content:
             application/json:
               schema:
@@ -410,7 +414,7 @@ paths:
         '400':
           description: Algum parametro estava incorreto
         '404': 
-          description: Recurso nao encontrado
+          description: Recurso não encontrado
 
   /api/subscritores/{nif}/veiculos/{matricula}:
     delete:
@@ -421,7 +425,7 @@ paths:
       parameters:
       - name: nif
         in: path
-        description: nif do cidadao
+        description: nif do cidadão
         required: true
         schema:
           type: string
@@ -435,11 +439,11 @@ paths:
         '200':
           description: O veiculo foi removido com sucesso
         '202':
-          description: Operaçao aceite
+          description: Operação aceite
         '204':
-          description: O veiculo especifico nao se encontra na aplicaçao
+          description: O veiculo especifico não se encontra na aplicaçao
         '403':
-          description: Nao possui a autorizaçao necessaria
+          description: não possui a autorizaçao necessaria
 
   /api/subscritores/{nif}/notificacoes:
     get:
@@ -450,7 +454,7 @@ paths:
       parameters:
       - name: nif
         in: path
-        description: nif do cidadao
+        description: nif do cidadão
         required: true
         schema:
           type: string
@@ -464,17 +468,17 @@ paths:
         '400':
           description: Algum parametro estava incorreto
         '404': 
-          description: Recurso nao encontrado
+          description: Recurso não encontrado
     post:
       tags:
-        - Subscritores
+        - Administradores
       summary: Adicionar notificacao ao subscritor
       description: Adicionar nova notificacao ao Subscritor
       operationId: "adicionarNotificacao"
       parameters:
       - name: nif
         in: path
-        description: nif do cidadao
+        description: nif do cidadão
         required: true
         schema:
           type: string
@@ -483,7 +487,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/EventoDeTransito"
+              $ref: "#/components/schemas/Contraordenacao"
       responses:
         '201':
           description: O pedido foi enviado com sucesso 
@@ -501,7 +505,7 @@ paths:
       parameters:
       - name: nif
         in: path
-        description: nif do cidadao
+        description: nif do cidadão
         required: true
         schema:
           type: string
@@ -517,17 +521,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/EventoDeTransito'
+                $ref: '#/components/schemas/Contraordenacao'
         '400':
           description: Algum parametro estava incorreto
         '404': 
-          description: Recurso nao encontrado
+          description: Recurso não encontrado
 
   /api/login:
     post:
       tags:
       - Subscritores
-      summary: Permite o Subscritor fazer login na aplicaçao
+      summary: Permite o Cidadão fazer login na aplicaçao
       operationId: loginDeSubscritor
       requestBody:
         required: true
@@ -537,7 +541,7 @@ paths:
               $ref: "#/components/schemas/Login"
       responses:
         "200":
-          description: operaçao com sucesso
+          description: Operação com sucesso
         "400":
           description: Password ou username invalido
           
@@ -545,11 +549,11 @@ paths:
     post:
       tags:
       - Subscritores
-      summary: Permite o Subscritor encerrar a sessao
+      summary: Permite o Cidadão encerrar a sessao
       operationId: logoutDeSubscritor
       responses:
         "200":
-          description: operaçao com sucesso
+          description: Operação com sucesso
 components:
   schemas:
     Subscritor:
@@ -582,7 +586,7 @@ components:
           type: string
         password:
           type: string
-    EventoDeTransito:
+    Contraordenacao:
       type: object
       properties:
         numeroAuto:
@@ -626,7 +630,7 @@ components:
         Notificacoes:
           type: array
           items:
-            $ref: '#/components/schemas/EventoDeTransito'
+            $ref: '#/components/schemas/Contraordenacao'
     Pagamento:
       type: object
       properties:
