@@ -3,6 +3,7 @@ package ps.g08.directsincro.controller
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import ps.g08.directsincro.common.responseOkWithBody
+import ps.g08.directsincro.controller.outputmodel.getMultipleNotificacaoOutputModel
 import ps.g08.directsincro.service.NotificacaoService
 import java.net.URI
 
@@ -19,7 +20,7 @@ class NotificacaoController(private val notificacaoService: NotificacaoService) 
     @CrossOrigin
     @GetMapping
     fun getallnotifications(@PathVariable nif: String) : ResponseEntity<Any> {
-        return responseOkWithBody(notificacaoService.getAllNotificacoes(nif))
+        return responseOkWithBody(getMultipleNotificacaoOutputModel(notificacaoService.getAllNotificacoes(nif)))
     }
 
     /*@CrossOrigin

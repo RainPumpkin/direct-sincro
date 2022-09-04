@@ -30,4 +30,8 @@ class ContraordenacaoService(private val db: ContraordenacaoDatabase, private va
     fun updateEstadoPagamento(numeroAuto : String) {
         return db.update(numeroAuto)
     }
+
+    fun UpdateVisualizada(numeroauto: String) {
+        return db.checkAndUpdate(numeroauto)
+    }
 }

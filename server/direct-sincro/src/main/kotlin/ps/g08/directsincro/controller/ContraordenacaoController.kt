@@ -59,6 +59,7 @@ class ContraordenacaoController(
     @CrossOrigin
     @GetMapping("/subscritores/{nif}/veiculos/{matricula}/contraordenacoes/{numeroauto}")
     fun getContraordenacaoVeiculo(@PathVariable numeroauto: String) : ResponseEntity<Any>{
+        service.UpdateVisualizada(numeroauto)
         return responseOkWithBody(getContraordenacaoOutputModel(service.getContraordenação(numeroauto)))
     }
 

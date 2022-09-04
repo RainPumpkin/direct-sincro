@@ -2,13 +2,14 @@ package ps.g08.directsincro.service.mappers
 
 import org.springframework.stereotype.Component
 import ps.g08.directsincro.common.Notificacao
+import ps.g08.directsincro.common.getEpoch
 import ps.g08.directsincro.database.NotificacaoDatabaseRow
 
 @Component
 class NotificacaoMapper : IMapper<NotificacaoDatabaseRow, Notificacao>{
     override fun single(obj: NotificacaoDatabaseRow): Notificacao {
         return Notificacao(
-            emitida = obj.emitida,
+            emitida = getEpoch(obj.emitida),
             mensagem = obj.mensagem,
             visualizada = obj.visualizada,
             tipo = obj.tipo

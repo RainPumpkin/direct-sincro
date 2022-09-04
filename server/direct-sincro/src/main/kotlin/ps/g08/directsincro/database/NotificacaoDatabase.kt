@@ -5,9 +5,10 @@ import org.jdbi.v3.core.kotlin.withHandleUnchecked
 import org.springframework.stereotype.Component
 import ps.g08.directsincro.common.Notificacao
 import ps.g08.directsincro.common.getTimestamp
+import java.sql.Timestamp
 
 data class NotificacaoDatabaseRow(
-    val emitida: Long,
+    val emitida: Timestamp,
     val mensagem: String,
     val contraordenacao: String,
     val visualizada: Boolean,

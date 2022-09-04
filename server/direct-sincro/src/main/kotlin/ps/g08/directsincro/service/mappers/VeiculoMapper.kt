@@ -24,7 +24,7 @@ class VeiculoMapper(val delegacaoVeiculoService: DelegacaoVeiculoService, val co
             modelo = obj.modelo,
             categoria = obj.categoria,
             delegacoes = emprestimos,
-            contraordenacoes = emptyList()//TODO figure date error
+            contraordenacoes = eventos//TODO figure date error
         )
     }
 
