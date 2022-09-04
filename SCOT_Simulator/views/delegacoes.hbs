@@ -1,0 +1,49 @@
+<link href="/css/menu.css" rel="stylesheet"/>
+<input type="checkbox" id="ham-menu">
+<label for="ham-menu">
+  <div class="hide-des">
+    <span class="menu-line"></span>
+    <span class="menu-line"></span>
+    <span class="menu-line"></span>
+  </div>
+
+</label>
+<div class="full-page-green"></div>
+<div class="ham-menu">
+  <ul class="centre-text bold-text">
+    <li onclick="location.href='http://localhost:4000/debugger/home/';">Home</li>
+    <li onclick="location.href='http://localhost:4000/debugger/vehicles/';">Veiculos</li>
+    <li onclick="location.href='http://localhost:4000/debugger/events/';">Contraordenações</li>
+  </ul>
+</div>
+
+
+<div class="delegacoesTable"></div>
+<br></br>
+    <br></br>
+    <br></br>
+    <h1 style="text-align:left;color:azure;margin: 20px;">Histórico de delegações :</h1>
+    {{#each vehicles}}
+            <head>
+                <link href="/css/style.css" rel="stylesheet"/>
+            </head>
+            <body>
+                <table style="width:100%">
+                    <tr>
+                        <th>nif</th>
+                        <th>Iniciada</th>
+                        <th>Terminada</th>
+                    </tr>
+                      <h2 style="text-align:left;color:azure;margin: 20px;" color="white">{{matricula}}</h2>
+                    {{#each delegacoes}}
+                    <tr>
+                        <td>{{nif}}</td>
+                        <td>{{start}}</td>
+                        <td>{{end}}</td>
+                    </tr>
+                    {{/each}}  
+                </table>
+            </body>
+            <br></br>
+    {{/each}}
+</div>  
