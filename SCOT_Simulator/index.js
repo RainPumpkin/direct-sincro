@@ -13,6 +13,7 @@ app.use('/debugger', webSiteRouter)
 
 /* error debugging */
 app.use((err, req, resp, _next) => {
+  console.error(`\nError: \n ${err.message} Status = ${err.status}`)
   resp
       .status(err.status || 500)
       .json({
@@ -26,6 +27,5 @@ app.listen(PORT, err => {
     }
     console.log(`Listening on port ${PORT}`)
 })
-
 
 export default app 

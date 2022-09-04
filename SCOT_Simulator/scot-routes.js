@@ -7,7 +7,9 @@ router.post('/notificacoes', insertNotifications)
 
 router.post('/pagamento', makePayment)
 
-router.post('/delegacao', delegateVehicle)
+router.post('/delegacao', startDelegation)
+
+router.post('/delegacao/:matricula/', completeDelegation)
 
 function insertNotifications(req, res, next) {
     const evento = req.body.evento
@@ -19,7 +21,7 @@ function insertNotifications(req, res, next) {
     }
     scot_data
         .addEvent(evento)
-        .then((evt) => {res.status(201); res.json(evt)})
+        .then((evt) => {res.status(201).json(evt)})
         .catch(next)
 }
 
@@ -34,30 +36,39 @@ function makePayment(req, res, next) {
     }
     scot_data
         .payEvent(numeroAuto, matricula)
-        .then((evt) => {res.status(200); res.json(evt);})
+        .then((evt) => {res.status(200).json(evt);})
         .catch(next)
 }
 
-//under construction
-
-function delegateVehicle(req, res, next) {
+function startDelegation(req, res, next) {
     const nif = req.body.nif
     const matricula = req.body.matricula
     console.log(`\nDelegação da matricula = ${matricula} ao nif = ${nif}`)
     if (nif == undefined || matricula == undefined) {
         res.status(400)
-        res.send(`Por favor insira a matricula = ${matricula} e o nif = ${nif} corretamente`)
+        res.send(`Por favor insira a matricula = ${matricula} e o nif = ${nif} corretamente.`)
         next
     }
     scot_data
         .makeDelegation(nif, matricula)
-        .then(() => {res.status(200); res.json('Delegação do veículo foi registada no simulador SCOT com sucesso.');})
+        .then(() => {res.status(201).json('Delegação do veículo foi registada no simulador SCOT com sucesso.');})
         .catch(next)
 }
 
 
-function terminateDelegation(req, res, next) {
-    //TODO:
+function completeDelegation(req, res, next) {
+    const nif = req.body.nif
+    const matricula = req.params.matricula
+    console.log(`\nEncerramento da delegação da matricula = ${matricula} ao nif = ${nif}`)
+    if (nif == undefined || matricula == undefined) {
+        res.status(400)
+        res.send(`Por favor insira a matricula = ${matricula} e o nif = ${nif} corretamente.`)
+        next
+    }
+    scot_data
+        .endDelegation(nif, matricula)
+        .then(() => {res.status(200).json('Delegação do veículo foi terminada no simulador SCOT com sucesso.');})
+        .catch(next)
 }
 
 export default router

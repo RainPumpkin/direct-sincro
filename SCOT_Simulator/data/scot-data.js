@@ -14,7 +14,7 @@ let eventosData = [
                     veiculoAutuado: "XM-23-DA",
                     dataHora: "2022-05-10 19:20",
                     local: "Rua da Praia, São Pedro da Afurada",
-                    normaInfrigida: "27.º n.º 1",
+                    normaInfringida: "27.º n.º 1",
                     distrito: "Porto",
                     descricaoSumaria: "Cond. aut.lig. local., +de 20 Km/h até 40 Km/h",
                     dataLimiteDefesa: "2021-12-14",
@@ -65,8 +65,8 @@ function getCurrentTime() {
  * @param {number} code 
  * @returns erro
  */
-async function erro(msg, code) {
-    return Promise.resolve({ message: msg, status: code })
+function erro(msg, code) {
+    return { message: msg, status: code }
 }
 
 async function getEvents() {
@@ -82,6 +82,11 @@ async function getVehicle(matricula) {
     return Promise.resolve(veiculo)
 }
 
+async function getDelegationVehicle(matricula) {
+    let veiculo = delegacoesData.find(car => car.matricula == matricula)
+    return Promise.resolve(veiculo)
+}
+
 async function getVehicles(){
     let veiculos = eventosData.map(matricula => {
         return {matricula: matricula.matricula}
@@ -89,23 +94,9 @@ async function getVehicles(){
     return Promise.resolve(veiculos)
 }
 
-async function addVehicle(matricula) {
-    let checkMatricula = getVehicle(matricula)
-    if (checkMatricula == undefined) {
-        let newMatricula = {
-            matricula,
-            eventos: []
-        }
-        eventosData.push(newMatricula)
-        Promise.resolve(newMatricula)
-    } else {
-        Promise.reject(erro('O Veiculo já está inserido no simulador SCOT.', 409))
-    }
-}
-
 /**
  * Recebe um objeto evento, e insere na memória do Simulador SCOT
- * returns o evento inserido
+ * retorna o evento inserido
  * @param {object} evento 
  */
 async function addEvent(evento) {
@@ -127,34 +118,34 @@ async function addEvent(evento) {
  * @param {string} matricula 
  */
 async function makeDelegation(nif, matricula) {
-    return delegacoesData.find(veiculo => veiculo.matricula == matricula)
+    return getDelegationVehicle(matricula)
         .then((veiculo) => {
-            const delegacao = {
-                matricula,
-                delegacoes : [
-                    {
-                        nif,
-                        start : getCurrentTime,
-                        end : null
-                    }
-                ]
-            }
             //se o veículo nunca tiver sido delegado
             if (veiculo == undefined) {
-                delegacoesData.push(delegacao)
-                return Promise.resolve(delegacao)
+                delegacoesData.push({
+                    matricula,
+                    delegacoes : [
+                        {
+                            nif,
+                            start : getCurrentTime(),
+                            end : null
+                        }
+                    ]
+                })
+                return Promise.resolve()
             }
             //procurar por delegacao pendente
-            veiculo.delegacoes.find(deleg.end == null)
-                .then((deleg) => {
-                    if (deleg == undefined) {
-                        veiculo.delegacoes.push(delegacao)
-                        return Promise.resolve(delegacao)
-                    } else {
-                        return Promise.reject(erro('Ainda existe uma delegação associada a este veículo.'))
-                    }
+            const deleg = veiculo.delegacoes.find(d => d.end == null)
+            if (deleg == undefined) {
+                veiculo.delegacoes.push({
+                    nif, 
+                    start : getCurrentTime(),
+                    end : null
                 })
-
+                return Promise.resolve()
+            } else {
+                return Promise.reject(erro('Ainda existe uma delegação associada a este veículo.', 409))
+            }
         })
 }
 
@@ -163,13 +154,28 @@ async function makeDelegation(nif, matricula) {
  * @param {string} nif 
  * @param {string} matricula 
  */
-async function deleteDelegation(nif, matricula) {
-    //TODO: 
+async function endDelegation(nif, matricula) {
+    return getDelegationVehicle(matricula)
+        .then((veiculo) => {
+            if (veiculo == undefined) {
+                return Promise.reject(erro('Input inválido, o veículo não existe.', 400))
+            }
+            //procurar por delegacao pendente
+            const deleg = veiculo.delegacoes.find(d => d.end == null)
+            if (deleg == undefined) {
+                return Promise.reject(erro(`Não existe nenhuma delegação deste nif ${nif} para esta matrícula.`, 400))
+            } else if (deleg.end == null) {
+                deleg.end = getCurrentTime()
+                return Promise.resolve()
+            } else {
+                return Promise.reject(erro(`Esta delegação já foi terminada.`, 405))
+            }
+        })
 }
 
 /**
  * Atualiza a informação de pagamento de uma contraodernação
- * Returna o evento atualizado
+ * Retorna o evento atualizado
  * @param {string} numeroAuto de uma contraordenação 
  */
 async function payEvent(numeroAuto, matricula) { 
@@ -190,12 +196,11 @@ async function payEvent(numeroAuto, matricula) {
 
 
 export default {
-    addVehicle,
     addEvent,
     getEvents,
     getVehicles,
     payEvent,
     makeDelegation,
-    deleteDelegation,
+    endDelegation,
     getDelegations
 }
