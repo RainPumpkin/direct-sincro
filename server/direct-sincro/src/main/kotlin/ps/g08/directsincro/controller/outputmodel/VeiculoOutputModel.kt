@@ -13,7 +13,7 @@ data class VeiculoAllOutputModel(
     val modelo: String,
     val categoria: String,
     val contraordenacoes: MultipleContraordenacaoOutputModel,
-    val delegacoes: List<DelegacaoVeiculoOutputModel>
+    val delegacoes: MultipleDelegacaoVeiculoOutputModel
 )
 
 data class MultipleVeiculoOutputModel(

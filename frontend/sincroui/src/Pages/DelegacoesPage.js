@@ -1,20 +1,20 @@
 import { Fragment, useContext, useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import { UserContext } from "../Components/UserContext"
-import { Notificacao } from "../Components/Notificacao"
+import { DelegacaoSubscritor } from "../Components/DelegacaoSubscritor"
 import {get} from "../Services/RequestService"
 
-export const NotificacoesPage = () => {
+export const DelegacoesPage = () => {
     const [user, dispatch] = useContext(UserContext)
     const [loading, setLoading] = useState(true)
-    const [notificacoes, setNotificacoes] = useState({not: null})
+    const [delegacoes, setDelegacoes] = useState({elem:null})
     const [errorInfo, setErrorInfo] = useState(null)
 
     useEffect(() => {
         return get(
-            `/api/subscritores/${user.nif}/notificacoes`,
+            `/api/subscritores/257875316/delegados`,
             (data) => {
-                setNotificacoes(data)
+                setDelegacoes(data)
                 setLoading(false)
             },
             (error) => {
@@ -45,8 +45,8 @@ export const NotificacoesPage = () => {
             // Info get
             return (
                 <Fragment>
-                    <h2>Notificações:</h2>
-                    {notificacoes.notificacoes.map((elem, idx) => <Notificacao key={idx} elem={elem}/>)}
+                    <h2>Delegações:</h2>
+                    {delegacoes.delegacoes.map((elem, idx) => <DelegacaoSubscritor key={idx} elem={elem}/>)}
                 </Fragment>
             )
         }

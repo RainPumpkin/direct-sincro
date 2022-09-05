@@ -9,7 +9,7 @@ import ps.g08.directsincro.database.DelegacaoDatabaseRow
 class DelegacaoVeiculoMapper : IMapper<DelegacaoDatabaseRow, DelegacaoVeiculo> {
     override fun single(obj: DelegacaoDatabaseRow): DelegacaoVeiculo {
         return DelegacaoVeiculo(
-            dataFim = getEpoch(obj.dataFim),
+            dataFim = obj.dataFim?.let { getEpoch(it) },
             dataInicio = getEpoch(obj.dataInicio),
             usuario = obj.usuario,
         )

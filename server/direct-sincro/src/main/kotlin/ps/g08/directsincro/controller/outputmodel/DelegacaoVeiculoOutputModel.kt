@@ -5,7 +5,12 @@ import ps.g08.directsincro.common.DelegacaoVeiculo
 data class DelegacaoVeiculoOutputModel(
     val usuario: String?,
     val datainicio: Long,
-    val datafim: Long,
+    val datafim: Long?,
+)
+
+data class MultipleDelegacaoVeiculoOutputModel(
+    val delegacoes: List<DelegacaoVeiculoOutputModel>,
+    val number : Int
 )
 
 fun getDelegacaoVeiculoOutputModel(delegacaoVeiculo: DelegacaoVeiculo) : DelegacaoVeiculoOutputModel {
@@ -16,10 +21,10 @@ fun getDelegacaoVeiculoOutputModel(delegacaoVeiculo: DelegacaoVeiculo) : Delegac
     )
 }
 
-fun getAllDelegacaoVeiculoOutputModel(delegacoesVeiculo: List<DelegacaoVeiculo>): List<DelegacaoVeiculoOutputModel>{
+fun getAllDelegacaoVeiculoOutputModel(delegacoesVeiculo: List<DelegacaoVeiculo>): MultipleDelegacaoVeiculoOutputModel{
     val delegacoes = mutableListOf<DelegacaoVeiculoOutputModel>()
     for (delegacao in delegacoesVeiculo){
         delegacoes.add(getDelegacaoVeiculoOutputModel(delegacao))
     }
-    return delegacoes
+    return MultipleDelegacaoVeiculoOutputModel(delegacoes = delegacoes, number = delegacoes.size)
 }

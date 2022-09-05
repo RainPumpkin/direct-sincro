@@ -34,13 +34,13 @@ data class Veiculo(
 
 data class DelegacaoVeiculo(
     val dataInicio: Long,
-    val dataFim: Long,
+    val dataFim: Long?,
     val usuario: String?
 )
 
 data class DelegacaoSubscritor(
     val dataInicio: Long,
-    val dataFim: Long,
+    val dataFim: Long?,
     val matricula: String
 )
 

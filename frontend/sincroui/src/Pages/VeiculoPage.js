@@ -87,7 +87,7 @@ const DelegacoesList = (props) => {
     return(
         <Fragment>
             <h2>Lista de Delegações</h2>
-            {props.elem.map((elem, idx) =><DelegacaoVeiculo key={idx} elem={elem} matricula={props.matricula}/> )}
+            {props.elem.delegacoes.map((elem, idx) =><DelegacaoVeiculo key={idx} elem={elem} matricula={props.matricula}/> )}
         </Fragment>
     )
 }

@@ -11,6 +11,7 @@ import { VeiculosPage } from "./Pages/VeiculosPage"
 import { VeiculoPage } from "./Pages/VeiculoPage"
 import { NotificacoesPage } from "./Pages/NotificacoesPage"
 import { ContraOrdenacaoPage } from "./Pages/ContraOrdenacaoPage"
+import { DelegacoesPage } from "./Pages/DelegacoesPage"
 
  const App = () => {
   return(
@@ -25,6 +26,7 @@ import { ContraOrdenacaoPage } from "./Pages/ContraOrdenacaoPage"
             <Route path="/veiculo/:matricula" element={<LoginVerifier><VeiculoPage/></LoginVerifier>}/>
             <Route path="/veiculo/:matricula/contraordenacoes/:numeroAuto" element={<LoginVerifier><ContraOrdenacaoPage/></LoginVerifier>}/>
             <Route path="/notificacoes" element={<LoginVerifier><NotificacoesPage/></LoginVerifier>}/>
+            <Route path="/delegacoes" element={<LoginVerifier><DelegacoesPage/></LoginVerifier>}/>
           </Routes>
         </div>
       </BrowserRouter>

@@ -9,7 +9,7 @@ import java.sql.Timestamp
 
 data class DelegacaoDatabaseRow(
         val dataInicio: Timestamp,
-        val dataFim: Timestamp,
+        val dataFim: Timestamp?,
         val matricula: String,
         val usuario: String?
 )
@@ -73,7 +73,7 @@ class DelegacaoDatabase(private val source : Jdbi) {
                 .bind(0, matricula)
                 .bind(1, emprestimo.usuario)
                 .bind(2, getTimestamp(emprestimo.dataInicio))
-                .bind(3, getTimestamp(emprestimo.dataFim))
+                .bind(3, emprestimo.dataFim?.let { getTimestamp(it) })
                 //.bind(4, emprestimo.estado)
                 .execute()
         }

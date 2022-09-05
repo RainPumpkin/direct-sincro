@@ -5,7 +5,12 @@ import ps.g08.directsincro.common.DelegacaoSubscritor
 data class DelegacaoSubscritorOutputModel(
     val matricula: String,
     val datainicio: Long,
-    val datafim: Long,
+    val datafim: Long?,
+)
+
+data class MultipleDelegacaoSubscritorOutputModel(
+    val delegacoes: List<DelegacaoSubscritorOutputModel>,
+    val number : Int
 )
 
 fun getDelegacaoSubscritorOutputModel(delegacaoSubscritor: DelegacaoSubscritor) : DelegacaoSubscritorOutputModel {
@@ -16,10 +21,10 @@ fun getDelegacaoSubscritorOutputModel(delegacaoSubscritor: DelegacaoSubscritor) 
     )
 }
 
-fun getAllDelegacaoSubscritorOutputModel(delegacoesSubscritor: List<DelegacaoSubscritor>): List<DelegacaoSubscritorOutputModel>{
+fun getAllDelegacaoSubscritorOutputModel(delegacoesSubscritor: List<DelegacaoSubscritor>): MultipleDelegacaoSubscritorOutputModel{
     val delegacoes = mutableListOf<DelegacaoSubscritorOutputModel>()
     for (delegacao in delegacoesSubscritor){
         delegacoes.add(getDelegacaoSubscritorOutputModel(delegacao))
     }
-    return delegacoes
+    return MultipleDelegacaoSubscritorOutputModel(delegacoes = delegacoes, number = delegacoes.size)
 }

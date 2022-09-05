@@ -5,7 +5,7 @@ import ps.g08.directsincro.common.DelegacaoVeiculo
 data class DelegacaoInputModel(
     val usuario: String,
     val dataInicio: Long,
-    val dataFim: Long,
+    val dataFim: Long?,
     val estado: String
 )
 
