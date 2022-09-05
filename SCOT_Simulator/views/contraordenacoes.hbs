@@ -42,6 +42,8 @@
                         <th>Gravidade</th>
                         <th>Entidade Autuante</th>
                         <th>Data de Notificação</th>
+                        <th>Delegado</th>
+                        <th>Inicio de delegação</th>
                     </tr>
                       <h2 style="text-align:left;color:azure;margin: 20px;" color="white">{{matricula}}</h2>
                     {{#each eventos}}
@@ -59,6 +61,8 @@
                         <td>{{dadosDaInfracao.gravidade}}</td>
                         <td>{{dadosDaInfracao.entidadeAutuante}}</td>
                         <td>{{dadosDaInfracao.dataNotificacao}}</td>
+                        <td>{{delegado.nif}}</td>
+                        <td>{{delegado.start}}</td>
                     </tr>
                     {{/each}}  
                 </table>

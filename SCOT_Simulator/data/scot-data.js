@@ -23,6 +23,11 @@ let eventosData = [
                     gravidade: "Grave",
                     entidadeAutuante: "DESTACAMENTO DE TRÂNSITO DE PORTO",
                     dataNotificacao: "2022-05-10"
+                },
+                delegado : {
+                    nif : 271357375,
+                    start : "4/9/2022 @ 14:40:33",
+                    end : null
                 }
             }
         ]
@@ -44,10 +49,24 @@ let delegacoesData = [
             }
         ] 
         
+    },
+    {
+        matricula : "KL-38-FG",
+        delegacoes : [
+            {
+                nif : 271398575,
+                start : "5/9/2022 @ 11:17:33",
+                end : null
+            }
+        ] 
+        
     }
 ]//Array<matricula, Array<delegacoes>>
 
-
+/**
+ * 
+ * @returns data/hora atual da máquina
+ */
 function getCurrentTime() {
     const currentdate = new Date(); 
     return currentdate.getDate() + "/"
@@ -63,18 +82,43 @@ function getCurrentTime() {
  * Recebe mensagem e estatus code do erro, para construir um objeto erro
  * @param {string} msg 
  * @param {number} code 
- * @returns erro
+ * @returns objeto Erro
  */
 function erro(msg, code) {
     return { message: msg, status: code }
 }
 
+/**
+ * 
+ * @returns todos os eventos enviados para o simulador SCOT
+ */
 async function getEvents() {
     return Promise.resolve(eventosData)
 }
 
 async function getDelegations() {
     return Promise.resolve(delegacoesData)
+}
+
+/**
+ * retorna delegação associada a este veículo ou um objeto com propriedades
+ * sem valores em caso de insucesso, para efeitos de visualização na página web
+ * @param {string} matricula 
+ */
+function checkVehicleDelegation(matricula) {
+    let veiculo = delegacoesData.find(d => d.matricula == matricula)
+    const emptyDeleg = {
+        nif : "----------",
+        start : "----------",
+        end : "----------"
+    }
+    if (veiculo == undefined) {
+        return emptyDeleg
+    }
+    if (veiculo.delegacoes != undefined) {
+        return veiculo.delegacoes.find(deleg => deleg.end == null)
+    }
+    return emptyDeleg
 }
 
 async function getVehicle(matricula) {
@@ -105,10 +149,11 @@ async function addEvent(evento) {
             .then(veiculo => {
                 if (veiculo == undefined) {
                     return Promise.reject(erro('Input inválido, o veículo não existe.', 400))
-                } else {
-                    veiculo.eventos.push(evento)
-                    return Promise.resolve(evento)
                 }
+                //associa informação de delegação ao evento
+                evento.delegado = checkVehicleDelegation(matricula)
+                veiculo.eventos.push(evento)
+                return Promise.resolve(evento)
             })
 }
 

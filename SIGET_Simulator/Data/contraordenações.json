@@ -15,12 +15,12 @@
                 "normaInfringida" : "27.º n.º 1",
                 "distrito" : "Porto",
                 "descricaoSumaria" : "Cond. aut.lig. local., +de 20 Km/h até 40 Km/h",
-                "dataLimiteDefesa" : "2021-12-14",
+                "dataLimiteDefesa" : "2022-09-20",
                 "estadoDoPagamento" : "Pago",
                 "valorDaCoima" : 120,
                 "gravidade" : "Grave",
                 "entidadeAutuante" : "DESTACAMENTO DE TRÂNSITO DE PORTO",
-                "dataNotificacao" : "2019-11-29"
+                "dataNotificacao" : "2022-09-05"
             }
         }
     },
@@ -40,12 +40,12 @@
                 "normaInfringida": "27.º n.º 1",
                 "distrito": "Coimbra",
                 "descricaoSumaria": "Cond. aut.lig. local., +de 20 Km/h até 40 Km/h",
-                "dataLimiteDefesa": "2019-12-14",
+                "dataLimiteDefesa": "2022-09-20",
                 "estadoDoPagamento": "Por pagar",
                 "valorDaCoima": 120,
                 "gravidade": "Grave",
                 "entidadeAutuante": "DESTACAMENTO TRÂNSITO G.N.R. DE COIMBRA",
-                "dataNotificacao": "2019-11-29"
+                "dataNotificacao": "2022-09-05"
             }
         }
     },
@@ -65,12 +65,12 @@
                 "normaInfringida": "27.º n.º 1",
                 "distrito": "Coimbra",
                 "descricaoSumaria": "Cond. aut.lig. local., +de 20 Km/h até 40 Km/h",
-                "dataLimiteDefesa": "2020-12-14",
+                "dataLimiteDefesa": "2022-09-20",
                 "estadoDoPagamento": "Por pagar",
                 "valorDaCoima": 120,
                 "gravidade": "Grave",
                 "entidadeAutuante": "DESTACAMENTO TRÂNSITO G.N.R. DE COIMBRA",
-                "dataNotificacao": "2019-11-29"
+                "dataNotificacao": "2022-09-05"
             }
         }
     },
@@ -90,12 +90,12 @@
                 "normaInfringida": "27.º n.º 1",
                 "distrito": "Coimbra",
                 "descricaoSumaria": "Cond. aut.lig. local., +de 20 Km/h até 40 Km/h",
-                "dataLimiteDefesa": "2020-12-14",
+                "dataLimiteDefesa": "2022-09-20",
                 "estadoDoPagamento": "Por pagar",
                 "valorDaCoima": 120,
                 "gravidade": "Grave",
                 "entidadeAutuante": "DESTACAMENTO TRÂNSITO G.N.R. DE COIMBRA",
-                "dataNotificacao": "2019-11-29"
+                "dataNotificacao": "2022-09-05"
             }
         }
     }
