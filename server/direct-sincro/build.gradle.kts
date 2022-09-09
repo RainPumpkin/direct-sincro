@@ -22,6 +22,12 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	// https://mvnrepository.com/artifact/com.google.firebase/firebase-admin
+	implementation("com.google.firebase:firebase-admin:9.0.0")
+	// https://mvnrepository.com/artifact/nl.martijndwars/web-push
+	implementation("nl.martijndwars:web-push:5.1.1")
+// https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on
+	implementation("org.bouncycastle:bcprov-jdk15on:1.70")
 
 	implementation("org.jdbi:jdbi:2.78")
 	implementation("org.jdbi:jdbi3-core:3.28.0")

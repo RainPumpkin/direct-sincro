@@ -6,13 +6,17 @@ import okhttp3.Request
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import ps.g08.directsincro.common.Notificacao
 import ps.g08.directsincro.common.responseOkWithBody
 import ps.g08.directsincro.controller.inputmodels.ContraordenacaoInputModel
 import ps.g08.directsincro.controller.inputmodels.getContraordenacaoFromContraordenacaoInputModel
 import ps.g08.directsincro.controller.outputmodel.getContraordenacaoOutputModel
 import ps.g08.directsincro.controller.outputmodel.getMultipleContraordenacaoOutputModel
 import ps.g08.directsincro.service.ContraordenacaoService
+import ps.g08.directsincro.service.NotificacaoService
+import ps.g08.directsincro.service.SubscritorService
 import java.net.URI
+import java.sql.Timestamp
 
 private const val SCOT = "http://localhost:4000/scot/pagamento"
 private val contentType : MediaType = MediaType.get("application/json; charset=utf-8")
@@ -30,13 +34,18 @@ fun updateEstadoDePagamentoSCOT(numeroAuto: String, matricula: String) : Int? {
 @RestController
 @RequestMapping("/api")
 class ContraordenacaoController(
-    private val service: ContraordenacaoService
+    private val service: ContraordenacaoService,
+    private val notificationService: NotificacaoService,
+    private val subscritorService: SubscritorService
 ) {
     //Evento proveniente do SIGET
     @CrossOrigin
     @PostMapping("/contraordenacoes")
     fun receiveContraordenacao(@RequestBody input : ContraordenacaoInputModel) : ResponseEntity<Any> {
         service.createContraordenacao(getContraordenacaoFromContraordenacaoInputModel(input), input.evento.dadosDoVeiculo.matricula)
+        subscritorService.
+        /*notificationService.createNotification(Notificacao(emitida = System.currentTimeMillis(), mensagem = "nova contraordenação", visualizada = false, tipo = "Contraordenação"),
+        )*/
         return responseOkWithBody(responseOkWithBody("Evento adicionado com sucesso"))
     }
 

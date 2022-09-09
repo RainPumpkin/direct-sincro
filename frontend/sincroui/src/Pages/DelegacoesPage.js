@@ -12,7 +12,7 @@ export const DelegacoesPage = () => {
 
     useEffect(() => {
         return get(
-            `/api/subscritores/257875316/delegados`,
+            `/api/subscritores/${user.nif}/delegados`,
             (data) => {
                 setDelegacoes(data)
                 setLoading(false)

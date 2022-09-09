@@ -2,6 +2,7 @@ package ps.g08.directsincro.service
 
 import org.springframework.stereotype.Component
 import ps.g08.directsincro.common.Cidadao
+import ps.g08.directsincro.common.PushSubscription
 import ps.g08.directsincro.common.Subscritor
 import ps.g08.directsincro.common.SubscritorCidadao
 import ps.g08.directsincro.database.CidadaoDatabase
@@ -29,6 +30,9 @@ class SubscritorService(
         }
     }
 
+    fun getSubscription(nif: String): Boolean{
+        return subsDb.getSubscription(nif)
+    }
 
     fun checkPassword(nif: String, passIn: String) : Cidadao?{
         val cidadao : Cidadao?
@@ -46,5 +50,9 @@ class SubscritorService(
     fun createSubscritor(subs: SubscritorCidadao): String {
         cidadaoDb.create(subs.nome, subs.nif, subs.tituloConducao, subs.email, subs.password)
         return  subsDb.create(subs.nif)
+    }
+
+    fun createPushSubscription(pushSub: PushSubscription) {
+        subsDb.createPushSubscription(pushSub.nif, pushSub.endpoint, pushSub.publicKey, pushSub.auth)
     }
 }

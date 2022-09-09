@@ -6,7 +6,7 @@ data class Cidadao(
     val tituloConducao: String,
     val email: String,
     val password: String,
-    val subscritor: Subscritor?
+    val subscritor: Boolean
 )
 
 data class Subscritor(
@@ -15,6 +15,13 @@ data class Subscritor(
     val veiculos: List<Veiculo>,
     val veiculosAlugados: List<Veiculo>,
     val delegacoes: List<DelegacaoSubscritor>
+)
+
+data class PushSubscription(
+    val nif: String,
+    val endpoint: String,
+    val publicKey: String,
+    val auth: String
 )
 
 data class Notificacao(

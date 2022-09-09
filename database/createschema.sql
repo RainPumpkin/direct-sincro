@@ -17,6 +17,16 @@ Create Table Subscritor(
 	Foreign Key(nif) References Cidadao(nif)
 );
 
+Create Table PUSH_SUBSCRIPTION(
+	nif 			char(9),
+	endpoint		char(500),
+	publicKey		chaR(100),
+	auth			char(50),
+
+	Primary Key(nif, endpoint),
+	Foreign Key(nif) References Subscritor(nif)
+)
+
 Create Table DataSubscricao(
 	inicio			timestamp,
 	cancelamento	timestamp,

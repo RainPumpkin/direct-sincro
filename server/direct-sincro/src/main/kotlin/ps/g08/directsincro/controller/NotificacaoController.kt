@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.*
 import ps.g08.directsincro.common.responseOkWithBody
 import ps.g08.directsincro.controller.outputmodel.getMultipleNotificacaoOutputModel
 import ps.g08.directsincro.service.NotificacaoService
-import java.net.URI
 
 @RestController
 @RequestMapping("/api/subscritores/{nif}/notificacoes")

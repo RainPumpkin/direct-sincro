@@ -41,5 +41,17 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    <script>
+      window.addEventListener('load', () =>{
+        if('serviceWorker' in navigator && 'PushManager' in window) {
+        navigator.serviceWorker.register('./serviceworker.js')
+        .then(reg => {
+          console.log('Success:', reg.scope);
+          swRegistration = reg;
+        })
+        .catch((err) => console.log('Feilure:', err));
+      }
+      })
+    </script>
   </body>
 </html>

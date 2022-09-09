@@ -10,7 +10,5 @@ class CidadaoService(
     private val subsDb: SubscritorDatabase,
     private val subsMapper: SubscritorMapper
 ) {
-    fun getSubscritorUnsafe(nif: String): Subscritor?{
-        return subsMapper.single(subsDb.get(nif))
-    }
+    
 }

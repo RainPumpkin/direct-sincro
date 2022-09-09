@@ -4,9 +4,10 @@ import org.springframework.stereotype.Component
 import ps.g08.directsincro.common.Cidadao
 import ps.g08.directsincro.database.CidadaoDatabaseRow
 import ps.g08.directsincro.service.CidadaoService
+import ps.g08.directsincro.service.SubscritorService
 
 @Component
-class CidadaoMapper(val cidadaoService: CidadaoService) : IMapper<CidadaoDatabaseRow, Cidadao> {
+class CidadaoMapper(val subscritorService: SubscritorService) : IMapper<CidadaoDatabaseRow, Cidadao> {
     override fun single(obj: CidadaoDatabaseRow): Cidadao {
         return Cidadao(
             nome = obj.nome,
@@ -14,7 +15,7 @@ class CidadaoMapper(val cidadaoService: CidadaoService) : IMapper<CidadaoDatabas
             tituloConducao = obj.tituloConducao,
             email = obj.email,
             password = obj.password,
-            subscritor = cidadaoService.getSubscritorUnsafe(obj.nif)
+            subscritor = subscritorService.getSubscription(obj.nif)
         )
     }
 

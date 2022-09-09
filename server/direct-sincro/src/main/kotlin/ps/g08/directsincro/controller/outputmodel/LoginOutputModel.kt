@@ -13,6 +13,6 @@ fun getLoginOutputModel(cid: Cidadao) : LoginOutputModel{
     return LoginOutputModel( nif = cid.nif,
         email = cid.email,
         nome = cid.nome,
-        subscritor = cid.subscritor!=null
+        subscritor = cid.subscritor
     )
 }

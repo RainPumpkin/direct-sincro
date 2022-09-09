@@ -23,14 +23,14 @@ class LoginController(
     @PostMapping("/login")
     fun login(@RequestBody input: LoginInputModel): ResponseEntity<Any> {
         val correct = subs.checkPassword(input.nif, input.password)
-        if (correct!=null){
+        return if (correct!=null){
             val value = cookieManager.newCookieValue(input.nif, input.password)
             val headers = HttpHeaders()
             val out = getLoginOutputModel(correct)
             headers.add("Set-Cookie", "Authorization=${value}; Max-Age=${Duration.ofDays(365).toSeconds()}; Path=/; Secure; HttpOnly; SameSite=Strict")
-            return ResponseEntity.ok().headers(headers).body(out)
+            ResponseEntity.ok().headers(headers).body(out)
         } else {
-            return ResponseEntity.badRequest().body(
+            ResponseEntity.badRequest().body(
                 ErrorMessage(
                     code = 400,
                     title = "Bad request",
