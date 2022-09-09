@@ -34,4 +34,10 @@ class SubscritorController(private val subscritorService: SubscritorService) {
         return responseOk()
     }
 
+    @CrossOrigin
+    @PostMapping("/{nif}")
+    fun iniciarSubscricao(@PathVariable nif: String): ResponseEntity<Any>{
+        subscritorService.subscribe(nif)
+        return responseOk()
+    }
 }

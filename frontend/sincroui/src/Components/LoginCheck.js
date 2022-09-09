@@ -15,7 +15,7 @@ export const LoginVerifier = (props) => {
     console.log("not logged")
     console.log(user)
     content = <Navigate to="/login"/>
-  } //else if(!user.subscritor) content = <Navigate to="/naosubscritor"/>
+  } else if(!user.subscritor) content = <Navigate to="/naosubscritor"/>
 
   return(
     <Fragment>

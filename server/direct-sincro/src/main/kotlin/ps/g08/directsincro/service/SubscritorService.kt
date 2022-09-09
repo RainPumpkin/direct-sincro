@@ -51,4 +51,8 @@ class SubscritorService(
     fun cancelSub(nif: String) {
         subsDb.delete(nif)
     }
+
+    fun subscribe(nif: String) {
+        subsDb.create(nif)
+    }
 }
