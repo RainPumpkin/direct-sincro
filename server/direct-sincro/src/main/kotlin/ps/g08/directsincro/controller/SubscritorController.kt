@@ -2,6 +2,7 @@ package ps.g08.directsincro.controller
 
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import ps.g08.directsincro.common.responseOk
 import ps.g08.directsincro.common.responseOkWithBody
 import ps.g08.directsincro.controller.inputmodels.SubscritorInputModel
 import ps.g08.directsincro.controller.inputmodels.getSubscritorPessoaFromSubscritorInputModel
@@ -25,4 +26,12 @@ class SubscritorController(private val subscritorService: SubscritorService) {
         val id : String = subscritorService.createSubscritor(getSubscritorPessoaFromSubscritorInputModel(input))
         return ResponseEntity.created(URI.create("/api/subscritores/${id}")).build()
     }
+
+    @CrossOrigin
+    @DeleteMapping("/{nif}")
+    fun cancelarSubscricao(@PathVariable nif: String): ResponseEntity<Any>{
+        subscritorService.cancelSub(nif)
+        return responseOk()
+    }
+
 }

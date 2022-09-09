@@ -47,4 +47,8 @@ class SubscritorService(
         cidadaoDb.create(subs.nome, subs.nif, subs.tituloConducao, subs.email, subs.password)
         return  subsDb.create(subs.nif)
     }
+
+    fun cancelSub(nif: String) {
+        subsDb.delete(nif)
+    }
 }

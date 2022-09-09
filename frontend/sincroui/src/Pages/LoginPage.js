@@ -1,11 +1,11 @@
 import { Fragment, useContext, useState } from "react"
-import { Navigate } from "react-router-dom"
+import { Navigate, Link } from "react-router-dom"
 import { UserContext } from "../Components/UserContext"
 import { cancellableFetch } from "../Services/CancellableFetch"
 
 const request = (uri, opts, dispatch) => {
     const fetch = cancellableFetch(uri, opts)
-    fetch.ready.then((response) => {if(!fetch.signal.aborted) dispatch(response.ok)})
+    fetch.ready.then((response) => {if(!fetch.signal.aborted) dispatch(response.ok, response.json())})
     .catch((error) => { console.log(error) })
     return fetch.abort
 }
@@ -14,13 +14,14 @@ export const Login = () => {
 
     const [user, dispatch] = useContext(UserContext)
     const [warning, setWarning] = useState(null)
+    const [redirect, setRedir] = useState({redirect: null})
 
     const onSubmitHandler = (event) => {
         event.preventDefault()
         const body = {nif: event.target.nif.value, password: event.target.password.value}
-        const func = (ok) => {
+        const func = (ok, json) => {  
             if(ok) {
-                dispatch({logged: true, nif: event.target.nif.value})
+                dispatch({logged: true, nif: event.target.nif.value, loading: false})
                 setWarning(null)
                 /*
                 json.then((user)  => {
@@ -28,7 +29,7 @@ export const Login = () => {
                     setWarning(null)
                 })*/
             } else {
-                dispatch({logged: false, nif: null, nome:null, email:null, subscritor:null})
+                dispatch({logged: false, nif: null, nome:null, email:null, subscritor:null, loading: false})
                 setWarning("Invalid credentials")
             }
         }
@@ -40,12 +41,16 @@ export const Login = () => {
         notification = <div className="alert alert-danger" role="alert">{warning}</div>
     }
 
-    let redirect = null
-    if(user!=null && user.logged) redirect = <Navigate to="/"/>
-
+    if(user!=null && user.logged && !user.loading){
+        console.log("hi go home")
+        console.log(user)
+        //console.log(redirect)
+        //setRedir({redirect: <Navigate to="/"/>})
+        return(<Fragment><Navigate to="/"/></Fragment>)
+    } 
     return (
         <Fragment>
-            {redirect}
+            {redirect.redirect}
             <form onSubmit={onSubmitHandler}>
                 <div className="form-group">
                     <label htmlFor="exampleInputEmail1">Name</label>
@@ -55,9 +60,12 @@ export const Login = () => {
                     <label htmlFor="exampleInputPassword1">Password</label>
                     <input type="password" name="password" className="form-control" id="exampleInputPassword1" placeholder="Password"/>
                 </div>
+                <p></p>
+                <p></p>
                 <button type="submit" className="btn btn-primary">Submit</button>
             </form>
             {notification}
-        </Fragment>
+            <button type="button" className="btn btn-primary" onClick={() => {setRedir({redirect: <Navigate to="/register"/>})}}>Register</button>
+        </Fragment> 
     )
 }

@@ -12,15 +12,19 @@ import { VeiculoPage } from "./Pages/VeiculoPage"
 import { NotificacoesPage } from "./Pages/NotificacoesPage"
 import { ContraOrdenacaoPage } from "./Pages/ContraOrdenacaoPage"
 import { DelegacoesPage } from "./Pages/DelegacoesPage"
+import { NaoSubsPage } from "./Pages/NaoSubscritorPage"
+import { Navbar } from "./Components/Navbar"
 
  const App = () => {
   return(
     <UserContainer>
       <BrowserRouter> 
+        <Navbar/>
         <div style={{margin: "auto", width: "90%"}}>
           <Routes>
             <Route path="/login" element={<Login />}/>
             <Route path="/" element={<LoginVerifier><Home /></LoginVerifier>}/>
+            <Route path="/naosubscritor" element={<LoginVerifier><NaoSubsPage/></LoginVerifier>}/>
             <Route path="/register" element={<Register />}/>
             <Route path="/veiculos" element={<LoginVerifier><VeiculosPage/></LoginVerifier>}/>
             <Route path="/veiculo/:matricula" element={<LoginVerifier><VeiculoPage/></LoginVerifier>}/>
