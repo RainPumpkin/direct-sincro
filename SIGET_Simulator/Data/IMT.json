@@ -6,5 +6,9 @@
     {
         "nif" : "261069385",
         "matriculas" : []
+    },
+    {
+        "nif" : "123456789",
+        "matriculas" : ["AA-11-AA", "11-AA-ZZ"]
     }
 ]

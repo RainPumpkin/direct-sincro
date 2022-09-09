@@ -52,6 +52,14 @@ class SubscritorService(
         return  subsDb.create(subs.nif)
     }
 
+    fun cancelSub(nif: String) {
+        subsDb.delete(nif)
+    }
+
+    fun subscribe(nif: String) {
+        subsDb.create(nif)
+    }
+
     fun createPushSubscription(pushSub: PushSubscription) {
         subsDb.createPushSubscription(pushSub.nif, pushSub.endpoint, pushSub.publicKey, pushSub.auth)
     }

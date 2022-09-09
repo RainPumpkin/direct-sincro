@@ -1,5 +1,5 @@
 import { Fragment, useContext, useState } from "react"
-import { Link } from "react-router-dom"
+import { Navigate } from "react-router-dom"
 import { UserContext } from "../Components/UserContext"
 import { cancellableFetch } from "../Services/CancellableFetch"
 
@@ -14,25 +14,31 @@ export const Register = () => {
 
     const [user, dispatch] = useContext(UserContext)
     const [warning, setWarning] = useState(null)
+    const [registered, setReg] = useState(false)
 
     const onSubmitHandler = (event) => {
         event.preventDefault()
-        const body = {nome: event.target.nome.value, nif: event.target.nif.value, tituloConducao: event.target.tituloConducao.value, email: event.target.email.value, password: event.target.password.value}
-        const func = (ok) => {
-            if(ok) {
-                dispatch({nome: event.target.nome.value, nif: event.target.nif.value, tituloConducao: event.target.tituloConducao.value, email: event.target.email.value, password: event.target.password.value})
-                setWarning(null)
-                /*
-                json.then((user)  => {
-                    dispatch({logged: true, nif: event.target.nif.value, nome: user.nome, email: user.email, subscritor: user.subscritor})
+        if(event.target.password.value !== event.target.confP.value){
+            setWarning("Mismatch Passwords")
+        } else {
+            const body = {nome: event.target.nome.value, nif: event.target.nif.value, tituloConducao: event.target.tituloConducao.value, email: event.target.email.value, password: event.target.password.value}
+            const func = (ok) => {
+                if(ok) {
+                    setReg(true)
                     setWarning(null)
-                })*/
-            } else {
-                dispatch({noem: null, nif: null, tituloConducao: null, email: null, password: null})
-                setWarning("Invalid credentials")
+                } else {
+                    setReg(false)
+                    setWarning("Invalid credentials")
+                }
             }
+            request("/register", { method: "POST", headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body)}, func)
         }
-        request("/register", { method: "POST", headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body)}, func)
+    }
+
+    let redirect = null
+    if(user!=null && user.logged) redirect = <Navigate to="/"/>
+    else if(registered){
+        redirect = <Navigate to="/login"/>
     }
 
     let notification
@@ -42,26 +48,31 @@ export const Register = () => {
 
     return (
         <Fragment>
+            {redirect}
             <form onSubmit={onSubmitHandler}>
                 <div className="form-group">
-                    <label htmlFor="exampleInputName1">Name</label>
-                    <input type="text" name="nome" className="form-control" id="exampleInputName1" placeholder="Enter name"/>
+                    <label htmlFor="nome">Name</label>
+                    <input type="text" name="nome" className="form-control" id="nome" placeholder="Enter name"/>
                 </div>
                 <div className="form-group">
-                    <label htmlFor="exampleInputNif1">Nif</label>
-                    <input type="text" name="nif" className="form-control" id="exampleInputNif1" placeholder="Enter nif"/>
+                    <label htmlFor="nif">Nif</label>
+                    <input type="text" name="nif" className="form-control" id="nif" pattern="[0-9]{9}" placeholder="Enter nif"/>
                 </div>
                 <div className="form-group">
-                    <label htmlFor="exampleInputTituloConducao1">TituloConducao</label>
-                    <input type="text" name="tituloConducao" className="form-control" id="exampleInputTituloConducao1" placeholder="Enter Titulo Conducao"/>
+                    <label htmlFor="tituloConducao">TituloConducao</label>
+                    <input type="text" name="tituloConducao" className="form-control" id="tituloConducao" placeholder="Enter Titulo Conducao"/>
                 </div>
                 <div className="form-group">
-                    <label htmlFor="exampleInputEmail1">Email</label>
-                    <input type="text" name="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"/>
+                    <label htmlFor="email">Email</label>
+                    <input type="email" name="email" className="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email"/>
                 </div>
                 <div className="form-group">
-                    <label htmlFor="exampleInputPassword1">Password</label>
-                    <input type="password" name="password" className="form-control" id="exampleInputPassword1" placeholder="Password"/>
+                    <label htmlFor="pass">Password</label>
+                    <input type="password" name="password" className="form-control" id="pass" placeholder="Password"/>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="Confpass">Confirm Password</label>
+                    <input type="password" name="confirmPass" className="form-control" id="confP" placeholder="Confirm Password"/>
                 </div>
                 <button type="submit" className="btn btn-primary">Submit</button>
             </form>
