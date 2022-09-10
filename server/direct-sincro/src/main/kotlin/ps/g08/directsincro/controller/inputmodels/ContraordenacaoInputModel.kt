@@ -40,14 +40,14 @@ fun getContraordenacaoFromContraordenacaoInputModel(input: ContraordenacaoInputM
         return Contraordenacao(
                 numeroAuto = input.evento.dadosDaInfracao.numeroAuto,
                 estadoPagamento = input.evento.dadosDaInfracao.estadoDoPagamento,
-                data = data.time/1000,
+                data = data.time,
                 categoriaVeiculo = input.evento.dadosDoVeiculo.categoriaVeiculo,
                 classificacaoInfracao = input.evento.dadosDaInfracao.gravidade,
                 descricao = input.evento.dadosDaInfracao.descricaoSumaria,
                 valorCoima = input.evento.dadosDaInfracao.valorDaCoima,
                 local = input.evento.dadosDaInfracao.local,
                 entidadeAutuante = input.evento.dadosDaInfracao.entidadeAutuante,
-                dataLimiteDefesa = dataDefesa.time/1000,
+                dataLimiteDefesa = dataDefesa.time,
                 normaInfringida = input.evento.dadosDaInfracao.normaInfringida,
                 visualizada = false
         )

@@ -2,7 +2,6 @@ package ps.g08.directsincro.service.mappers
 
 import org.springframework.stereotype.Component
 import ps.g08.directsincro.common.DelegacaoVeiculo
-import ps.g08.directsincro.common.getEpoch
 import ps.g08.directsincro.database.DelegacaoDatabaseRow
 
 @Component

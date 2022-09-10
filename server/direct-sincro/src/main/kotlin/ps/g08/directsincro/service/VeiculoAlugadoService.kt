@@ -9,7 +9,6 @@ import ps.g08.directsincro.service.mappers.VeiculoMapper
 class VeiculoAlugadoService(private val db: VeiculoDatabase, private val mapper: VeiculoMapper) {
 
     fun getAllVeiculosAlugados(nif : String) : List<Veiculo>{
-        //TODO com base em timestamp do  System.currentTimeMillis() /1000 para ter em segundos
         return mapper.multiple(db.getAllAlugados(nif))
     }
 }

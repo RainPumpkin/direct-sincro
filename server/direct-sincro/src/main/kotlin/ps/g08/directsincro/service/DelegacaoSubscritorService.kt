@@ -19,6 +19,4 @@ class DelegacaoSubscritorService(private val db: DelegacaoDatabase, private val 
     fun updateFim(matricula: String, dataCriacao: Long) {
         db.updateFim(dataCriacao, matricula)
     }
-
-    //fun aceitarDelegacao(matricula: String, dataCriacao: Long)
 }

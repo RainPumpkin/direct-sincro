@@ -2,17 +2,16 @@ package ps.g08.directsincro.service.mappers
 
 import org.springframework.stereotype.Component
 import ps.g08.directsincro.common.DelegacaoSubscritor
-import ps.g08.directsincro.common.getEpoch
 import ps.g08.directsincro.database.DelegacaoDatabaseRow
 
 @Component
 class DelegacaoSubscritorMapper : IMapper<DelegacaoDatabaseRow, DelegacaoSubscritor> {
     override fun single(obj: DelegacaoDatabaseRow): DelegacaoSubscritor {
         return DelegacaoSubscritor(
-            dataFim = obj.dataFim?.let { getEpoch(it) },
-            dataInicio = obj.dataInicio?.let { getEpoch(obj.dataInicio)},
+            dataFim = obj.dataFim?.let { it.time },
+            dataInicio = obj.dataInicio?.let { it.time},
             matricula = obj.matricula,
-            dataCriacao = getEpoch(obj.dataCriacao)
+            dataCriacao = obj.dataCriacao.time
         )
     }
 
