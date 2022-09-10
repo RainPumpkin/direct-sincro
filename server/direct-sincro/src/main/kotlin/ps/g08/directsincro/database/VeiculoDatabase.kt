@@ -51,14 +51,14 @@ class VeiculoDatabase(private val source : Jdbi) {
         }
     }
 
-    fun create(veiculo : Veiculo, owner: String): String {
+    fun create(veiculo : Veiculo): String {
         source.withHandleUnchecked { handle ->
             handle
                 .createUpdate(queryCreate)
                 .bind(0, veiculo.matricula)
                 .bind(1, veiculo.modelo)
                 .bind(2, veiculo.categoria)
-                .bind(3, owner)
+                .bind(3, veiculo.owner)
                 .execute()
         }
         return veiculo.matricula

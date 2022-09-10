@@ -6,7 +6,7 @@ import { cancellableFetch } from "../Services/CancellableFetch"
 export const NaoSubsPage = () => {
 
     const [user, dispatch] = useContext(UserContext)
-    const [redirect, setRedir] = useState(null)
+    
 
     const request = (uri, opts, dispatch) => {
         const fetch = cancellableFetch(uri, opts)
@@ -21,14 +21,14 @@ export const NaoSubsPage = () => {
         const func = () => {
             write.subscritor = true
             dispatch(write)
-            setRedir(<Navigate to="/"/>)
+            
         }
         request(`/api/subscritores/${user.nif}`, { method: "POST"}, func)
+        window.location.assign("/")
     }
 
     return(
         <Fragment>
-            {redirect}
             <h1>O cidadao não se encontra subscrito.</h1>
             <button  className="btn btn-primary" onClick={clickAction}>Subscrever</button>
         </Fragment>

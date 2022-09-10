@@ -10,8 +10,9 @@ class DelegacaoVeiculoMapper : IMapper<DelegacaoDatabaseRow, DelegacaoVeiculo> {
     override fun single(obj: DelegacaoDatabaseRow): DelegacaoVeiculo {
         return DelegacaoVeiculo(
             dataFim = obj.dataFim?.let { getEpoch(it) },
-            dataInicio = getEpoch(obj.dataInicio),
-            usuario = obj.usuario,
+            dataInicio = obj.dataInicio?.let {  getEpoch(it) },
+            subscritor = obj.subscritor,
+            dataCriacao = getEpoch(obj.dataCriacao)
         )
     }
 

@@ -10,6 +10,7 @@ import ps.g08.directsincro.common.CookieManager
 import ps.g08.directsincro.common.ErrorMessage
 import ps.g08.directsincro.controller.inputmodels.LoginInputModel
 import ps.g08.directsincro.controller.outputmodel.getLoginOutputModel
+import ps.g08.directsincro.service.CidadaoService
 import ps.g08.directsincro.service.SubscritorService
 import java.time.Duration
 import javax.servlet.http.HttpServletRequest
@@ -17,7 +18,7 @@ import javax.servlet.http.HttpServletRequest
 @RestController
 class LoginController(
     val cookieManager: CookieManager,
-    val subs: SubscritorService
+    val subs: CidadaoService
 ) {
 
     @PostMapping("/login")

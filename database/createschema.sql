@@ -1,4 +1,4 @@
-Create Table Cidadao(
+Create Table CIDADAO(
 	nome 				varchar(100),
 	nif 				char(9),
 	tituloConducao  	char(9),--L-(numero 7 digitos)
@@ -10,7 +10,7 @@ Create Table Cidadao(
 	CONSTRAINT Cidadao_conducao CHECK (tituloConducao ~ 'L-[0-9][0-9][0-9][0-9][0-9][0-9][0-9]')
 );
 
-Create Table Subscritor(
+Create Table SUBSCRITOR(
 	nif 		char(9),
 	
 	Primary Key(nif),
@@ -19,7 +19,7 @@ Create Table Subscritor(
 
 Create Table PUSH_SUBSCRIPTION(
 	nif 			char(9),
-	endpoint		char(500),
+	endpoint		varchar(2083),
 	publicKey		chaR(100),
 	auth			char(50),
 
@@ -27,9 +27,9 @@ Create Table PUSH_SUBSCRIPTION(
 	Foreign Key(nif) References Subscritor(nif)
 )
 
-Create Table DataSubscricao(
+Create Table DATASUBSCRICAO(
 	inicio			timestamp,
-	cancelamento	timestamp,
+	fim				timestamp,
 
 	nif 			char(9),
 
@@ -37,30 +37,31 @@ Create Table DataSubscricao(
 	Foreign Key(nif) References Subscritor(nif)
 );
 
-Create Table Veiculo(
+Create Table VEICULO(
 	matricula 	char(8),
 	modelo 		varchar(50),
 	categoria 	varchar(50),
 	owner 		char(9),
 
 	Primary Key(matricula),
-	Foreign Key(owner) References Subscritor(nif),
+	Foreign Key(owner) References Subscritor(nif) on delete cascade,
 	CONSTRAINT Veiculo_matricula CHECK (matricula ~ '([A-Z]|[0-9])([A-Z]|[0-9])-([A-Z]|[0-9])([A-Z]|[0-9])-([A-Z]|[0-9])([A-Z]|[0-9])')
 );
 
-Create Table Delegacao(
+Create Table DELEGACAO(
+	dataCriacao timestamp,
 	dataInicio 	timestamp,
 	dataFim 	timestamp,
 
 	matricula 	char(8),
-	usuario 	char(9),
+	subscritor 	char(9),
 
-	Primary Key(matricula, dataInicio),
-	Foreign key(matricula) References Veiculo(matricula),
-	Foreign Key(usuario) References Subscritor(nif)
+	Primary Key(matricula, dataCriacao),
+	Foreign key(matricula) References Veiculo(matricula) on delete cascade,
+	Foreign Key(subscritor) References Subscritor(nif)
 );
 
-Create Table Contraordenacao(
+Create Table CONTRAORDENACAO(
 	numeroAuto 				char(9),
 	estadoPagamento 		varchar(10),
 	data 					timestamp,
@@ -77,12 +78,12 @@ Create Table Contraordenacao(
 	veiculo 				char(8),
 
 	Primary Key(numeroAuto),
-	Foreign Key(veiculo) References Veiculo(matricula),
+	Foreign Key(veiculo) References Veiculo(matricula) on delete cascade,
 	CONSTRAINT Estado_Pagamento CHECK (estadoPagamento in ('Pago','Por pagar','Não pago'))
 );
 
-Create Table Notificacao(
-	emitida 		timestamp,
+Create Table NOTIFICACAO(
+	emitida 		timestamp default NOW(),
 	mensagem 		varchar(5000),
 	visualizada		boolean,--0->n/1->s
 	tipo 			varchar(100),
@@ -92,5 +93,5 @@ Create Table Notificacao(
 
 	Primary Key(emitida, subscritor),
 	Foreign Key(subscritor) References Subscritor(nif),
-	Foreign Key(contraordenacao) References Contraordenacao(numeroAuto)
+	Foreign Key(contraordenacao) References Contraordenacao(numeroAuto) on delete cascade
 );

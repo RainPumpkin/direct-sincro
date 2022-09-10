@@ -2,7 +2,6 @@ import { Fragment, useContext, useState } from "react"
 import { Navigate, Link } from "react-router-dom"
 import { UserContext } from "../Components/UserContext"
 import { cancellableFetch } from "../Services/CancellableFetch"
-import { subscribeToPushNotification } from "../Services/HandleSubscription"
 
 const request = (uri, opts, dispatch) => {
     const fetch = cancellableFetch(uri, opts)
@@ -22,9 +21,6 @@ export const Login = () => {
         const body = {nif: event.target.nif.value, password: event.target.password.value}
         const func = (ok, json) => {  
             if(ok) {
-                dispatch({logged: true, nif: event.target.nif.value, loading: false})
-                setWarning(null)
-                
                 json.then((user)  => {
                     dispatch({logged: true, nif: event.target.nif.value, nome: user.nome, email: user.email, subscritor: user.subscritor})
                     setWarning(null)
@@ -37,11 +33,7 @@ export const Login = () => {
         request("/login", { method: "POST", headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body)}, func)
     }
 
-    let susbcribe = null
-    if(user!=null && user.subscritor){
-        console.log("asdiasudbaisda",user)
-        susbcribe = subscribeToPushNotification(user.nif)
-    }
+    
 
     let notification
     if(warning != null) {
@@ -71,7 +63,6 @@ export const Login = () => {
                 <p></p>
                 <button type="submit" className="btn btn-primary">Submit</button>
             </form>
-            {susbcribe}
             {notification}
             <button type="button" className="btn btn-primary" onClick={() => {setRedir({redirect: <Navigate to="/register"/>})}}>Register</button>
         </Fragment> 

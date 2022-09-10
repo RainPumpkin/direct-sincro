@@ -46,7 +46,7 @@ class NotificacaoService(private val db: NotificacaoDatabase, private val mapper
         service.send(noti)
     }
 
-    fun createNotification(notificacao: Notificacao, subscritor: String, contraordenacao: String) : Int{
-        return db.create(notificacao, subscritor, contraordenacao)
+    fun createNotification(notificacao: Notificacao, subscritor: String, contraordenacao: String){
+        db.create(notificacao, subscritor, contraordenacao)
     }
 }

@@ -62,7 +62,7 @@ class VeiculoController(
         val responseFromSiget = postMatriculaToSiget(input.matricula, nif)
         if (responseFromSiget != null) {
             if (responseFromSiget in 200..300) {
-                val matricula = service.createVeiculo(getVeiculoFromVeiculoInputModel(input), nif)
+                val matricula = service.createVeiculo(getVeiculoFromVeiculoInputModel(input, nif))
                 return ResponseEntity.created(URI.create("/api/subscritores/${nif}/veiculos/${matricula}")).build()
             }
         }

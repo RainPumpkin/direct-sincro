@@ -3,8 +3,9 @@ package ps.g08.directsincro.controller.outputmodel
 import ps.g08.directsincro.common.DelegacaoSubscritor
 
 data class DelegacaoSubscritorOutputModel(
+    val dataCriacao: Long,
     val matricula: String,
-    val datainicio: Long,
+    val datainicio: Long?,
     val datafim: Long?,
 )
 
@@ -18,6 +19,7 @@ fun getDelegacaoSubscritorOutputModel(delegacaoSubscritor: DelegacaoSubscritor) 
         matricula = delegacaoSubscritor.matricula,
         datainicio = delegacaoSubscritor.dataInicio,
         datafim = delegacaoSubscritor.dataFim,
+        dataCriacao = delegacaoSubscritor.dataCriacao
     )
 }
 

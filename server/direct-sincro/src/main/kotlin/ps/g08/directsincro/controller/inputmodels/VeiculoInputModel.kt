@@ -8,12 +8,13 @@ data class VeiculoInputModel (
     val categoria: String
     )
 
-fun getVeiculoFromVeiculoInputModel(input : VeiculoInputModel) : Veiculo {
+fun getVeiculoFromVeiculoInputModel(input : VeiculoInputModel, subscritor: String) : Veiculo {
     return Veiculo(
         matricula = input.matricula,
         modelo = input.modelo,
         categoria = input.categoria,
         delegacoes = emptyList(),
-        contraordenacoes = emptyList()
+        contraordenacoes = emptyList(),
+        owner = subscritor
     )
 }

@@ -9,14 +9,3 @@ export const ContraordenacaoSumario = (props) => {
         </Fragment>
     )
 }
-//TEMPORARIO para ver se funciona
-/*
-data class ContraordenacaoOutputModel (
-    val numeroAuto: String,
-    val data: Long,
-    val classificacaoInfracao: String,
-    val valorCoima: Double,
-    val local: String,
-    val entidadeAutuante: String
-)
-*/

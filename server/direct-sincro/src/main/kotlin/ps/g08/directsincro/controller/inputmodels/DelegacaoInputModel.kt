@@ -3,17 +3,18 @@ package ps.g08.directsincro.controller.inputmodels
 import ps.g08.directsincro.common.DelegacaoVeiculo
 
 data class DelegacaoInputModel(
-    val usuario: String,
-    val dataInicio: Long,
+    val subscritor: String,
+    val dataCriacao: Long,
+    val dataInicio: Long?,
     val dataFim: Long?,
-    val estado: String
 )
 
 
 fun getDelegacaoFromInputModel(input : DelegacaoInputModel) : DelegacaoVeiculo{
     return DelegacaoVeiculo(
+        dataCriacao = input.dataCriacao,
         dataInicio = input.dataInicio,
         dataFim = input.dataFim,
-        usuario = input.usuario,
+        subscritor = input.subscritor,
     )
 }

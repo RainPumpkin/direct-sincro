@@ -3,9 +3,10 @@ package ps.g08.directsincro.controller.outputmodel
 import ps.g08.directsincro.common.DelegacaoVeiculo
 
 data class DelegacaoVeiculoOutputModel(
-    val usuario: String?,
-    val datainicio: Long,
+    val Subscritor: String,
+    val datainicio: Long?,
     val datafim: Long?,
+    val dataCriacao: Long
 )
 
 data class MultipleDelegacaoVeiculoOutputModel(
@@ -15,9 +16,10 @@ data class MultipleDelegacaoVeiculoOutputModel(
 
 fun getDelegacaoVeiculoOutputModel(delegacaoVeiculo: DelegacaoVeiculo) : DelegacaoVeiculoOutputModel {
     return DelegacaoVeiculoOutputModel(
-        usuario = delegacaoVeiculo.usuario,
+        Subscritor = delegacaoVeiculo.subscritor,
         datainicio = delegacaoVeiculo.dataInicio,
         datafim = delegacaoVeiculo.dataFim,
+        dataCriacao = delegacaoVeiculo.dataCriacao
     )
 }
 

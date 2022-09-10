@@ -6,12 +6,14 @@ import org.jdbi.v3.core.kotlin.withHandleUnchecked
 import org.springframework.stereotype.Component
 import ps.g08.directsincro.common.Subscritor
 import ps.g08.directsincro.common.getTimestamp
+import ps.g08.directsincro.service.data
 import java.sql.Timestamp
 import java.time.Instant
 
 data class SubscritorDatabaseRow(
     val nif: String
 )
+
 
 @Component
 class SubscritorDatabase(private val source : Jdbi) {
@@ -25,6 +27,8 @@ class SubscritorDatabase(private val source : Jdbi) {
         const val queryDelete = "Delete FROM Subscritor WHERE nif = ?"
         const val queryCheckSub = "Select inicio from DataSubscricao WHERE nif = ? AND cancelamento IS NULL"
         const val queryCreatePushSubscription = "INSERT into PUSH_SUBSCRIPTION VALUES (?,?,?,?)"
+        const val queryActivateSubscription = "INSERT INTO DATASUBSCRICAO(inicio, nif) VALUES (?,?)"
+        const val queryDeactivateSubscription = "UPDATE DATASUBSCRICAO set cancelamento = ? where inicio = ? AND nif = ?"
     }
 
     fun get(nif: String) : SubscritorDatabaseRow?{
@@ -48,6 +52,16 @@ class SubscritorDatabase(private val source : Jdbi) {
         } catch (e : Exception){
             println("no time no subs")
             return null
+        }
+    }
+
+    fun getDateOfSubscription(nif: String): Timestamp{
+        return source.withHandleUnchecked { handle ->
+            handle
+                .createQuery(queryCheckSub)
+                .bind(0, nif)
+                .mapTo(Timestamp::class.java)
+                .one()
         }
     }
 
@@ -83,6 +97,29 @@ class SubscritorDatabase(private val source : Jdbi) {
             .execute()
         }
         return nif
+    }
+
+    fun activateSubscription(nif: String) {
+        val curr = Timestamp(Instant.now().toEpochMilli())
+        source.withHandleUnchecked { handle ->
+            handle
+                .createUpdate(queryActivateSubscription)
+                .bind(0, curr)
+                .bind(1, nif)
+                .execute()
+        }
+    }
+
+    fun deactivateSubscription(nif: String, dataInicio: Long) {
+        val date = Timestamp(dataInicio)
+        source.withHandleUnchecked { handle ->
+            handle
+                .createUpdate(queryDeactivateSubscription)
+                .bind(0, Timestamp(Instant.now().toEpochMilli()))
+                .bind(1, date)
+                .bind(2, nif)
+                .execute()
+        }
     }
 
     fun createPushSubscription(nif: String, endpoint: String, publicKey: String, auth: String) {

@@ -17,11 +17,3 @@ export const DelegacaoVeiculo = (props) => {
         
     )
 }
-
-/*
-data class DelegacaoVeiculoOutputModel(
-    val usuario: String?,
-    val datainicio: Long,
-    val datafim: Long,
-)
- */

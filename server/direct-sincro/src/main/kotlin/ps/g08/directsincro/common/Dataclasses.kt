@@ -36,17 +36,20 @@ data class Veiculo(
     val modelo: String,
     val categoria: String,
     val contraordenacoes: List<Contraordenacao>,
-    val delegacoes: List<DelegacaoVeiculo>
+    val delegacoes: List<DelegacaoVeiculo>,
+    val owner: String
 )
 
 data class DelegacaoVeiculo(
-    val dataInicio: Long,
+    val dataCriacao: Long,
+    val dataInicio: Long?,
     val dataFim: Long?,
-    val usuario: String?
+    val subscritor: String
 )
 
 data class DelegacaoSubscritor(
-    val dataInicio: Long,
+    val dataCriacao: Long,
+    val dataInicio: Long?,
     val dataFim: Long?,
     val matricula: String
 )

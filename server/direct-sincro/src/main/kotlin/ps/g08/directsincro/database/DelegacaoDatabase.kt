@@ -8,22 +8,24 @@ import ps.g08.directsincro.common.getTimestamp
 import java.sql.Timestamp
 
 data class DelegacaoDatabaseRow(
-        val dataInicio: Timestamp,
+        val dataInicio: Timestamp?,
+        val dataCriacao: Timestamp,
         val dataFim: Timestamp?,
         val matricula: String,
-        val usuario: String?
+        val subscritor: String
 )
 
 @Component
 class DelegacaoDatabase(private val source : Jdbi) {
     companion object {
-        const val queryGet = "SELECT * FROM Delegacao WHERE usuario = ? AND matricula = ?"//user e matricula
-        const val queryGetAllUser = "SELECT Delegacao.matricula, Delegacao.datainicio, Delegacao.datafim FROM Veiculo Left JOIN Delegacao ON Veiculo.matricula = Delegacao.matricula WHERE Delegacao.usuario = ? "//getall for user
+        const val queryGet = "SELECT * FROM Delegacao WHERE subscritor = ? AND matricula = ?"//user e matricula
+        const val queryGetAllUser = "SELECT Delegacao.matricula, Delegacao.datacriacao,Delegacao.datainicio, Delegacao.datafim FROM Veiculo Left JOIN Delegacao ON Veiculo.matricula = Delegacao.matricula WHERE Delegacao.subscritor = ? "//getall for user
         const val queryGetAllMatricula = "SELECT * FROM Delegacao WHERE matricula = ? "//getall for matricula
-        const val queryGetWithDate = "SELECT * FROM Delegacao WHERE matricula = ? AND dataInicio = ?"
-        const val queryCreate = "INSERT INTO Delegacao(matricula, usuario, dataInicio, dataFim) VALUES (?,?,?,?,?)"
-        const val queryUpdate = "UPDATE Delegacao SET dataFim = ? WHERE matricula = ? AND usuario = ? AND dataInicio = ?"//apenas estado
-        const val queryDelete = "Delete FROM Delegacao WHERE matricula = ? AND usuario = ?"
+        const val queryGetWithDate = "SELECT * FROM Delegacao WHERE matricula = ? AND datacriacao = ?"
+        const val queryCreate = "INSERT INTO Delegacao(matricula, datacriacao,subscritor, dataInicio, dataFim) VALUES (?,?,?,?,?,?)"
+        const val queryUpdateFim = "UPDATE Delegacao SET dataFim = ? WHERE matricula = ? AND subscritor = ? AND datacriacao = ?"
+        const val queryUpdateInicio = "UPDATE Delegacao SET datainicio = ? WHERE matricula = ? AND datacriacao = ?"
+        const val queryDelete = "Delete FROM Delegacao WHERE matricula = ? AND datacriacao = ?"
     }
 
     fun get(usuario: String, matricula: String) : DelegacaoDatabaseRow{
@@ -55,8 +57,8 @@ class DelegacaoDatabase(private val source : Jdbi) {
         }
     }
 
-    fun queryGetWithDate(nif: String, matricula: String, dataInicio: Long): DelegacaoDatabaseRow {
-        val timestamp: Timestamp = getTimestamp(dataInicio)
+    fun queryGetWithDate(nif: String, matricula: String, dataCriacao: Long): DelegacaoDatabaseRow {
+        val timestamp: Timestamp = getTimestamp(dataCriacao)
         return source.withHandleUnchecked { handle -> handle
             .createQuery(queryGetWithDate)
             .bind(0, matricula)
@@ -66,37 +68,36 @@ class DelegacaoDatabase(private val source : Jdbi) {
         }
     }
 
-    fun create(emprestimo: DelegacaoVeiculo, matricula: String){
+    fun create(delegacao: DelegacaoVeiculo, matricula: String){
         source.withHandleUnchecked { handle ->
             handle
                 .createUpdate(queryCreate)
                 .bind(0, matricula)
-                .bind(1, emprestimo.usuario)
-                .bind(2, getTimestamp(emprestimo.dataInicio))
-                .bind(3, emprestimo.dataFim?.let { getTimestamp(it) })
-                //.bind(4, emprestimo.estado)
+                .bind(1, getTimestamp(delegacao.dataCriacao))
+                .bind(2, delegacao.subscritor)
+                .bind(3, delegacao.dataInicio?.let { getTimestamp(it) })
+                .bind(4, delegacao.dataFim?.let { getTimestamp(it) })
                 .execute()
         }
         //n retorna nada por enquanto, change later if needed
     }
 
-    fun update(dataFim: Long, matricula : String, usuario: String, dataInicio: Long){
+    fun updateFim(dataFim: Long, matricula : String, dataInicio: Long){
         source.withHandleUnchecked { handle ->
             handle
-                .createUpdate(queryUpdate)
+                .createUpdate(queryUpdateFim)
                 .bind(0, getTimestamp(dataFim))
                 .bind(1, matricula)
-                .bind(2, usuario)
-                .bind(3, getTimestamp(dataInicio))
+                .bind(2, getTimestamp(dataInicio))
                 .execute()
         }
     }
 
-    fun delete(matricula: String, usuario: String) {
+    fun delete(matricula: String, dataCriacao: Long) {
         source.withHandleUnchecked { handle -> handle
             .createUpdate(queryDelete)
             .bind(0, matricula)
-            .bind(1, usuario)
+            .bind(1, getTimestamp(dataCriacao))
             .execute()
         }
     }

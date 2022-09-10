@@ -1,6 +1,6 @@
 package ps.g08.directsincro.common
 
-import ps.g08.directsincro.service.SubscritorService
+import ps.g08.directsincro.service.CidadaoService
 import javax.servlet.Filter
 import javax.servlet.FilterChain
 import javax.servlet.ServletRequest
@@ -8,7 +8,7 @@ import javax.servlet.ServletResponse
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-class AuthFilter(private val cookieManager: CookieManager, private val subscritorService: SubscritorService): Filter {
+class AuthFilter(private val cookieManager: CookieManager, private val cidadãoService: CidadaoService): Filter {
 
     private fun respondWithUnauthorized(httpResponse: HttpServletResponse, reason: String? = null) {
         httpResponse.status = HttpServletResponse.SC_UNAUTHORIZED
@@ -36,7 +36,7 @@ class AuthFilter(private val cookieManager: CookieManager, private val subscrito
             val user = cookieManager.getUser(cookie.value)
             if (user == null) return respondWithUnauthorized(httpResponse, "User does not exist")
 
-            if (subscritorService.checkPassword(user.nif, user.password)!=null) chain.doFilter(request, response)
+            if (cidadãoService.checkPassword(user.nif, user.password)!=null) chain.doFilter(request, response)
             else return respondWithUnauthorized(httpResponse, "User invalid credentials")
         }
 

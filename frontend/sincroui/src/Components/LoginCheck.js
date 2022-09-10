@@ -1,6 +1,8 @@
 import { Fragment, useContext } from "react"
 import { UserContext } from "./UserContext"
 import { Navigate } from 'react-router-dom';
+import { subscribeToPushNotification } from "../Services/HandleSubscription"
+import { unsubscribeFromPushNotification } from "../Services/HandleSubscription";
 
 export const LoginVerifier = (props) => {
 
@@ -11,14 +13,22 @@ export const LoginVerifier = (props) => {
     content = <h2>Waiting</h2>
   }
   else if(!user || !user.logged){
-    console.log("not logged")
-    console.log(user)
-    content = <Navigate to="/login"/>
-  } else if(!user.subscritor) content = <Navigate to="/naosubscritor"/>
+    content = window.location.assign("/login")
+  }
+
+  let subscribe = (user) => {
+    if(user!=null && user.subscritor){
+      subscribeToPushNotification(user.nif)
+  } else if(user!=null && !user.subscritor) {
+      unsubscribeFromPushNotification(user.nif)
+  }
+  }
+  
+  if (user != null && user.logged) subscribe(user)
 
   return(
     <Fragment>
-      {content}
+        {content}
     </Fragment>
   )
 }

@@ -12,11 +12,11 @@ import ps.g08.directsincro.controller.inputmodels.ContraordenacaoInputModel
 import ps.g08.directsincro.controller.inputmodels.getContraordenacaoFromContraordenacaoInputModel
 import ps.g08.directsincro.controller.outputmodel.getContraordenacaoOutputModel
 import ps.g08.directsincro.controller.outputmodel.getMultipleContraordenacaoOutputModel
-import ps.g08.directsincro.service.ContraordenacaoService
-import ps.g08.directsincro.service.NotificacaoService
-import ps.g08.directsincro.service.SubscritorService
+import ps.g08.directsincro.service.*
 import java.net.URI
 import java.sql.Timestamp
+import java.text.SimpleDateFormat
+import java.time.Instant
 
 private const val SCOT = "http://localhost:4000/scot/pagamento"
 private val contentType : MediaType = MediaType.get("application/json; charset=utf-8")
@@ -35,18 +35,52 @@ fun updateEstadoDePagamentoSCOT(numeroAuto: String, matricula: String) : Int? {
 @RequestMapping("/api")
 class ContraordenacaoController(
     private val service: ContraordenacaoService,
-    private val notificationService: NotificacaoService,
-    private val subscritorService: SubscritorService
+    private val subscritorService: SubscritorService,
+    private val veiculoService: VeiculoService,
+    private val notificacaoService: NotificacaoService,
+    private val pushSubscriptionService: PushSubscriptionService,
+    private val delegacaoVeiculoService: DelegacaoVeiculoService
 ) {
     //Evento proveniente do SIGET
     @CrossOrigin
     @PostMapping("/contraordenacoes")
     fun receiveContraordenacao(@RequestBody input : ContraordenacaoInputModel) : ResponseEntity<Any> {
         service.createContraordenacao(getContraordenacaoFromContraordenacaoInputModel(input), input.evento.dadosDoVeiculo.matricula)
-        subscritorService.
-        /*notificationService.createNotification(Notificacao(emitida = System.currentTimeMillis(), mensagem = "nova contraordenação", visualizada = false, tipo = "Contraordenação"),
-        )*/
+        val sub = veiculoService.getVeiculo(input.evento.dadosDoVeiculo.matricula).owner
+        val numeroAuto = input.evento.dadosDaInfracao.numeroAuto
+        checkSubscriptionAndSendNotification(sub, numeroAuto)
+        val dataInfracao = SimpleDateFormat("yyyy-MM-dd HH:mm").parse(input.evento.dadosDaInfracao.dataHora)
+
+        val delegacao = delegacaoVeiculoService.getAllDelegacaoVeiculo(input.evento.dadosDoVeiculo.matricula).find {
+                    delegacaoVeiculo -> delegacaoVeiculo.dataInicio != null
+                    && Timestamp(delegacaoVeiculo.dataInicio).before(dataInfracao)
+                    && (delegacaoVeiculo.dataFim == null
+                    || Timestamp(delegacaoVeiculo.dataFim).after(dataInfracao))
+        }
+        if (delegacao != null ) checkSubscriptionAndSendNotification(delegacao.subscritor, numeroAuto)
+
         return responseOkWithBody(responseOkWithBody("Evento adicionado com sucesso"))
+    }
+
+    private fun checkSubscriptionAndSendNotification(sub: String, numeroAuto: String) {
+        if (subscritorService.getSubscription(sub)) {
+            notificacaoService.createNotification(
+                Notificacao(
+                    0,
+                    "Nova Contraordenação",
+                    false,
+                    "Nova Contraordenação"
+                ),
+                sub,
+                numeroAuto
+            )
+            val credentials = pushSubscriptionService.getPushCredentials(sub)
+            if (credentials.isNotEmpty()) {
+                for (cred in credentials) {
+                    pushSubscriptionService.send(cred)
+                }
+            }
+        }
     }
 
     //subscritores/nif/veiculos/matricula/eventos ->eventos de transito do meu veiculo

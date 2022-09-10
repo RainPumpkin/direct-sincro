@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component
 import ps.g08.directsincro.common.Notificacao
 import ps.g08.directsincro.common.getTimestamp
 import java.sql.Timestamp
+import java.time.Instant
 
 data class NotificacaoDatabaseRow(
     val emitida: Timestamp,
@@ -46,19 +47,17 @@ class NotificacaoDatabase(private val source : Jdbi) {
         }
     }
 
-    fun create(notificacao : Notificacao, subscritor: String, contraordenacao: String): Int {
+    fun create(notificacao : Notificacao, subscritor: String, contraordenacao: String) {
         return source.withHandleUnchecked { handle ->
             handle
                 .createUpdate(queryCreate)
-                .bind(0, notificacao.emitida)
+                .bind(0, Timestamp.from(Instant.now()))
                 .bind(1, notificacao.mensagem)
                 .bind(2, notificacao.visualizada)
                 .bind(3, notificacao.tipo)
                 .bind(4, subscritor)
                 .bind(5, contraordenacao)
-                .executeAndReturnGeneratedKeys()
-                .mapTo(Int::class.java)
-                .one()
+                .execute()
         }
     }
 

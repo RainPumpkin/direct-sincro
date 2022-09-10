@@ -24,6 +24,13 @@ class SubscritorController(private val subscritorService: SubscritorService, pri
         return responseOkWithBody(subscritorService.getSubscritor(nif))
     }
 
+    @CrossOrigin
+    @GetMapping("/{nif}/date")
+    fun getDateOfSubscription(@PathVariable nif: String): ResponseEntity<Any>{
+        val response = responseOkWithBody(subscritorService.getDateOfSubscription(nif))
+        return responseOkWithBody(subscritorService.getDateOfSubscription(nif))
+    }
+
     //create recebe tudo de pessoa+sub
     @CrossOrigin
     @PostMapping
@@ -33,24 +40,16 @@ class SubscritorController(private val subscritorService: SubscritorService, pri
     }
 
     @CrossOrigin
-    @DeleteMapping("/{nif}/push")
-    fun cancelarSubscricao(@PathVariable nif: String): ResponseEntity<Any>{
-        subscritorService.cancelSub(nif)
+    @PostMapping("/{nif}/deactivate")
+    fun cancelarSubscricao(@PathVariable nif: String, @RequestBody dataInicio: Long): ResponseEntity<Any>{
+        subscritorService.cancelSub(nif, dataInicio)
         return responseOk()
     }
 
     @CrossOrigin
-    @PostMapping("/{nif}")
-    fun iniciarSubscricao(@PathVariable nif: String): ResponseEntity<Any>{
+    @PostMapping("/{nif}/activate")
+    fun activarSubscricao(@PathVariable nif: String): ResponseEntity<Any>{
         subscritorService.subscribe(nif)
         return responseOk()
-    }
-
-    @CrossOrigin
-    @PostMapping("/{nif}")
-    fun createSubsciptionPushNotification(@PathVariable nif: String, @RequestBody input : PushSubscriptionCredentials) : ResponseEntity<Any>{
-        subscritorService.createPushSubscription(PushSubscription(nif = nif, endpoint = input.endpoint, publicKey = input.keys.p256dh, auth = input.keys.auth))
-        notificacaoService.send(input)
-        return ResponseEntity.ok().build()
     }
 }

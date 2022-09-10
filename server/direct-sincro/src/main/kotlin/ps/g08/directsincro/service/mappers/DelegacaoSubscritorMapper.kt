@@ -10,8 +10,9 @@ class DelegacaoSubscritorMapper : IMapper<DelegacaoDatabaseRow, DelegacaoSubscri
     override fun single(obj: DelegacaoDatabaseRow): DelegacaoSubscritor {
         return DelegacaoSubscritor(
             dataFim = obj.dataFim?.let { getEpoch(it) },
-            dataInicio = getEpoch(obj.dataInicio),
+            dataInicio = obj.dataInicio?.let { getEpoch(obj.dataInicio)},
             matricula = obj.matricula,
+            dataCriacao = getEpoch(obj.dataCriacao)
         )
     }
 

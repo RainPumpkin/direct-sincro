@@ -15,7 +15,6 @@ fun getEpoch(timestamp: Timestamp): Long{
 }
 
 fun getTimestamp(long: Long): Timestamp{
-    //TODO find fix for timestamps
     return Timestamp((long-3600) * 1000)
 }
 

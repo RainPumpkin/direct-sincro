@@ -4,6 +4,7 @@ import { Link } from "react-router-dom"
 import { useParams } from "react-router"
 import { UserContext } from "../Components/UserContext"
 import { ContraordenacaoCompleta } from "../Components/EventoTransitoCompleto"
+import { cancellableFetch } from "../Services/CancellableFetch"
 import { get } from "../Services/RequestService"
 
 const ContraOrdenacaoP = (props) => {
@@ -13,6 +14,13 @@ const ContraOrdenacaoP = (props) => {
     const [errorInfo, setErrorInfo] = useState(null)
     const matricula = props.matricula
     const numeroAuto = props.numeroAuto
+
+    const request = (uri, opts, dispatch) => {
+        const fetch = cancellableFetch(uri, opts)
+        fetch.ready.then((response) => {if(!fetch.signal.aborted) dispatch(response.ok, response.json())})
+        .catch((error) => { console.log(error) })
+        return fetch.abort
+    }
 
     useEffect(() => {
         return get(
@@ -27,6 +35,17 @@ const ContraOrdenacaoP = (props) => {
             }
         )
     }, [matricula, numeroAuto, user.nif])
+
+    const pagar = () => {
+        window.location.reload()
+        request(`/api/subscritores/${user.nif}/veiculos/${matricula}/contraordenacoes/${numeroAuto}`, { method: "POST" })
+    }
+
+    let butao = null
+    if(contraordenacao != null && contraordenacao.elem != null &&contraordenacao.elem.estadoPagamento == 'Por pagar'){
+        butao = <button type="button" class="btn btn-primary" onClick={pagar}>Pagar</button>
+    }
+    
 
     if (loading) {
         // Still loading
@@ -55,6 +74,8 @@ const ContraOrdenacaoP = (props) => {
                 <Fragment>
                     <h2>Contraordenação:</h2>
                     <ContraordenacaoCompleta elem={contraordenacao.elem}/>
+                    <p></p>
+                    {butao}
                 </Fragment>
             )
         }
