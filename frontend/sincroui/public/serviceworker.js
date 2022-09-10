@@ -62,6 +62,6 @@ self.addEventListener('push', (event) => {
       },
     }
     event.waitUntil(
-      self.registration.showNotification('Your Message Title',    
+      self.registration.showNotification('Nova mensagem DIRECT-SINCRO',    
       options))
   })
