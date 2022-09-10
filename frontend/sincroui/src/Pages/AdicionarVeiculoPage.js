@@ -1,5 +1,5 @@
 import { Fragment, useContext, useState} from "react"
-import { Link, Navigate } from "react-router-dom"
+import { Navigate } from "react-router-dom"
 import { UserContext } from "../Components/UserContext"
 import { cancellableFetch } from "../Services/CancellableFetch"
 
@@ -19,7 +19,6 @@ export const AdicionarVeiculo = () => {
             const body = {matricula: event.target.matricula.value, modelo: event.target.modelo.value, categoria: event.target.categoria.value, owner: user.nif}
             
             request(`/api/subscritores/${user.nif}/veiculos`, { method: "POST", headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body)}, setRedir(<Navigate to="/veiculos"/>))
-            //window.location.assign("/veiculos")
         }
     
 
@@ -45,8 +44,6 @@ export const AdicionarVeiculo = () => {
                 <p></p>
                 <button type="submit" className="btn btn-primary">Submit</button>
             </form>
-            
         </Fragment>
     )
-
 }

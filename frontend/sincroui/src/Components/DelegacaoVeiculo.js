@@ -1,6 +1,5 @@
 import { Fragment } from "react"
 
-
 export const DelegacaoVeiculo = (props) => {
     let eliminarDlegacao = props.eliminarDlegacao
     let elem = props.elem
@@ -16,6 +15,5 @@ export const DelegacaoVeiculo = (props) => {
                 </div>
             </div>
         </Fragment>
-        
     )
 }

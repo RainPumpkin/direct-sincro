@@ -8,7 +8,7 @@ import { cancellableFetch } from "../Services/CancellableFetch"
 import { get } from "../Services/RequestService"
 
 const ContraOrdenacaoP = (props) => {
-    const [user, dispatch] = useContext(UserContext)
+    const [user] = useContext(UserContext)
     const [loading, setLoading] = useState(true)
     const [contraordenacao, setContraordenacao] = useState({contraordenacao: null})
     const [errorInfo, setErrorInfo] = useState(null)
@@ -41,9 +41,9 @@ const ContraOrdenacaoP = (props) => {
         request(`/api/subscritores/${user.nif}/veiculos/${matricula}/contraordenacoes/${numeroAuto}`, { method: "POST" })
     }
 
-    let butao = null
+    let botao = null
     if(contraordenacao != null && contraordenacao.elem != null &&contraordenacao.elem.estadoPagamento == 'Por pagar' && user.subscritor){
-        butao = <button type="button" class="btn btn-primary" onClick={pagar}>Pagar</button>
+        botao = <button type="button" class="btn btn-primary" onClick={pagar}>Pagar</button>
     }
     
 
@@ -68,14 +68,12 @@ const ContraOrdenacaoP = (props) => {
             )
         } else {
             // Info get
-            console.log("result")
-
             return (
                 <Fragment>
                     <h2>Contraordenação:</h2>
                     <ContraordenacaoCompleta elem={contraordenacao.elem}/>
                     <p></p>
-                    {butao}
+                    {botao}
                 </Fragment>
             )
         }

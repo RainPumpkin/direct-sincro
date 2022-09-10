@@ -1,5 +1,5 @@
 import { Fragment, useContext, useState } from "react"
-import { Navigate, Link, useParams } from "react-router-dom"
+import { Navigate, useParams } from "react-router-dom"
 import { UserContext } from "../Components/UserContext"
 import { cancellableFetch } from "../Services/CancellableFetch"
 
@@ -10,16 +10,14 @@ const request = (uri, opts, dispatch) => {
     return fetch.abort
 }
 
-export const Delegar = (props) => {
-    const [user, dispatch] = useContext(UserContext)
+export const Delegar = () => {
+    const [user] = useContext(UserContext)
     const {matricula} = useParams()
     const [redirect, setRedir] = useState(null)
     console.warn(user.nif)
     const onSubmitHandler = (event) => {
         event.preventDefault()
         let b = event.target.nif.value
-        //const body = {dataCriacao: Date.now(), subscritor: event.target.nif.value, dataInicio: null, dataFim: null}
-        //const func = () => {redirect()}
         if(user.nif === event.target.nif.value) {
             alert("Não se pode delegar a si mesmo")
             return

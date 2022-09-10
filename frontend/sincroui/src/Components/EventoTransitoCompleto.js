@@ -19,7 +19,6 @@ export const ContraordenacaoCompleta = (props) => {
         </div>
     )
 }
-
 /*
 data class ContraordenacaoOutputModel (
     val numeroAuto: String,

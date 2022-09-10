@@ -2,10 +2,10 @@ import { Fragment, useContext, useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import { UserContext } from "../Components/UserContext"
 import { Notificacao } from "../Components/Notificacao"
-import {get} from "../Services/RequestService"
+import { get } from "../Services/RequestService"
 
 export const NotificacoesPage = () => {
-    const [user, dispatch] = useContext(UserContext)
+    const [user] = useContext(UserContext)
     const [loading, setLoading] = useState(true)
     const [notificacoes, setNotificacoes] = useState({not: null})
     const [errorInfo, setErrorInfo] = useState(null)

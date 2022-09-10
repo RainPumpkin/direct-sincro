@@ -1,7 +1,5 @@
 import { Fragment } from "react"
 
-
-
 export const UserInfo = (props) => {
     let user = props.elem
     return(
@@ -12,4 +10,4 @@ export const UserInfo = (props) => {
         </Fragment>
         
     )
-}//{logged: true, nif: data.nif, email:data.email, nome:data.nome, subscritor:data.subscritor}
+}

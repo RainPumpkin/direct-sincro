@@ -20,7 +20,7 @@ let eliminarDelegacao = null
 let criar = null
 
 const VeiculoP = (props) => {
-    const [user, dispatch] = useContext(UserContext)
+    const [user] = useContext(UserContext)
     const [loading, setLoading] = useState(true)
     const [veiculo, setVeiculo] = useState({veic: null})
     const [errorInfo, setErrorInfo] = useState(null)
@@ -73,8 +73,6 @@ const VeiculoP = (props) => {
         }
     }
     
-    
-
     if (loading) {
         // Still loading
         console.log("still loading")
@@ -96,15 +94,11 @@ const VeiculoP = (props) => {
             )
         } else {
             // Info get
-            console.log("result")
-
             return (
                 <Fragment>
-                      
                     <Veiculo elem={veiculo.veic} func={eliminarVeiculo} criar={criar}/>
                     <ContraordencaoList elem={veiculo.veic.contraordenacoes.contraordenacoes} matricula={matricula}/>
                     <DelegacoesList elem={veiculo.veic.delegacoes} matricula={matricula} />
-                    
                 </Fragment>
             )
         }

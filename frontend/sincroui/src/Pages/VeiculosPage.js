@@ -5,7 +5,7 @@ import { Veiculo } from "../Components/Veiculo"
 import {get} from "../Services/RequestService"
 
 export const VeiculosPage = () => {
-    const [user, dispatch] = useContext(UserContext)
+    const [user] = useContext(UserContext)
     const [loading, setLoading] = useState(true)
     const [veiculos, setVeiculos] = useState(null)
     const [errorInfo, setErrorInfo] = useState(null)

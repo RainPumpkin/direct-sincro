@@ -2,18 +2,10 @@ import { Fragment, useContext, useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import { UserContext } from "../Components/UserContext"
 import { DelegacaoSubscritor } from "../Components/DelegacaoSubscritor"
-import { cancellableFetch } from "../Services/CancellableFetch"
 import {get} from "../Services/RequestService"
 
-const request = (uri, opts, dispatch) => {
-    const fetch = cancellableFetch(uri, opts)
-    fetch.ready.then((response) => {if(!fetch.signal.aborted) dispatch(response.ok, response.json())})
-    .catch((error) => { console.log(error) })
-    return fetch.abort
-}
-
 export const DelegacoesPage = () => {
-    const [user, dispatch] = useContext(UserContext)
+    const [user] = useContext(UserContext)
     const [loading, setLoading] = useState(true)
     const [delegacoes, setDelegacoes] = useState({elem:null})
     const [errorInfo, setErrorInfo] = useState(null)

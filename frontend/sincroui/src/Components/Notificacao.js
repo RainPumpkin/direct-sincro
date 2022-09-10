@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom"
-
 export const Notificacao = (props) => {
     console.log("notificacao")
     const not = props.elem

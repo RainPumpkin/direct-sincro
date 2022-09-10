@@ -1,8 +1,7 @@
-import { Fragment, useContext, useState } from "react"
+import { Fragment, useContext} from "react"
 import { UserContext } from "./UserContext"
 import { cancellableFetch } from "../Services/CancellableFetch"
-import { Link, Navigate } from "react-router-dom";
-import { subscribeToPushNotification } from "../Services/HandleSubscription"
+import { Link} from "react-router-dom";
 import { unsubscribeFromPushNotification } from "../Services/HandleSubscription"
 
 
@@ -65,7 +64,6 @@ export const Navbar = () => {
             let usr = user
             subscribe(usr)
             dispatch({logged: false, nif: null, loading: false})
-            //window.location.assign("/login")
         }
         request("/logout", { method: "POST"}, func) 
     }
@@ -80,10 +78,14 @@ export const Navbar = () => {
         <Fragment>
             <nav className="navbar navbar-light bg-light">
                 <div className="container-fluid justify-content-between" style={{margin: "auto", width: "90%"}}>
-                    <Link className="navbar-brand ms-2" to="/">Home</Link>
+                    <div class="fa fa-fw fa-home">
+                        <Link  className="navbar-brand ms-2" to="/">Home</Link>
+                    </div>
                     <Link className="navbar-brand ms-2" to="/veiculos">Veiculos</Link>
                     <Link className="navbar-brand ms-2" to="/delegacoes">Delegações</Link>
-                    <Link className="navbar-brand ms-2" to="/notificacoes">Notificações</Link>
+                    <div class="fa fa-bell">
+                        <Link className="navbar-brand ms-2" to="/notificacoes">Notificações</Link>
+                    </div>
                     {unsub}
                     <button className="btn btn-outline-success my-2 my-sm-0 me-2" onClick={logoutClick}>LogOut</button>
                 </div>

@@ -11,7 +11,6 @@ const parse = (response, setData, setError) => {
 const request = (uri, opts, setData, setError) => {
     const aux = cancellableFetch(uri, opts)
     aux.ready.then((response) => {
-        //console.log(response)
         parse({ok: response.ok, body: response.json(), signal: aux.signal}, setData, setError)
     }).catch((reason) => console.log("On catch: " + reason))
     return aux.abort

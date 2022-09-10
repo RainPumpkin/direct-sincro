@@ -1,5 +1,5 @@
 import { Fragment, useContext, useState } from "react"
-import { Navigate, Link } from "react-router-dom"
+import { Navigate } from "react-router-dom"
 import { UserContext } from "../Components/UserContext"
 import { cancellableFetch } from "../Services/CancellableFetch"
 
@@ -33,8 +33,6 @@ export const Login = () => {
         request("/login", { method: "POST", headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body)}, func)
     }
 
-    
-
     let notification
     if(warning != null) {
         notification = <div className="alert alert-danger" role="alert">{warning}</div>
@@ -43,8 +41,6 @@ export const Login = () => {
     if(user!=null && user.logged && !user.loading){
         console.log("hi go home")
         console.log(user)
-        //console.log(redirect)
-        //setRedir({redirect: <Navigate to="/"/>})
         return(<Fragment><Navigate to="/"/></Fragment>)
     } 
     return (

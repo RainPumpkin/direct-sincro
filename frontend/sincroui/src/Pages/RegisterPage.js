@@ -12,7 +12,7 @@ const request = (uri, opts, dispatch) => {
 
 export const Register = () => {
 
-    const [user, dispatch] = useContext(UserContext)
+    const [user] = useContext(UserContext)
     const [warning, setWarning] = useState(null)
     const [registered, setReg] = useState(false)
 
