@@ -15,4 +15,10 @@ class DelegacaoSubscritorService(private val db: DelegacaoDatabase, private val 
     fun getDelegacaoWithDate(nif: String, matricula: String, dataInicio: Long) : DelegacaoSubscritor {
         return mapper.single(db.queryGetWithDate(nif,matricula, dataInicio))
     }
+
+    fun updateFim(matricula: String, dataCriacao: Long) {
+        db.updateFim(dataCriacao, matricula)
+    }
+
+    //fun aceitarDelegacao(matricula: String, dataCriacao: Long)
 }

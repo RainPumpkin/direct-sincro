@@ -27,7 +27,6 @@ class SubscritorController(private val subscritorService: SubscritorService, pri
     @CrossOrigin
     @GetMapping("/{nif}/date")
     fun getDateOfSubscription(@PathVariable nif: String): ResponseEntity<Any>{
-        val response = responseOkWithBody(subscritorService.getDateOfSubscription(nif))
         return responseOkWithBody(subscritorService.getDateOfSubscription(nif))
     }
 

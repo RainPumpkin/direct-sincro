@@ -27,15 +27,14 @@ class PushSubscriptionService(
         return pushMapper.multiple(pushDb.getPushCredentials(nif))
     }
 
-    fun send(push: PushSubscription) {
+    fun send(push: PushSubscription, mensagem: String) {
         val pub = "BIclYkmaTdoEO6e_jVORV9RH8bACZmVBe4iQCtQga_M4iBCUsICPoTXPs0cdFtutsoF-UEOg1Z11-Z4qd8ta52E"
         val priv = "2JbWmuVjCsHehnKiTah-X_uG4gHfnJLBgWwLV9mi2Yo"
         if (Security.getProvider(BouncyCastleProvider.PROVIDER_NAME) == null) {
             Security.addProvider(BouncyCastleProvider())
         }
         val noti = Notification(
-            push.endpoint,push.publicKey,push.auth,
-            "teste"
+            push.endpoint,push.publicKey,push.auth,mensagem
         )
         val service = PushService()
         service.publicKey = Utils.loadPublicKey(pub)

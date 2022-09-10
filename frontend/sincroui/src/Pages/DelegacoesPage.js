@@ -53,8 +53,8 @@ export const DelegacoesPage = () => {
             // Info get
             return (
                 <Fragment>
-                    <h2>Delegações:</h2>
-                    {delegacoes.delegacoes.map((elem, idx) => <DelegacaoSubscritor key={idx} elem={elem}/>)}
+                    <h2>Delegações:&emsp;</h2>
+                    {delegacoes.delegacoes.map((elem, idx) => <DelegacaoSubscritor key={idx} elem={elem} nif={user.nif} />)}
                 </Fragment>
             )
         }

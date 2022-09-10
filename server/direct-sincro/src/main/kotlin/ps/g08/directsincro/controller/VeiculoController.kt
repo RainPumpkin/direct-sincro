@@ -69,6 +69,8 @@ class VeiculoController(
         return ResponseEntity<Any>(HttpStatus.NOT_ACCEPTABLE)
     }
 
+
+
     @CrossOrigin
     @GetMapping
     fun getAllVeiculos(@PathVariable nif: String) : ResponseEntity<Any>{

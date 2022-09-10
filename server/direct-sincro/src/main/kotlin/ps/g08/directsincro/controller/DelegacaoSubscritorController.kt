@@ -19,9 +19,15 @@ class DelegacaoSubscritorController(private val delegacaoSubscritorService: Dele
     }
 
     @CrossOrigin
+    @PostMapping("/delegacoes/{matricula}/aceitar")
+    fun aceitarDelegacao(@PathVariable matricula: String, @RequestBody dataCriacao: Long): ResponseEntity<Any> {
+        delegacaoSubscritorService.updateFim(matricula, dataCriacao)
+        return ResponseEntity.ok().build()
+    }
+
+    @CrossOrigin
     @GetMapping("/delegados")
     fun getAllAlugados(@PathVariable nif: String): ResponseEntity<Any>{
         return responseOkWithBody(getAllDelegacaoSubscritorOutputModel(delegacaoSubscritorService.getAllDelegacoesSubscritor(nif)))
     }
-    //path para transformar emprestimo aguardar em emprestado
 }

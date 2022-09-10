@@ -64,6 +64,7 @@ class ContraordenacaoController(
 
     private fun checkSubscriptionAndSendNotification(sub: String, numeroAuto: String) {
         if (subscritorService.getSubscription(sub)) {
+            val mensagem = "Nova Contraordenação"
             notificacaoService.createNotification(
                 Notificacao(
                     0,
@@ -77,7 +78,7 @@ class ContraordenacaoController(
             val credentials = pushSubscriptionService.getPushCredentials(sub)
             if (credentials.isNotEmpty()) {
                 for (cred in credentials) {
-                    pushSubscriptionService.send(cred)
+                    pushSubscriptionService.send(cred, mensagem)
                 }
             }
         }

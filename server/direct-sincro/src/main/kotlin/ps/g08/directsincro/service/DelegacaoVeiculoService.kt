@@ -22,7 +22,11 @@ class DelegacaoVeiculoService(private val db: DelegacaoDatabase, private val map
         return mapper.single(db.queryGetWithDate(nif, matricula, dataInicio))
     }
 
-    fun createDelegacao(delegacaoVeiculo: DelegacaoVeiculo, matricula: String) {
-        db.create(delegacaoVeiculo, matricula)
+    fun deleteDelegacao(dataCriacao: Long, matricula: String) {
+        db.delete(matricula, dataCriacao)
+    }
+
+    fun createDelegacao(nif: String, matricula: String) {
+        db.create(nif, matricula)
     }
 }

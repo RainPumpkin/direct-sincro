@@ -41,13 +41,9 @@ export const Navbar = () => {
             }
         }
         request(`/api/subscritores/${user.nif}/date`, {method: "GET"}, get)
-        
-        
     }
 
-    
     const subClick = () => {
-        
         let write = user
         const func = (ok) => {
             if (ok) {
@@ -71,25 +67,25 @@ export const Navbar = () => {
             dispatch({logged: false, nif: null, loading: false})
             //window.location.assign("/login")
         }
-        request("/logout", { method: "POST"}, func)
-       
+        request("/logout", { method: "POST"}, func) 
     }
     let subscribe = (usr) => {
-        console.warn(user)
-    if(user!=null && user.subscritor) {
-        unsubscribeFromPushNotification(usr.nif)
+            console.warn(user)
+        if(user!=null && user.subscritor) {
+            unsubscribeFromPushNotification(usr.nif)
+        }
     }
-}
 
     return(
         <Fragment>
             <nav className="navbar navbar-light bg-light">
                 <div className="container-fluid justify-content-between" style={{margin: "auto", width: "90%"}}>
                     <Link className="navbar-brand ms-2" to="/">Home</Link>
+                    <Link className="navbar-brand ms-2" to="/veiculos">Veiculos</Link>
+                    <Link className="navbar-brand ms-2" to="/delegacoes">Delegações</Link>
+                    <Link className="navbar-brand ms-2" to="/notificacoes">Notificacoes</Link>
                     {unsub}
-                    
                     <button className="btn btn-outline-success my-2 my-sm-0 me-2" onClick={logoutClick}>LogOut</button>
-                    {subscribe}
                 </div>
             </nav>
         </Fragment>

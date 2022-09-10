@@ -1,5 +1,5 @@
 import { Fragment, useContext, useState } from "react"
-import { Navigate, Link } from "react-router-dom"
+import { Navigate, Link, useParams } from "react-router-dom"
 import { UserContext } from "../Components/UserContext"
 import { cancellableFetch } from "../Services/CancellableFetch"
 
@@ -12,17 +12,23 @@ const request = (uri, opts, dispatch) => {
 
 export const Delegar = (props) => {
     const [user, dispatch] = useContext(UserContext)
-    const [redirect, setRedir] = useState({redirect: null})
-    const matricula = props.matricula
-
+    const {matricula} = useParams()
+    console.warn(user.nif)
     const onSubmitHandler = (event) => {
         event.preventDefault()
-        const body = {dataCriacao: Date.now(), subscritor: event.targer.nif.value, dataInicio: null, dataFim: null}
+        let b = event.target.nif.value
+        const body = {dataCriacao: Date.now(), subscritor: event.target.nif.value, dataInicio: null, dataFim: null}
         const func = () => {
-            window.location.reload()
+            redirect()
         }
-        request(`/api/subscritores/${user.nif}/veiculos/${matricula}/delegacoes`, { method: "POST", headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body)}, func)
+        if(user.nif === event.target.nif.value) {
+            alert("Não se pode delegar a si mesmo")
+            return
+        }else
+            request(`/api/subscritores/${user.nif}/veiculos/${matricula}/delegacoes`, { method: "POST", headers: {'Content-Type': 'application/json'}, body: b}, func)
     }
+
+    const redirect = () => { window.location.assign(`/veiculo/${matricula}`) }
 
     return (
         <Fragment>

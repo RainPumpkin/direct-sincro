@@ -11,9 +11,7 @@ import ps.g08.directsincro.service.mappers.CidadaoMapper
 import ps.g08.directsincro.service.mappers.SubscritorMapper
 import java.sql.Timestamp
 
-data class data(
-    val inicio: Timestamp
-)
+
 
 @Component
 class SubscritorService(
@@ -27,7 +25,6 @@ class SubscritorService(
     }
 
     fun getDateOfSubscription(nif: String): Long {
-        val  data = subsDb.getDateOfSubscription(nif).time
         return subsDb.getDateOfSubscription(nif).time
     }
 

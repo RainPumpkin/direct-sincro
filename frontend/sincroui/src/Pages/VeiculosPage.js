@@ -24,6 +24,10 @@ export const VeiculosPage = () => {
         )
     }, [user.nif]);
 
+    const redirect = () => {
+        window.location.assign("/adicionarveiculo")
+    }
+
     if (loading) {
         // Still loading
         return (
@@ -47,6 +51,8 @@ export const VeiculosPage = () => {
                 <Fragment>
                     <h2>Veiculos:</h2>
                     {veiculos.veiculos.map((elem, idx) => <Veiculo key={idx} elem={elem}/>)}
+                    <p></p>
+                    <button type="button" className="btn btn-primary" onClick={redirect}>Adicionar Veiculo</button>
                 </Fragment>
             )
         }

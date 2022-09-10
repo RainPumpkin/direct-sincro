@@ -32,7 +32,7 @@ class NotificacaoDatabase(private val source : Jdbi) {
             handle
                 .createQuery(queryGet)
                 .bind(0, subscritor)
-                .bind(1, getTimestamp(emitida))
+                .bind(1, Timestamp(emitida))
                 .mapTo(NotificacaoDatabaseRow::class.java)
                 .one()
         }
@@ -77,7 +77,7 @@ class NotificacaoDatabase(private val source : Jdbi) {
     fun delete(emitida: Long, subscritor: String) {
         source.withHandleUnchecked { handle -> handle
             .createUpdate(queryDelete)
-            .bind(0, getTimestamp(emitida))
+            .bind(0, Timestamp(emitida))
             .bind(1, subscritor)
             .execute()
         }

@@ -60,8 +60,8 @@ class ContraordenacaoDatabase(private val source : Jdbi) {
         return source.withHandleUnchecked { handle -> handle
             .createQuery(queryGetAllTime)
             .bind(0, veiculo)
-            .bind(1, getTimestamp(dataInicio))
-            .bind(2, getTimestamp(dataFim))
+            .bind(1, Timestamp(dataInicio))
+            .bind(2, Timestamp(dataFim))
             .mapTo(ContraordenacaoDatabaseRow::class.java)
             .list()
         }
@@ -74,14 +74,14 @@ class ContraordenacaoDatabase(private val source : Jdbi) {
                 .bind(0, evento.numeroAuto)
                 .bind(1, veiculo)
                 .bind(2, evento.estadoPagamento)
-                .bind(3, getTimestamp(evento.data))
+                .bind(3, Timestamp(evento.data))
                 .bind(4, evento.categoriaVeiculo)
                 .bind(5, evento.classificacaoInfracao)
                 .bind(6, evento.descricao)
                 .bind(7, evento.valorCoima)
                 .bind(8, evento.local)
                 .bind(9, evento.entidadeAutuante)
-                .bind(10, getTimestamp(evento.dataLimiteDefesa))
+                .bind(10, Timestamp(evento.dataLimiteDefesa))
                 .bind(11, evento.normaInfringida)
                 .execute()
         }
@@ -101,7 +101,7 @@ class ContraordenacaoDatabase(private val source : Jdbi) {
         source.withHandleUnchecked { handle -> handle
             .createUpdate(queryDelete)
             .bind(0, numeroAuto)
-            .bind(1, getTimestamp(data))
+            .bind(1, Timestamp(data))
             .bind(2, veiculo)
             .execute()
         }

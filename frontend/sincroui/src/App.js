@@ -14,6 +14,8 @@ import { ContraOrdenacaoPage } from "./Pages/ContraOrdenacaoPage"
 import { DelegacoesPage } from "./Pages/DelegacoesPage"
 import { NaoSubsPage } from "./Pages/NaoSubscritorPage"
 import { Navbar } from "./Components/Navbar"
+import { AdicionarVeiculo } from "./Pages/AdicionarVeiculoPage"
+import { Delegar } from "./Pages/DelegarFormPage"
 
  const App = () => {
   return(
@@ -31,6 +33,8 @@ import { Navbar } from "./Components/Navbar"
             <Route path="/veiculo/:matricula/contraordenacoes/:numeroAuto" element={<LoginVerifier><ContraOrdenacaoPage/></LoginVerifier>}/>
             <Route path="/notificacoes" element={<LoginVerifier><NotificacoesPage/></LoginVerifier>}/>
             <Route path="/delegacoes" element={<LoginVerifier><DelegacoesPage/></LoginVerifier>}/>
+            <Route path="/adicionarveiculo" element={<LoginVerifier><AdicionarVeiculo/></LoginVerifier>}/>
+            <Route path="/delegarform/:matricula" element={<LoginVerifier><Delegar/></LoginVerifier>}/>
           </Routes>
         </div>
       </BrowserRouter>

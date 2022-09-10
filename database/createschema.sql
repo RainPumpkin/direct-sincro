@@ -25,7 +25,7 @@ Create Table PUSH_SUBSCRIPTION(
 
 	Primary Key(nif, endpoint),
 	Foreign Key(nif) References Subscritor(nif)
-)
+);
 
 Create Table DATASUBSCRICAO(
 	inicio			timestamp,
@@ -44,7 +44,7 @@ Create Table VEICULO(
 	owner 		char(9),
 
 	Primary Key(matricula),
-	Foreign Key(owner) References Subscritor(nif) on delete cascade,
+	Foreign Key(owner) References Subscritor(nif),
 	CONSTRAINT Veiculo_matricula CHECK (matricula ~ '([A-Z]|[0-9])([A-Z]|[0-9])-([A-Z]|[0-9])([A-Z]|[0-9])-([A-Z]|[0-9])([A-Z]|[0-9])')
 );
 

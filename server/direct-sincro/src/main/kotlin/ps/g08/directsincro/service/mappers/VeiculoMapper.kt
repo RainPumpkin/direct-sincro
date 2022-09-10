@@ -11,7 +11,7 @@ import ps.g08.directsincro.service.ContraordenacaoService
 @Component
 class VeiculoMapper(val delegacaoVeiculoService: DelegacaoVeiculoService, val contraordenacaoService: ContraordenacaoService) : IMapper<VeiculoDatabaseRow, Veiculo> {
     override fun single(obj: VeiculoDatabaseRow): Veiculo {
-        val emprestimos : List<DelegacaoVeiculo> by lazy {
+        val delegacoes : List<DelegacaoVeiculo> by lazy {
             delegacaoVeiculoService.getAllDelegacaoVeiculo(obj.matricula)
         }
 
@@ -23,7 +23,7 @@ class VeiculoMapper(val delegacaoVeiculoService: DelegacaoVeiculoService, val co
             matricula = obj.matricula,
             modelo = obj.modelo,
             categoria = obj.categoria,
-            delegacoes = emprestimos,
+            delegacoes = delegacoes,
             contraordenacoes = eventos,
             owner = obj.owner
         )
