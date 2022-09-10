@@ -83,7 +83,7 @@ export const Navbar = () => {
                     <Link className="navbar-brand ms-2" to="/">Home</Link>
                     <Link className="navbar-brand ms-2" to="/veiculos">Veiculos</Link>
                     <Link className="navbar-brand ms-2" to="/delegacoes">Delegações</Link>
-                    <Link className="navbar-brand ms-2" to="/notificacoes">Notificacoes</Link>
+                    <Link className="navbar-brand ms-2" to="/notificacoes">Notificações</Link>
                     {unsub}
                     <button className="btn btn-outline-success my-2 my-sm-0 me-2" onClick={logoutClick}>LogOut</button>
                 </div>

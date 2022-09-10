@@ -10,5 +10,9 @@
     {
         "nif" : "910999888",
         "matriculas" : ["AA-11-AA", "11-AA-ZZ", "22-BB-CC", "33-CC-DD", "44-FF-GG", "55-HH-II"]
+    },
+    {
+        "nif" : "123456789",
+        "matriculas" : ["QQ-11-WW", "22-MM-99"]
     }
 ]

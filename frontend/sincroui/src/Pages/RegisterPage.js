@@ -54,26 +54,32 @@ export const Register = () => {
                     <label htmlFor="nome">Name</label>
                     <input type="text" name="nome" className="form-control" id="nome" placeholder="Enter name"/>
                 </div>
+                <p> </p>
                 <div className="form-group">
                     <label htmlFor="nif">Nif</label>
-                    <input type="text" name="nif" className="form-control" id="nif" pattern="[0-9]{9}" placeholder="Enter nif"/>
+                    <input type="text" name="nif" className="form-control" id="nif" pattern="[0-9]{9}" maxlength="9" placeholder="Enter nif"/>
                 </div>
+                <p> </p>
                 <div className="form-group">
                     <label htmlFor="tituloConducao">TituloConducao</label>
                     <input type="text" name="tituloConducao" className="form-control" id="tituloConducao" placeholder="Enter Titulo Conducao"/>
                 </div>
+                <p> </p>
                 <div className="form-group">
                     <label htmlFor="email">Email</label>
                     <input type="email" name="email" className="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email"/>
                 </div>
+                <p> </p>
                 <div className="form-group">
                     <label htmlFor="pass">Password</label>
                     <input type="password" name="password" className="form-control" id="pass" placeholder="Password"/>
                 </div>
+                <p> </p>
                 <div className="form-group">
                     <label htmlFor="Confpass">Confirm Password</label>
                     <input type="password" name="confirmPass" className="form-control" id="confP" placeholder="Confirm Password"/>
                 </div>
+                <p> </p>
                 <button type="submit" className="btn btn-primary">Submit</button>
             </form>
             {notification}

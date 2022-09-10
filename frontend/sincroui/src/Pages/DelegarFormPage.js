@@ -13,25 +13,22 @@ const request = (uri, opts, dispatch) => {
 export const Delegar = (props) => {
     const [user, dispatch] = useContext(UserContext)
     const {matricula} = useParams()
+    const [redirect, setRedir] = useState(null)
     console.warn(user.nif)
     const onSubmitHandler = (event) => {
         event.preventDefault()
         let b = event.target.nif.value
-        const body = {dataCriacao: Date.now(), subscritor: event.target.nif.value, dataInicio: null, dataFim: null}
-        const func = () => {
-            redirect()
-        }
+        //const body = {dataCriacao: Date.now(), subscritor: event.target.nif.value, dataInicio: null, dataFim: null}
+        //const func = () => {redirect()}
         if(user.nif === event.target.nif.value) {
             alert("Não se pode delegar a si mesmo")
             return
         }else
-            request(`/api/subscritores/${user.nif}/veiculos/${matricula}/delegacoes`, { method: "POST", headers: {'Content-Type': 'application/json'}, body: b}, func)
+            request(`/api/subscritores/${user.nif}/veiculos/${matricula}/delegacoes`, { method: "POST", headers: {'Content-Type': 'application/json'}, body: b}, setRedir(<Navigate to={`/veiculo/${matricula}`}/>))
     }
-
-    const redirect = () => { window.location.assign(`/veiculo/${matricula}`) }
-
     return (
         <Fragment>
+            {redirect}
             <form onSubmit={onSubmitHandler}>
                 <div className="form-group">
                     <label htmlFor="nif">Nif</label>

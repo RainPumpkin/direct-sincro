@@ -14,7 +14,7 @@ export const Login = () => {
 
     const [user, dispatch] = useContext(UserContext)
     const [warning, setWarning] = useState(null)
-    const [redirect, setRedir] = useState({redirect: null})
+    const [redirect, setRedir] = useState(null)
 
     const onSubmitHandler = (event) => {
         event.preventDefault()
@@ -49,12 +49,13 @@ export const Login = () => {
     } 
     return (
         <Fragment>
-            {redirect.redirect}
+            {redirect}
             <form onSubmit={onSubmitHandler}>
                 <div className="form-group">
-                    <label htmlFor="exampleInputEmail1">Name</label>
-                    <input type="text" name="nif" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name"/>
+                    <label htmlFor="exampleInputEmail1">Nif</label>
+                    <input type="text" name="nif" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter nif"/>
                 </div>
+                <p></p>
                 <div className="form-group">
                     <label htmlFor="exampleInputPassword1">Password</label>
                     <input type="password" name="password" className="form-control" id="exampleInputPassword1" placeholder="Password"/>
@@ -64,7 +65,8 @@ export const Login = () => {
                 <button type="submit" className="btn btn-primary">Submit</button>
             </form>
             {notification}
-            <button type="button" className="btn btn-primary" onClick={() => {setRedir({redirect: <Navigate to="/register"/>})}}>Register</button>
+            <p></p>
+            <button type="button" className="btn btn-primary" onClick={() => {setRedir(<Navigate to="/register"/>)}}>Register</button>
         </Fragment> 
     )
 }

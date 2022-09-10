@@ -25,36 +25,44 @@ function insertVehicle(req, res, next) {
             res.status(400)
             res.send('Por favor insira a matrícula e nif no body do pedido')
             next
+
+        } else {
+            //check if matricula is already in the system
+            const veiculo = matriculas.find(m => m.matricula === matricula)
+            if (veiculo != undefined) {
+                res.status(409)
+                res.send('A matrícula já existe no simulador siget')
+                next
+
+            } else{
+                //simulate request to IMT to confirm citizen vehicles
+                console.log(`\nMatrículas from IMT simulation: \n ${JSON.stringify(IMT_data)}\n`)
+                const citizen = IMT_data.find(citizen => citizen.nif === nif)
+                if (citizen == undefined) {
+                    res.status(400)
+                    res.send('Por favor insira um nif válido')
+                    next
+
+                } else {
+                    const checkVehicleAuthorization = citizen.matriculas.find(mat => mat === matricula)
+                    if (checkVehicleAuthorization == undefined) {
+                        res.status(400)
+                        res.send('Por favor insira apenas veículos associados ao seu NIF')
+                        next
+
+                    } else {
+                        const insertVehicle = {
+                            "matricula" : matricula
+                        }
+                        matriculas.push(insertVehicle)
+                        console.log(`\nTodas as matrículas no SIGET: ${JSON.stringify(matriculas)}`)
+                        res.status(201)
+                        res.json(veiculo)
+                        next
+                    }
+                }
+            }
         }
-        //check if matricula is already in the system
-        const veiculo = matriculas.find(m => m.matricula === matricula)
-        if (veiculo != undefined) {
-            res.status(409)
-            res.send('A matrícula já existe no simulador siget')
-            next
-        }
-        //simulate request to IMT to confirm citizen vehicles
-        console.log(`\nMatrículas from IMT simulation: \n ${JSON.stringify(IMT_data)}\n`)
-        const citizen = IMT_data.find(citizen => citizen.nif === nif)
-        if (citizen == undefined) {
-            res.status(400)
-            res.send('Por favor insira um nif válido')
-            next
-        }
-        const checkVehicleAuthorization = citizen.matriculas.find(mat => mat === matricula)
-        if (checkVehicleAuthorization == undefined) {
-            res.status(400)
-            res.send('Por favor insira apenas veículos associados ao seu NIF')
-            next
-        }
-        const insertVehicle = {
-            "matricula" : matricula
-        }
-        matriculas.push(insertVehicle)
-        console.log(`\nTodas as matrículas no SIGET: ${JSON.stringify(matriculas)}`)
-        res.status(201)
-        res.json(veiculo)
-        next
     } catch (e) {
         res.status(500)
         res.send(e.message);
