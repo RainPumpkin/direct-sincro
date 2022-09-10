@@ -42,7 +42,7 @@ const ContraOrdenacaoP = (props) => {
     }
 
     let butao = null
-    if(contraordenacao != null && contraordenacao.elem != null &&contraordenacao.elem.estadoPagamento == 'Por pagar'){
+    if(contraordenacao != null && contraordenacao.elem != null &&contraordenacao.elem.estadoPagamento == 'Por pagar' && user.subscritor){
         butao = <button type="button" class="btn btn-primary" onClick={pagar}>Pagar</button>
     }
     

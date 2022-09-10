@@ -25,7 +25,8 @@ export const VeiculosPage = () => {
     }, [user.nif]);
 
     const redirect = () => {
-        window.location.assign("/adicionarveiculo")
+        if(user.subscritor)
+            window.location.assign("/adicionarveiculo")
     }
 
     if (loading) {

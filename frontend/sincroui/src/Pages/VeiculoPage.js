@@ -51,7 +51,7 @@ const VeiculoP = (props) => {
     let criar = null
     let eliminarVeiculo = null
     console.warn(veiculo)
-    if(veiculo.veic != null){
+    if(veiculo.veic != null && user.subscritor){
         const delegacoes = veiculo.veic.delegacoes.delegacoes
         if (delegacoes.length === 0 || delegacoes.find(delegacao => 
             delegacao.datafim != null)){
