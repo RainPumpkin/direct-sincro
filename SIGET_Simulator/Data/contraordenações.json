@@ -27,7 +27,7 @@
     {
         "evento" : {
             "dadosDoVeiculo": {
-                "matricula" : "10-AG-AG",
+                "matricula" : "22-BB-CC",
                 "categoriaVeiculo": "AUTOMÓVEL LIGEIRO",
                 "tipoDeInfracao": "PASSAGEIROS",
                 "pais": "PORTUGAL"

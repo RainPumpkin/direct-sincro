@@ -9,7 +9,7 @@ import ps.g08.directsincro.database.NotificacaoDatabaseRow
 class NotificacaoMapper : IMapper<NotificacaoDatabaseRow, Notificacao>{
     override fun single(obj: NotificacaoDatabaseRow): Notificacao {
         return Notificacao(
-            emitida = getEpoch(obj.emitida),
+            emitida = obj.emitida.time,
             mensagem = obj.mensagem,
             visualizada = obj.visualizada,
             tipo = obj.tipo

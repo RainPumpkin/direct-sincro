@@ -26,7 +26,6 @@ import { Delegar } from "./Pages/DelegarFormPage"
           <Routes>
             <Route path="/login" element={<Login />}/>
             <Route path="/" element={<LoginVerifier><Home /></LoginVerifier>}/>
-            <Route path="/naosubscritor" element={<LoginVerifier><NaoSubsPage/></LoginVerifier>}/>
             <Route path="/register" element={<Register />}/>
             <Route path="/veiculos" element={<LoginVerifier><VeiculosPage/></LoginVerifier>}/>
             <Route path="/veiculo/:matricula" element={<LoginVerifier><VeiculoPage/></LoginVerifier>}/>
