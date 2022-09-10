@@ -1,11 +1,13 @@
 package ps.g08.directsincro.database
 
+import org.jdbi.v3.core.Handle
 import org.jdbi.v3.core.Jdbi
 import org.jdbi.v3.core.kotlin.withHandleUnchecked
 import org.springframework.stereotype.Component
 import ps.g08.directsincro.common.Subscritor
 import ps.g08.directsincro.common.getTimestamp
 import java.sql.Timestamp
+import java.time.Instant
 
 data class SubscritorDatabaseRow(
     val nif: String
@@ -16,20 +18,35 @@ class SubscritorDatabase(private val source : Jdbi) {
     companion object {
         const val queryGet = "SELECT * FROM Subscritor WHERE nif = ? "//?
         //const val queryGetAll = "SELECT * FROM Subscritor"
-        const val queryGetLastSubs = "Select inicio FROM DataSubscricao WHERE nif = ? AND cancelamento = null "
+        const val queryGetLastSubs = "Select inicio FROM DataSubscricao WHERE nif = ? AND cancelamento IS null "
         const val queryCreate = "INSERT INTO Subscritor(nif) VALUES (?)"
         const val queryCreateData = "INSERT INTO DataSubscricao(nif, inicio) VALUES (?, ?)"
         const val queryUpdate = "UPDATE DataSubscricao SET cancelamento = ? WHERE nif = ? AND inicio = ?"
         const val queryDelete = "Delete FROM Subscritor WHERE nif = ?"
+        const val queryCheckSub = "Select inicio from DataSubscricao WHERE nif = ? AND cancelamento IS NULL"
     }
 
-    fun get(nif: String) : SubscritorDatabaseRow{
-        return source.withHandleUnchecked { handle ->
+    fun get(nif: String) : SubscritorDatabaseRow?{
+        val ret = source.withHandleUnchecked { handle ->
             handle
                 .createQuery(queryGet)
                 .bind(0, nif)
                 .mapTo(SubscritorDatabaseRow::class.java)
                 .one()
+        }
+        try {
+            val time = source.withHandleUnchecked { handle ->
+                handle
+                    .createQuery(queryCheckSub)
+                    .bind(0, nif)
+                    .mapTo(Timestamp::class.java)
+                    .one()
+            }
+            println("THERE IS TIME SO SUBS")
+            return ret
+        } catch (e : Exception){
+            println("no time no subs")
+            return null
         }
     }
 
@@ -44,7 +61,7 @@ class SubscritorDatabase(private val source : Jdbi) {
         } catch(_: Exception) {
             //já existia subscritor, n faz mal
         }
-        val curr = getTimestamp(System.currentTimeMillis())
+        val curr = Timestamp.from(Instant.now())
         source.withHandleUnchecked { handle -> handle
             .createUpdate(queryCreateData)
             .bind(0, nif)
@@ -62,7 +79,7 @@ class SubscritorDatabase(private val source : Jdbi) {
             .one()
         }
 
-        val curr = getTimestamp(System.currentTimeMillis())
+        val curr = Timestamp.from(Instant.now())
 
         source.withHandleUnchecked { handle -> handle
             .createUpdate(queryUpdate)

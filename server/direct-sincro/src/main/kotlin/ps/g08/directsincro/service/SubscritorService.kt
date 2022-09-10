@@ -16,7 +16,7 @@ class SubscritorService(
     private val subsMapper: SubscritorMapper,
     private val cidMapper: CidadaoMapper) {
     fun getSubscritor(nif: String): Subscritor{
-        return subsMapper.single(subsDb.get(nif))
+        return subsMapper.single(subsDb.get(nif)!!)
     }
 
     fun getCidadao(nif: String):Cidadao?{
