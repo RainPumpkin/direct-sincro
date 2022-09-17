@@ -28,7 +28,8 @@ data class Notificacao(
     val emitida: Long,
     val mensagem: String,
     val visualizada: Boolean,
-    val tipo: String
+    val tipo: String,
+    val contraordenacao: String
 )
 
 data class Veiculo(

@@ -6,7 +6,6 @@ import ps.g08.directsincro.common.PushSubscription
 import ps.g08.directsincro.controller.inputmodels.PushSubscriptionInputModel
 import ps.g08.directsincro.controller.inputmodels.getPushSubscriptionFromInputModel
 import ps.g08.directsincro.service.NotificacaoService
-import ps.g08.directsincro.service.PushSubscriptionCredentials
 import ps.g08.directsincro.service.PushSubscriptionService
 
 @RestController

@@ -143,12 +143,13 @@ async function getVehicles(){
  * retorna o evento inserido
  * @param {object} evento 
  */
-async function addEvent(evento) {
+ async function addEvent(evento) {
     let matricula = evento.dadosDoVeiculo.matricula
         return getVehicle(matricula)
             .then(veiculo => {
                 if (veiculo == undefined) {
-                    return Promise.reject(erro('Input inválido, o veículo não existe.', 400))
+                    eventosData.push({ matricula: matricula, eventos: [evento] })
+                    return Promise.resolve(evento)
                 }
                 //associa informação de delegação ao evento
                 evento.delegado = checkVehicleDelegation(matricula)

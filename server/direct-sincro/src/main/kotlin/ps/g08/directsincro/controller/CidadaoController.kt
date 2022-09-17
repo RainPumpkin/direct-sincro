@@ -21,7 +21,7 @@ class CidadaoController(private val subscritorService: SubscritorService, privat
         emailService.sendEmail(
             subject = "Registo no sistema DIRECT-SINCRO.",
             targetEmail = input.email,
-            text = "http://localhost:3000/login"
+            text = "Conta registada com sucesso pode realizar o login http://localhost:3001/login"
         )
         return ResponseEntity.ok().build()
     }

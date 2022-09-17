@@ -78,12 +78,12 @@ export const Navbar = () => {
         <Fragment>
             <nav className="navbar navbar-light bg-light">
                 <div className="container-fluid justify-content-between" style={{margin: "auto", width: "90%"}}>
-                    <div class="fa fa-fw fa-home">
+                    <div className="fa fa-fw fa-home">
                         <Link  className="navbar-brand ms-2" to="/">Home</Link>
                     </div>
                     <Link className="navbar-brand ms-2" to="/veiculos">Veiculos</Link>
                     <Link className="navbar-brand ms-2" to="/delegacoes">Delegações</Link>
-                    <div class="fa fa-bell">
+                    <div className="fa fa-bell">
                         <Link className="navbar-brand ms-2" to="/notificacoes">Notificações</Link>
                     </div>
                     {unsub}

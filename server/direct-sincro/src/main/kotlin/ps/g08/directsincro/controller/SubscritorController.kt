@@ -7,16 +7,14 @@ import ps.g08.directsincro.common.PushSubscription
 import ps.g08.directsincro.common.responseOkWithBody
 import ps.g08.directsincro.controller.inputmodels.SubscritorInputModel
 import ps.g08.directsincro.controller.inputmodels.getSubscritorPessoaFromSubscritorInputModel
-import ps.g08.directsincro.service.Keys
 import ps.g08.directsincro.service.NotificacaoService
-import ps.g08.directsincro.service.PushSubscriptionCredentials
 import ps.g08.directsincro.service.SubscritorService
 import java.net.URI
 
 
 @RestController
 @RequestMapping("/api/subscritores")
-class SubscritorController(private val subscritorService: SubscritorService, private val notificacaoService: NotificacaoService) {
+class SubscritorController(private val subscritorService: SubscritorService) {
 
     @CrossOrigin
     @GetMapping("/{nif}")

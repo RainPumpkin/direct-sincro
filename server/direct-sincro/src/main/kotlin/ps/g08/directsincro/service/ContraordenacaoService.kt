@@ -34,4 +34,8 @@ class ContraordenacaoService(private val db: ContraordenacaoDatabase, private va
     fun UpdateVisualizada(numeroauto: String) {
         return db.checkAndUpdate(numeroauto)
     }
+
+    fun getVeiculo(numeroAuto: String): String {
+        return db.get(numeroAuto).veiculo
+    }
 }

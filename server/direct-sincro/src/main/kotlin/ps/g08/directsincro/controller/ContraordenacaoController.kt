@@ -64,13 +64,14 @@ class ContraordenacaoController(
 
     private fun checkSubscriptionAndSendNotification(sub: String, numeroAuto: String) {
         if (subscritorService.getSubscription(sub)) {
-            val mensagem = "Nova Contraordenação"
+            val mensagem = "Nova Contraordenação $numeroAuto"
             notificacaoService.createNotification(
                 Notificacao(
                     0,
-                    "Nova Contraordenação",
+                    mensagem,
                     false,
-                    "Nova Contraordenação"
+                    "Nova Contraordenação",
+                    numeroAuto
                 ),
                 sub,
                 numeroAuto
@@ -119,6 +120,12 @@ class ContraordenacaoController(
     fun getAllContraordenacoesAlugado() : ResponseEntity<Any>{
         //retorna apenas eventos entre datainicio e datafim do emprestimo
         throw NotImplementedException("getalleventos");
+    }
+
+    @CrossOrigin
+    @GetMapping("/subscritores/{nif}/contraordenacoes/{numeroauto}")
+    fun getVeiculo(@PathVariable numeroauto: String): ResponseEntity<Any> {
+        return responseOkWithBody(service.getVeiculo(numeroauto))
     }
 
     @CrossOrigin

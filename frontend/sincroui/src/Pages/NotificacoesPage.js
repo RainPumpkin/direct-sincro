@@ -46,7 +46,7 @@ export const NotificacoesPage = () => {
             return (
                 <Fragment>
                     <h2>Notificações:</h2>
-                    {notificacoes.notificacoes.map((elem, idx) => <Notificacao key={idx} elem={elem}/>)}
+                    {notificacoes.notificacoes.map((elem, idx) => <Notificacao key={idx} elem={elem} nif={user.nif}/>)}
                 </Fragment>
             )
         }

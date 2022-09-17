@@ -1,13 +1,13 @@
 package ps.g08.directsincro.controller.outputmodel
 
 import ps.g08.directsincro.common.Notificacao
-import java.sql.Timestamp
 
 data class NotificacaoOutputModel(
     val emitida: Long,
     val mensagem: String,
     val visualizada: Boolean,
-    val tipo: String
+    val tipo: String,
+    val contraordenacao: String
 )
 
 data class MultipleNotificacaoOutputModel(
@@ -20,7 +20,8 @@ fun getNotificacaoFromOutputModel(notificacao: Notificacao) : NotificacaoOutputM
         emitida = notificacao.emitida,
         mensagem = notificacao.mensagem,
         visualizada = notificacao.visualizada,
-        tipo = notificacao.tipo
+        tipo = notificacao.tipo,
+        contraordenacao = notificacao.contraordenacao
     )
 }
 

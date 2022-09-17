@@ -18,7 +18,7 @@ class ContraordenacaoMapper : IMapper<ContraordenacaoDatabaseRow, Contraordenaca
             valorCoima = obj.valorCoima,
             local = obj.local,
             entidadeAutuante = obj.entidadeAutuante,
-            dataLimiteDefesa = obj.dataLimiteDefesa.time,//inverse is new Date(long)
+            dataLimiteDefesa = obj.dataLimiteDefesa.time,
             normaInfringida = obj.normaInfringida,
             visualizada = obj.visualizada
         )

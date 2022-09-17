@@ -11,7 +11,8 @@ class NotificacaoMapper : IMapper<NotificacaoDatabaseRow, Notificacao>{
             emitida = obj.emitida.time,
             mensagem = obj.mensagem,
             visualizada = obj.visualizada,
-            tipo = obj.tipo
+            tipo = obj.tipo,
+            contraordenacao = obj.contraordenacao
         )
     }
 
