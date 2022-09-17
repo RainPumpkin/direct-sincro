@@ -17,10 +17,10 @@ async function filterRequests(data) {
     const matricula = obj.evento.dadosDoVeiculo.matricula
     const check = matriculas.find(m => m.matricula === matricula)
     if (check != undefined) {
-      obj.subscritoNoDirectSincro = "sim"
+      obj.evento.subscritoNoDirectSincro = "sim"
       directSincroSubscriptions.push(obj)
     } else {
-      obj.subscritoNoDirectSincro = "não"
+      obj.evento.subscritoNoDirectSincro = "não"
     }
   });
   return directSincroSubscriptions
